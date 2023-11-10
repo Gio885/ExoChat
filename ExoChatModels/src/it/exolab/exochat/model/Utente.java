@@ -6,5 +6,5 @@ import javax.persistence.Entity;
 public class Utente {
 
 	
-	System.out.println("ciao");
+	
 }
