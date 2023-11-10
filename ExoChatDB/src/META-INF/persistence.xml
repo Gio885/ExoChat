@@ -1,0 +1,20 @@
+
+<persistence-unit name="PersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <non-jta-data-source>java:/ExoChat</non-jta-data-source>
+    
+    <!-- Proprietà del database MySQL -->
+    <properties>
+<!--         <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/> -->
+<!--         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/exochat"/> -->
+<!--         <property name="javax.persistence.jdbc.user" value="root"/> -->
+<!--         <property name="javax.persistence.jdbc.password" value="B@ll00ngirl"/> -->
+        
+        <!-- Configurazione EclipseLink    GENERATION NONE PER NON FAR GENERARE IL DB A ECLIPSE LINK -->
+        <property name="eclipselink.ddl-generation" value="none"/>
+        <property name="eclipselink.logging.level" value="FINE"/>
+        <!-- Disabilita l'auto-commit per gestire manualmente le transazioni CREANO UNA CONNESSIONE E DISATTIVANO L'AUTOCOMMIT -->
+        <property name="eclipselink.jdbc.read-connections.min" value="1"/>
+        <property name="eclipselink.jdbc.write-connections.min" value="1"/>
+    </properties>
+</persistence-unit>
