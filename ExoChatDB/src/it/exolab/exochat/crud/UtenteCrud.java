@@ -22,7 +22,7 @@ public class UtenteCrud {
 
 	public Utente findUtente(Utente utente, EntityManager entityManager) {
 		try {
-			Utente utenteDaTrovare = entityManager.find(Utente.class, utente);
+			Utente utenteDaTrovare = entityManager.find(Utente.class, utente.getIdUtente());
 			return utenteDaTrovare;
 		}catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -44,12 +44,12 @@ public class UtenteCrud {
 	}
 	
 	
-	public Utente insertUtente(Utente utente, EntityManager entityManager) throws Exception {
+	public void insertUtente(Utente utente, EntityManager entityManager) throws Exception {
 		
 		try {
+			System.out.println(utente.getUsername());
 			entityManager.persist(utente);
-			Utente utenteInserito = entityManager.find(Utente.class, utente.getEmail());
-			return utenteInserito;
+			
 		} catch (Exception e) {
 			System.out.println("Errore nel metodo insertUtente della classe UtenteCrud");
 			e.printStackTrace();

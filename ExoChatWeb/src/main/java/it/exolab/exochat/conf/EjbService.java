@@ -4,7 +4,7 @@ import javax.naming.InitialContext;
 
 public class EjbService<T> {
 
-	private final static String PREFIX = "java:global/ExoChatEAR/ExoChatEjb/";
+	private final static String PREFIX = "java:global/ExoChatEAR/ExoChatEJB/";
 
 	private Class<T> interfaceClass;
 
