@@ -20,7 +20,7 @@ import javax.persistence.TransactionRequiredException;
 
 public class UtenteCrud {
 
-	public Utente findUtente(Utente utente,EntityManager entityManager) {
+	public Utente findUtente(Utente utente, EntityManager entityManager) {
 		try {
 			Utente utenteDaTrovare = entityManager.find(Utente.class, utente);
 			return utenteDaTrovare;
