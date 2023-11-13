@@ -1,16 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
 
-<persistence-unit name="PersistenceUnit" transaction-type="JTA">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>java:/ExoChat</jta-data-source>
-    
-    <!-- Proprietà del database MySQL -->
-    <properties>
-<!--         <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/> -->
-<!--         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/exochat"/> -->
-<!--         <property name="javax.persistence.jdbc.user" value="root"/> -->
-<!--         <property name="javax.persistence.jdbc.password" value="B@ll00ngirl"/> -->
-        
-        <!-- Elenco delle classi di entità -->
+	<persistence-unit name="PersistenceUnit"
+		 transaction-type="JTA" > <!-- transaction-type="JTA" -->
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+		<!-- Configurazione del database -->
+		<!-- <jta-data-source>java:/ecommerce</jta-data-source> -->
+		<jta-data-source>java:/exochat</jta-data-source>
+		
+		<!-- Classi di entità -->
+	 <!-- Elenco delle classi di entità -->
 	    <class>it.exolab.exochat.Chat</class>
 	    <class>it.exolab.exochat.Messaggio</class>
 	    <class>it.exolab.exochat.Gruppo</class>
@@ -18,13 +21,11 @@
    	    <class>it.exolab.exochat.TipoChat</class>
    	    <class>it.exolab.exochat.Chiamata</class>
  	    <class>it.exolab.exochat.GruppoUtente</class>
-   	    
-   
-        <!-- Configurazione EclipseLink    GENERATION NONE PER NON FAR GENERARE IL DB A ECLIPSE LINK -->
-        <property name="eclipselink.ddl-generation" value="none"/>
-        <property name="eclipselink.logging.level" value="FINE"/>
-        <!-- Disabilita l'auto-commit per gestire manualmente le transazioni CREANO UNA CONNESSIONE E DISATTIVANO L'AUTOCOMMIT -->
-        <property name="eclipselink.jdbc.read-connections.min" value="1"/>
-        <property name="eclipselink.jdbc.write-connections.min" value="1"/>
-    </properties>
-</persistence-unit>
+
+		<!-- Proprietà aggiuntive di EclipseLink -->
+		<properties>
+			<property name="eclipselink.logging.level" value="FINE" />
+			<property name="eclipselink.logging.parameters" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>
