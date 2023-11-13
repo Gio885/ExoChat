@@ -19,7 +19,7 @@ public class UtenteController implements UtenteControllerInterface {
 
 	@PersistenceUnit(name = "PersistenceUnit")
 	private EntityManagerFactory entityManagerFactory;
-
+	
 	public UtenteController() {
 		
 	}
@@ -40,5 +40,26 @@ public class UtenteController implements UtenteControllerInterface {
 		}
 
 	}
+
+	@Override
+	public void insertUtente(Utente utente) throws Exception {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			UtenteCrud crud = new UtenteCrud();
+			crud.insertUtente(utente, entityManager);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println();
+			throw new Exception();
+		} finally {
+			entityManager.close();
+		}
+		
+	}
+	
+	
+	
+	
 
 }

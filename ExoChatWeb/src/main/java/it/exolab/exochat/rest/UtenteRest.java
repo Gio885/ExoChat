@@ -15,6 +15,8 @@ import it.exolab.exochat.model.Utente;
 
 @Path(value = "/utenteRest")
 public class UtenteRest {
+	
+	
 
 	
 	
