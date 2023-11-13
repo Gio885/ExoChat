@@ -1,7 +1,7 @@
 
-<persistence-unit name="PersistenceUnit" transaction-type="RESOURCE_LOCAL">
+<persistence-unit name="PersistenceUnit" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <non-jta-data-source>java:/ExoChat</non-jta-data-source>
+    <jta-data-source>java:/ExoChat</jta-data-source>
     
     <!-- Proprietà del database MySQL -->
     <properties>
