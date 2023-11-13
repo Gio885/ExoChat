@@ -9,5 +9,7 @@ public interface UtenteControllerInterface {
 
 	Utente findUtente(Utente utente) throws Exception;
 	
+	void insertUtente(Utente utente) throws Exception;
+	
 	
 }

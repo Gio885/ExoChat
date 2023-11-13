@@ -42,5 +42,17 @@ public class UtenteCrud {
 			throw new PersistenceException("");
 		}
 	}
+	
+	
+	public void insertUtente(Utente utente, EntityManager entityManager) {
+		
+		try {
+			entityManager.persist(utente);
+			
+		} catch (Exception e) {
+			System.out.println("Errore nel metodo insertUtente della classe UtenteCrud");
+			e.printStackTrace();
+		}
+	}
 }
 
