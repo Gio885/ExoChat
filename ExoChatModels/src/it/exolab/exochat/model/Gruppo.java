@@ -28,6 +28,10 @@ public class Gruppo implements Serializable {
     @JoinColumn(name = "AMMINISTRATOREl", nullable = false)
     private Utente amministratore;
 
+    
+    
+    
+    
 	public int getIdGruppo() {
 		return idGruppo;
 	}

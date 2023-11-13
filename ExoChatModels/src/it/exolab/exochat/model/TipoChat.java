@@ -16,6 +16,11 @@ public class TipoChat implements Serializable{
 
     @Column(name = "TIPOLOGIA", nullable = false)
     private String tipologia;
+    
+    
+    
+    
+    
 
 	public int getIdTipoChat() {
 		return idTipoChat;

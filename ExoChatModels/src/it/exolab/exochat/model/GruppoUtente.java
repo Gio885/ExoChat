@@ -21,6 +21,12 @@ public class GruppoUtente implements Serializable{
     @ManyToOne
     @JoinColumn(name = "UTENTE_ID", nullable = false)
     private Utente utente;
+    
+    
+    
+    
+    
+    
 
 	public int getIdPartecipante() {
 		return idPartecipante;

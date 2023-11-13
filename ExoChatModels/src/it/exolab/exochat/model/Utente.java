@@ -29,6 +29,13 @@ public class Utente implements Serializable {
 	@Column(name = "FOTO")
 	private byte[] foto;
 
+	
+	
+	
+	
+	
+	
+	
 	public int getIdUtente() {
 		return idUtente;
 	}

@@ -17,4 +17,27 @@ public class Chat implements Serializable{
     @ManyToOne
     @JoinColumn(name = "TIPO_CHAT_ID", nullable = false)
     private TipoChat tipoChat;
+
+    
+    
+    
+	public int getIdChat() {
+		return idChat;
+	}
+
+	public void setIdChat(int idChat) {
+		this.idChat = idChat;
+	}
+
+	public TipoChat getTipoChat() {
+		return tipoChat;
+	}
+
+	public void setTipoChat(TipoChat tipoChat) {
+		this.tipoChat = tipoChat;
+	}
+    
+    
+    
+    
 }

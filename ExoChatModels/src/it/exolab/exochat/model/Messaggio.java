@@ -1,6 +1,7 @@
 package it.exolab.exochat.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -17,6 +18,34 @@ public class Messaggio implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "MITTENTE_ID", nullable = false)
 	private Utente mittente;
+
+	@ManyToOne
+	@JoinColumn(name = "DESTINATARIO_ID")
+	private Utente destinatario;
+
+	@ManyToOne
+	@JoinColumn(name = "GRUPPO_ID")
+	private Gruppo gruppo;
+
+	@Column(name = "CONTENUTO_MESSAGGIO", nullable = false)
+	private String contenutoMessaggio;
+
+	@Lob
+	@Column(name = "FILE")
+	private byte[] file;
+
+	@Column(name = "DATA_ORA", nullable = false)
+	private Date dataOra;
+
+	@ManyToOne
+	@JoinColumn(name = "CHAT_ID", nullable = false)
+	private Chat chat;
+	
+	
+	
+	
+	
+	
 
 	public int getIdMessaggio() {
 		return idMessaggio;
@@ -66,11 +95,11 @@ public class Messaggio implements Serializable {
 		this.file = file;
 	}
 
-	public java.sql.Timestamp getDataOra() {
+	public Date getDataOra() {
 		return dataOra;
 	}
 
-	public void setDataOra(java.sql.Timestamp dataOra) {
+	public void setDataOra(Date dataOra) {
 		this.dataOra = dataOra;
 	}
 
@@ -81,27 +110,5 @@ public class Messaggio implements Serializable {
 	public void setChat(Chat chat) {
 		this.chat = chat;
 	}
-
-	@ManyToOne
-	@JoinColumn(name = "DESTINATARIO_ID")
-	private Utente destinatario;
-
-	@ManyToOne
-	@JoinColumn(name = "GRUPPO_ID")
-	private Gruppo gruppo;
-
-	@Column(name = "CONTENUTO_MESSAGGIO", nullable = false)
-	private String contenutoMessaggio;
-
-	@Lob
-	@Column(name = "FILE")
-	private byte[] file;
-
-	@Column(name = "DATA_ORA", nullable = false)
-	private java.sql.Timestamp dataOra;
-
-	@ManyToOne
-	@JoinColumn(name = "CHAT_ID", nullable = false)
-	private Chat chat;
 
 }

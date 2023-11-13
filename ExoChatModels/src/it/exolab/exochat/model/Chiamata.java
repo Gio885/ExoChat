@@ -1,6 +1,8 @@
 package it.exolab.exochat.model;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -27,13 +29,21 @@ public class Chiamata implements Serializable {
     private Gruppo gruppoRicevente;
 
     @Column(name = "DATA_ORA_INZIO", nullable = false)
-    private java.sql.Timestamp dataOraInizio;
+    private Date dataOraInizio;
 
     @Column(name = "DATA_ORA_FINE")
-    private java.sql.Timestamp dataOraFine;
+    private Date dataOraFine;
 
     @Column(name = "DURATA", nullable = false)
-    private java.sql.Time durata;
+    private Time durata;
+    
+    
+    
+    
+    
+    
+    
+    
 
 	public int getIdChiamata() {
 		return idChiamata;
@@ -67,27 +77,27 @@ public class Chiamata implements Serializable {
 		this.gruppoRicevente = gruppoRicevente;
 	}
 
-	public java.sql.Timestamp getDataOraInizio() {
+	public Date getDataOraInizio() {
 		return dataOraInizio;
 	}
 
-	public void setDataOraInizio(java.sql.Timestamp dataOraInizio) {
+	public void setDataOraInizio(Date dataOraInizio) {
 		this.dataOraInizio = dataOraInizio;
 	}
 
-	public java.sql.Timestamp getDataOraFine() {
+	public Date getDataOraFine() {
 		return dataOraFine;
 	}
 
-	public void setDataOraFine(java.sql.Timestamp dataOraFine) {
+	public void setDataOraFine(Date dataOraFine) {
 		this.dataOraFine = dataOraFine;
 	}
 
-	public java.sql.Time getDurata() {
+	public Time getDurata() {
 		return durata;
 	}
 
-	public void setDurata(java.sql.Time durata) {
+	public void setDurata(Time durata) {
 		this.durata = durata;
 	}
     
