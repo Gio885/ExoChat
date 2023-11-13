@@ -1,11 +1,11 @@
 package it.exolab.exochat.rest;
 
-import java.awt.PageAttributes.MediaType;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -21,11 +21,15 @@ public class UtenteRest {
 	
 	
 	@POST
+	@Path("/insertUtente")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 
 	public Response insertUtente(Utente utente) {
 		try {
 			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
-			Utente utenteInserito = utenteService.insertUtente(utente);
+			utenteService.insertUtente(utente);
+			Utente utenteInserito = utenteService.findUtente(utente);
 			return Response.status(Status.OK).entity(utenteInserito).build();
 		}catch(Exception e) {
 			e.printStackTrace();

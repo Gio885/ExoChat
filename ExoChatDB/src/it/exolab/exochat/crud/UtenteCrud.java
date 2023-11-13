@@ -44,14 +44,16 @@ public class UtenteCrud {
 	}
 	
 	
-	public void insertUtente(Utente utente, EntityManager entityManager) {
+	public Utente insertUtente(Utente utente, EntityManager entityManager) throws Exception {
 		
 		try {
 			entityManager.persist(utente);
-			
+			Utente utenteInserito = entityManager.find(Utente.class, utente.getEmail());
+			return utenteInserito;
 		} catch (Exception e) {
 			System.out.println("Errore nel metodo insertUtente della classe UtenteCrud");
 			e.printStackTrace();
+			throw new Exception("ERRORE NELL INSERT UTENTE");
 		}
 	}
 }
