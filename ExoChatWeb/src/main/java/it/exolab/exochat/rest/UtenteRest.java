@@ -25,7 +25,8 @@ public class UtenteRest {
 	public Response insertUtente(Utente utente) {
 		try {
 			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
-			Utente utenteInserito = utenteService.insertUtente(Utente utente);
+			Utente utenteInserito = utenteService.insertUtente(utente);
+			return Response.status(Status.OK).entity(utenteInserito).build();
 		}catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
