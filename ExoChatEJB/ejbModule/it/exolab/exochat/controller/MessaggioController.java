@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 /**
  * Session Bean implementation class MessaggioController
  */
-@Stateless
+@Stateless(name = "MessaggioControllerInterface")
 @LocalBean
 public class MessaggioController implements MessaggioControllerInterface {
 

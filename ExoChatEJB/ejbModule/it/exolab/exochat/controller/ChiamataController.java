@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 /**
  * Session Bean implementation class ChiamataController
  */
-@Stateless
+@Stateless(name = "ChiamataControllerInterface")
 @LocalBean
 public class ChiamataController implements ChiamataControllerInterface {
 

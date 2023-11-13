@@ -13,7 +13,7 @@ import javax.persistence.PersistenceUnit;
 /**
  * Session Bean implementation class UtenteController
  */
-@Stateless
+@Stateless(name = "UtenteControllerInterface")
 @LocalBean
 public class UtenteController implements UtenteControllerInterface {
 

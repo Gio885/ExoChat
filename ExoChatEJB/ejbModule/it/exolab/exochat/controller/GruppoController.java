@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 /**
  * Session Bean implementation class GruppoController
  */
-@Stateless
+@Stateless(name = "GruppoControllerInterface")
 @LocalBean
 public class GruppoController implements GruppoControllerInterface {
 

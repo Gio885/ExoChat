@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 /**
  * Session Bean implementation class ChatController
  */
-@Stateless
+@Stateless(name = "ChatControllerInterface")
 @LocalBean
 public class ChatController implements ChatControllerInterface {
 
