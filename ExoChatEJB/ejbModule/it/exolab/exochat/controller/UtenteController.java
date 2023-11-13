@@ -20,11 +20,8 @@ public class UtenteController implements UtenteControllerInterface {
 	@PersistenceUnit(name = "PersistenceUnit")
 	private EntityManagerFactory entityManagerFactory;
 
-	/**
-	 * Default constructor.
-	 */
 	public UtenteController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
