@@ -1,1 +1,2 @@
-export const HOME = "/";
+//LOGINPAGE
+export const LOGIN_PAGE = "/";

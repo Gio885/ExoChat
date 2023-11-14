@@ -12,5 +12,11 @@
 			<attribute name="owner.project.facets" value="jst.utility"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/ExoChatModels">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="/ExoChatUtils"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

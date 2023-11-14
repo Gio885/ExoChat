@@ -2,13 +2,9 @@ package it.exolab.exochat.crud;
 
 import it.exolab.exochat.model.Utente;
 import it.exolab.exochat.costanti.*;
-import it.exolab.exochat.eccezioni.BusinessException;
-
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 

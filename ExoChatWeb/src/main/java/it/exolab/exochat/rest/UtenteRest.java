@@ -29,8 +29,8 @@ public class UtenteRest {
 		try {
 			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
 			utenteService.insertUtente(utente);
-			Utente utenteInserito = utenteService.findUtente(utente);
-			return Response.status(Status.OK).entity(utenteInserito).build();
+			
+			return Response.status(Status.OK).build();
 		}catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();

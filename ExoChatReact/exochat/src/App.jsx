@@ -1,33 +1,24 @@
-import './App.css';
-import Home from './Component/Home';
-import { HOME } from './utility/Route';
-import {BrowserRouter,Switch,Route} from 'react-router-dom'
 
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { LOGIN_PAGE } from './utility/Route';
+import LoginPage from './Component/LoginPage';
 
 function App() {
   return (
     <>
-    <BrowserRouter>
-    
-      <Switch>
+      <BrowserRouter>
 
-        <Route exact path = {HOME}>
-            <Home/>
+        <Switch>
 
-        </Route>
+          <Route exact path={LOGIN_PAGE} component={() => <LoginPage />} />
+
+        </Switch>
+
+      </BrowserRouter>
 
 
-
-      </Switch>
-    
-    
-    
-    
-    </BrowserRouter>
-    
-    
     </>
-  
+
   );
 }
 
