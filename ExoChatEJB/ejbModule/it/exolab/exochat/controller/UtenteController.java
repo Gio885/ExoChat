@@ -46,10 +46,12 @@ public class UtenteController implements UtenteControllerInterface {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
 			UtenteCrud crud = new UtenteCrud();
+			entityManager.getTransaction().begin();
 			crud.insertUtente(utente, entityManager);
-			
+			entityManager.getTransaction().commit();			
 		} catch (Exception e) {
 			e.printStackTrace();
+			entityManager.getTransaction().rollback();
 			System.out.println();
 			throw new Exception();
 		} finally {
