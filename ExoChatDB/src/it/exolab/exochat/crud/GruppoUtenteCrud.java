@@ -1,5 +1,6 @@
 package it.exolab.exochat.crud;
 
+import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.model.GruppoUtente;
 
 import javax.persistence.EntityManager;
@@ -19,12 +20,12 @@ public class GruppoUtenteCrud {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Errore findAllUtenteByGroupId --GruppoUtenteCrud--");
-            throw new Exception("Errore durante la ricerca degli utenti per gruppo ID", e);
+            throw new Exception(Costanti.ERRORE_CARICAMENTO_UTENTI);
         }
     }
 
     @SuppressWarnings("unchecked")
-	public List<GruppoUtente> findAllGroupByUtenteId(Integer utenteId, EntityManager entityManager) {
+	public List<GruppoUtente> findAllGroupByUtenteId(Integer utenteId, EntityManager entityManager) throws Exception {
     	
         try {
             String queryString = "SELECT gu FROM GruppoUtente gu WHERE gu.utente.idUtente = :utenteId";
@@ -33,37 +34,43 @@ public class GruppoUtenteCrud {
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Errore durante la ricerca dei gruppi per utente ID", e);
+            System.out.println("Errore findAllGroupByUtenteId ---GruppoUtenteCrud--- ");
+            throw new Exception(Costanti.ERRORE_CARICAMENTO_GRUPPI);
         }
     }
 
-    public void insertGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) {
+    public GruppoUtente insertGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) throws Exception {
     	
         try {
             entityManager.persist(gruppoUtente);
+            entityManager.flush();
+            return gruppoUtente;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Errore durante l'inserimento del legame gruppo-utente", e);
+            System.out.println("Errore insertGruppoUtente ---GruppoUtenteCrud");
+            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
 
-    public GruppoUtente updateGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) {
+    public GruppoUtente updateGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) throws Exception {
     	
         try {
             return entityManager.merge(gruppoUtente);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Errore durante l'aggiornamento del legame gruppo-utente", e);
+            System.out.println("Errore updateGruppoUtente ---GruppoUtenteCrud");
+            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
     
-    public void deleteGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) {
+    public void deleteGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) throws Exception {
         try {
-            GruppoUtente mergedGruppoUtente = entityManager.merge(gruppoUtente);
-            entityManager.remove(mergedGruppoUtente);
+            GruppoUtente gruppoDaEliminare = entityManager.find(GruppoUtente.class,gruppoUtente.getIdPartecipante());
+            entityManager.remove(gruppoDaEliminare);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Errore durante la cancellazione del legame gruppo-utente", e);
+            System.out.println("Errore deleteGruppoUtente ---GruppoUtenteCrud");
+            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
 }

@@ -39,6 +39,8 @@ public class MessaggioController implements MessaggioControllerInterface {
 			e.printStackTrace();
 			System.out.println("Errore findMessaggioByUtenteId --ControllerMessaggio--");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.close();
 		}
 	}
 
@@ -53,6 +55,8 @@ public class MessaggioController implements MessaggioControllerInterface {
 			e.printStackTrace();
 			System.out.println("Errore findMessaggioByGroupId --ControllerMessaggio--");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.close();
 		}
 	}
 
@@ -69,6 +73,8 @@ public class MessaggioController implements MessaggioControllerInterface {
 			entityManager.getTransaction().rollback();
 			System.out.println("Errore insertMessaggio --ControllerMessaggio--");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.close();
 		}
 	}
 
