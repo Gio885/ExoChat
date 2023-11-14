@@ -9,8 +9,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
 		<!-- Configurazione del database -->
-		<!-- <jta-data-source>java:/ecommerce</jta-data-source> -->
-		<jta-data-source>java:/exochat</jta-data-source>
+		<!-- <jta-data-source>java:/exochat</jta-data-source> -->
 		
 		<!-- Classi di entità -->
 	 <!-- Elenco delle classi di entità -->
