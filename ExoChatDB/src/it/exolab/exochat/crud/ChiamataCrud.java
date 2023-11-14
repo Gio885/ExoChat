@@ -10,7 +10,7 @@ public class ChiamataCrud {
 
 
     @SuppressWarnings("unchecked")
-	public List<Chiamata> findAllChiamateByUtenteId(Long utenteId, EntityManager entityManager) {
+	public List<Chiamata> findAllChiamateByUtenteId(int utenteId, EntityManager entityManager) {
         try {
             String queryString = "SELECT c FROM Chiamata c WHERE c.chiamanteId = :utenteId OR c.riceventeId = :utenteId";
             Query query = entityManager.createQuery(queryString);
@@ -23,7 +23,7 @@ public class ChiamataCrud {
     }
 
     @SuppressWarnings("unchecked")
-	public List<Chiamata> findAllChiamateByGroupId(Long gruppoId, EntityManager entityManager) {
+	public List<Chiamata> findAllChiamateByGroupId(int gruppoId, EntityManager entityManager) {
         try {
             String queryString = "SELECT c FROM Chiamata c WHERE c.gruppoRiceventeId = :gruppoId";
             Query query = entityManager.createQuery(queryString);

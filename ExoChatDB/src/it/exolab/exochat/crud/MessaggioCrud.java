@@ -9,7 +9,7 @@ import java.util.List;
 public class MessaggioCrud {
 
     @SuppressWarnings("unchecked")
-	public List<Messaggio> findMessaggioByUtenteId(Long utenteId, EntityManager entityManager) {
+	public List<Messaggio> findMessaggioByUtenteId(int utenteId, EntityManager entityManager) {
         try {
             String queryString = "SELECT m FROM Messaggio m WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId GROUP BY m.chat.idChat";
             Query query = entityManager.createQuery(queryString);
@@ -22,7 +22,7 @@ public class MessaggioCrud {
     }
 
     @SuppressWarnings("unchecked")
-	public List<Messaggio> findMessaggioByGroupId(Long gruppoId, EntityManager entityManager) {
+	public List<Messaggio> findMessaggioByGroupId(int gruppoId, EntityManager entityManager) {
         try {
             String queryString = "SELECT m FROM Messaggio m WHERE m.gruppo.idGruppo = :gruppoId";
             Query query = entityManager.createQuery(queryString);

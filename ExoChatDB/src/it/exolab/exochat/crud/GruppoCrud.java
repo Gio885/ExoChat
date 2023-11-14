@@ -9,7 +9,7 @@ import java.util.List;
 public class GruppoCrud {
 
     @SuppressWarnings("unchecked")
-	public List<Gruppo> findAllGruppoByUtenteId(Long utenteId, EntityManager entityManager) {
+	public List<Gruppo> findAllGruppoByUtenteId(int utenteId, EntityManager entityManager) {
         try {
             String queryString = "SELECT DISTINCT g FROM Gruppo g " +
                     "JOIN GruppoUtente gu ON g.idGruppo = gu.gruppo.idGruppo " +
@@ -41,7 +41,7 @@ public class GruppoCrud {
         }
     }
 
-    public void deleteGruppo(Long gruppoId, EntityManager entityManager) {
+    public void deleteGruppo(int gruppoId, EntityManager entityManager) {
         try {
             Gruppo gruppo = entityManager.find(Gruppo.class, gruppoId);
             entityManager.remove(gruppo);

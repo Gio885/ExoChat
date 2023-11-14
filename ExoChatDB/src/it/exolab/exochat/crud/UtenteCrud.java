@@ -65,7 +65,7 @@ public class UtenteCrud {
         }
     }
 	
-	public void insertUtente(Utente utente, EntityManager entityManager) throws Exception {
+	public void insertUtente(Utente utente, EntityManager entityManager) {
 		
 		try {
 			entityManager.persist(utente);
@@ -73,7 +73,7 @@ public class UtenteCrud {
 		} catch (Exception e) {
 			System.out.println("Errore nel metodo insertUtente della classe UtenteCrud");
 			e.printStackTrace();
-			throw new Exception("Errore durante l'inserimento dell'utente", e);
+			throw new RuntimeException("Errore durante l'inserimento dell'utente", e);
 		}
 	}
 	
