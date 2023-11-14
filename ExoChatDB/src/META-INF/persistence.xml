@@ -5,7 +5,7 @@
 	version="2.1">
 
 	<persistence-unit name="PersistenceUnit"
-		 transaction-type="JTA" > <!-- transaction-type="JTA" -->
+		 transaction-type="RESOURCE_LOCAL" > <!-- transaction-type="JTA" -->
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
 		<!-- Configurazione del database -->
@@ -14,18 +14,23 @@
 		
 		<!-- Classi di entità -->
 	 <!-- Elenco delle classi di entità -->
-	    <class>it.exolab.exochat.Chat</class>
-	    <class>it.exolab.exochat.Messaggio</class>
-	    <class>it.exolab.exochat.Gruppo</class>
-   	    <class>it.exolab.exochat.Utente</class>
-   	    <class>it.exolab.exochat.TipoChat</class>
-   	    <class>it.exolab.exochat.Chiamata</class>
- 	    <class>it.exolab.exochat.GruppoUtente</class>
+	    <class>it.exolab.exochat.model.Chat</class>
+	    <class>it.exolab.exochat.model.Messaggio</class>
+	    <class>it.exolab.exochat.model.Gruppo</class>
+   	    <class>it.exolab.exochat.model.Utente</class>
+   	    <class>it.exolab.exochat.model.TipoChat</class>
+   	    <class>it.exolab.exochat.model.Chiamata</class>
+ 	    <class>it.exolab.exochat.model.GruppoUtente</class>
 
 		<!-- Proprietà aggiuntive di EclipseLink -->
 		<properties>
 			<property name="eclipselink.logging.level" value="FINE" />
 			<property name="eclipselink.logging.parameters" value="true" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/exochat" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="B@ll00ngirl" />
+			
 		</properties>
 	</persistence-unit>
 </persistence>
