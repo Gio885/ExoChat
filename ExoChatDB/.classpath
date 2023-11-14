@@ -12,6 +12,7 @@
 			<attribute name="owner.project.facets" value="jst.utility"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< .mine
 	<classpathentry combineaccessrules="false" kind="src" path="/ExoChatModels">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -22,5 +23,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+=======
+	<classpathentry kind="src" path="/ExoChatModels">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="/ExoChatUtils"/>
+
+
+
+
+>>>>>>> .theirs
 	<classpathentry kind="output" path="bin"/>
 </classpath>
