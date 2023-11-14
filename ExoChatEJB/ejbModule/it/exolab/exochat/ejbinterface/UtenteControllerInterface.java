@@ -1,5 +1,6 @@
 package it.exolab.exochat.ejbinterface;
 
+import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.model.Utente;
 
 import javax.ejb.Local;
@@ -8,15 +9,15 @@ import java.util.List;
 @Local
 public interface UtenteControllerInterface {
 
-    List<Utente> findAllUtenti();
+	Dto <List<Utente>> findAllUtenti() throws Exception;
 
-    Utente findUtenteById(int idUtente);
+	Dto<Utente> findUtenteById(Integer idUtente) throws Exception;
 
-    Utente findUtenteByUsername(String username);
+	Dto<Utente> findUtenteByUsername(String username) throws Exception;
 
-    Utente updateUtente(Utente utente);
+	Dto<Utente> updateUtente(Utente utente) throws Exception;
 
-    void deleteUtente(Utente utente);
+    void deleteUtente(Utente utente) throws Exception;
 
-    void insertUtente(Utente utente);
+    Dto <Utente> insertUtente(Utente utente) throws Exception;
 }

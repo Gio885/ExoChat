@@ -14,7 +14,7 @@ public class Chiamata implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CHIAMATA")
-    private int idChiamata;
+    private Integer idChiamata;
 
     @ManyToOne
     @JoinColumn(name = "CHIAMANTE_ID", nullable = false)
@@ -45,11 +45,11 @@ public class Chiamata implements Serializable {
     
     
 
-	public int getIdChiamata() {
+	public Integer getIdChiamata() {
 		return idChiamata;
 	}
 
-	public void setIdChiamata(int idChiamata) {
+	public void setIdChiamata(Integer idChiamata) {
 		this.idChiamata = idChiamata;
 	}
 

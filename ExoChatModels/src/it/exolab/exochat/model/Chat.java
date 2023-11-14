@@ -12,7 +12,7 @@ public class Chat implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CHAT")
-    private int idChat;
+    private Integer idChat;
 
     @ManyToOne
     @JoinColumn(name = "TIPO_CHAT_ID", nullable = false)
@@ -21,11 +21,11 @@ public class Chat implements Serializable{
     
     
     
-	public int getIdChat() {
+	public Integer getIdChat() {
 		return idChat;
 	}
 
-	public void setIdChat(int idChat) {
+	public void setIdChat(Integer idChat) {
 		this.idChat = idChat;
 	}
 

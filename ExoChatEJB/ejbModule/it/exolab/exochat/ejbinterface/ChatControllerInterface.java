@@ -8,7 +8,7 @@ import java.util.List;
 @Local
 public interface ChatControllerInterface {
 
-    List<Chat> findAllChatByUtenteId(int utenteId);
+    List<Chat> findAllChatByUtenteId(Integer utenteId);
 
     void insertChat(Chat chat);
 

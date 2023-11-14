@@ -12,7 +12,7 @@ public class Utente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_UTENTE")
-	private int idUtente;
+	private Integer idUtente;
 
 	@Column(name = "USERNAME", nullable = false)
 	private String username;
@@ -37,11 +37,11 @@ public class Utente implements Serializable {
 	
 	
 	
-	public int getIdUtente() {
+	public Integer getIdUtente() {
 		return idUtente;
 	}
 
-	public void setIdUtente(int idUtente) {
+	public void setIdUtente(Integer idUtente) {
 		this.idUtente = idUtente;
 	}
 

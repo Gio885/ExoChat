@@ -13,7 +13,7 @@ public class Messaggio implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_MESSAGGIO")
-	private int idMessaggio;
+	private Integer idMessaggio;
 
 	@ManyToOne
 	@JoinColumn(name = "MITTENTE_ID", nullable = false)
@@ -47,11 +47,11 @@ public class Messaggio implements Serializable {
 	
 	
 
-	public int getIdMessaggio() {
+	public Integer getIdMessaggio() {
 		return idMessaggio;
 	}
 
-	public void setIdMessaggio(int idMessaggio) {
+	public void setIdMessaggio(Integer idMessaggio) {
 		this.idMessaggio = idMessaggio;
 	}
 

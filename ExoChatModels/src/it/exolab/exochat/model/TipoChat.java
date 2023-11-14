@@ -12,7 +12,7 @@ public class TipoChat implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TIPO_CHAT")
-    private int idTipoChat;
+    private Integer idTipoChat;
 
     @Column(name = "TIPOLOGIA", nullable = false)
     private String tipologia;
@@ -22,11 +22,11 @@ public class TipoChat implements Serializable{
     
     
 
-	public int getIdTipoChat() {
+	public Integer getIdTipoChat() {
 		return idTipoChat;
 	}
 
-	public void setIdTipoChat(int idTipoChat) {
+	public void setIdTipoChat(Integer idTipoChat) {
 		this.idTipoChat = idTipoChat;
 	}
 

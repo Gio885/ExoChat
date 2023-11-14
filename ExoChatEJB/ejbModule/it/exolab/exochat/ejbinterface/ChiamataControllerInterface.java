@@ -8,9 +8,9 @@ import java.util.List;
 @Local
 public interface ChiamataControllerInterface {
 
-    List<Chiamata> findAllChiamateByUtenteId(int utenteId);
+    List<Chiamata> findAllChiamateByUtenteId(Integer utenteId);
 
-    List<Chiamata> findAllChiamateByGroupId(int gruppoId);
+    List<Chiamata> findAllChiamateByGroupId(Integer gruppoId);
 
     void insertChiamata(Chiamata chiamata);
 }

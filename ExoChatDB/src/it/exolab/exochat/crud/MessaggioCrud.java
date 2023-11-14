@@ -1,5 +1,6 @@
 package it.exolab.exochat.crud;
 
+import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.model.Messaggio;
 
 import javax.persistence.EntityManager;
@@ -9,7 +10,7 @@ import java.util.List;
 public class MessaggioCrud {
 
     @SuppressWarnings("unchecked")
-	public List<Messaggio> findMessaggioByUtenteId(int utenteId, EntityManager entityManager) {
+	public List<Messaggio> findMessaggioByUtenteId(Integer utenteId, EntityManager entityManager) throws Exception {
         try {
             String queryString = "SELECT m FROM Messaggio m WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId GROUP BY m.chat.idChat";
             Query query = entityManager.createQuery(queryString);
@@ -17,12 +18,13 @@ public class MessaggioCrud {
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Errore durante la ricerca dei messaggi per utente ID", e);
+            System.out.println("Errore findMessaggioByUtenteId --MessaggioCrud--");
+            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
 
     @SuppressWarnings("unchecked")
-	public List<Messaggio> findMessaggioByGroupId(int gruppoId, EntityManager entityManager) {
+	public List<Messaggio> findMessaggioByGroupId(Integer gruppoId, EntityManager entityManager) throws Exception {
         try {
             String queryString = "SELECT m FROM Messaggio m WHERE m.gruppo.idGruppo = :gruppoId";
             Query query = entityManager.createQuery(queryString);
@@ -30,16 +32,18 @@ public class MessaggioCrud {
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Errore durante la ricerca dei messaggi per gruppo ID", e);
+            System.out.println("Errore findMessaggioByGroupId --MessaggioCrud--");
+            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
 
-    public void insertMessaggio(Messaggio messaggio, EntityManager entityManager) {
+    public void insertMessaggio(Messaggio messaggio, EntityManager entityManager) throws Exception {
         try {
             entityManager.persist(messaggio);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Errore durante l'inserimento del messaggio", e);
+            System.out.println("Errore insertMessaggio --MessaggioCrud--");
+            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
 }

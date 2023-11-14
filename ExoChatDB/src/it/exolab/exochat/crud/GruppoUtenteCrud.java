@@ -9,7 +9,7 @@ import java.util.List;
 public class GruppoUtenteCrud {
 
     @SuppressWarnings("unchecked")
-	public List<GruppoUtente> findAllUtenteByGroupId(Long gruppoId, EntityManager entityManager) {
+	public List<GruppoUtente> findAllUtenteByGroupId(Integer gruppoId, EntityManager entityManager) throws Exception {
     	
         try {
             String queryString = "SELECT gu FROM GruppoUtente gu WHERE gu.gruppo.idGruppo = :gruppoId";
@@ -18,12 +18,13 @@ public class GruppoUtenteCrud {
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Errore durante la ricerca degli utenti per gruppo ID", e);
+            System.out.println("Errore findAllUtenteByGroupId --GruppoUtenteCrud--");
+            throw new Exception("Errore durante la ricerca degli utenti per gruppo ID", e);
         }
     }
 
     @SuppressWarnings("unchecked")
-	public List<GruppoUtente> findAllGroupByUtenteId(Long utenteId, EntityManager entityManager) {
+	public List<GruppoUtente> findAllGroupByUtenteId(Integer utenteId, EntityManager entityManager) {
     	
         try {
             String queryString = "SELECT gu FROM GruppoUtente gu WHERE gu.utente.idUtente = :utenteId";

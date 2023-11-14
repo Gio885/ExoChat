@@ -8,7 +8,7 @@ import java.util.List;
 @Local
 public interface GruppoControllerInterface {
 
-    List<Gruppo> findAllGruppoByUtenteId(int utenteId);
+    List<Gruppo> findAllGruppoByUtenteId(Integer utenteId);
 
     void insertGruppo(Gruppo gruppo);
 

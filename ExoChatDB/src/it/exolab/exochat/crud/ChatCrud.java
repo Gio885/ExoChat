@@ -9,7 +9,7 @@ import java.util.List;
 public class ChatCrud {
 
     @SuppressWarnings("unchecked")
-	public List<Chat> findChatByUtenteId(int utenteId, EntityManager entityManager) {
+	public List<Chat> findChatByUtenteId(Integer utenteId, EntityManager entityManager) {
     	
         try {
             String queryString = "SELECT DISTINCT c FROM Chat c " +
@@ -34,7 +34,7 @@ public class ChatCrud {
         }
     }
 
-    public void deleteChat(int chatId, EntityManager entityManager) {
+    public void deleteChat(Integer chatId, EntityManager entityManager) {
     	
         try {
             Chat chat = entityManager.find(Chat.class, chatId);

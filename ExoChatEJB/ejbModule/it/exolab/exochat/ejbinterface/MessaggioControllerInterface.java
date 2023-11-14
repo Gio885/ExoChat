@@ -8,9 +8,9 @@ import java.util.List;
 @Local
 public interface MessaggioControllerInterface {
 
-    List<Messaggio> findMessaggioByUtenteId(int utenteId);
+    List<Messaggio> findMessaggioByUtenteId(Integer utenteId) throws Exception;
 
-    List<Messaggio> findMessaggioByGroupId(int gruppoId);
+    List<Messaggio> findMessaggioByGroupId(Integer gruppoId) throws Exception;
 
-    void insertMessaggio(Messaggio messaggio);
+    void insertMessaggio(Messaggio messaggio) throws Exception;
 }

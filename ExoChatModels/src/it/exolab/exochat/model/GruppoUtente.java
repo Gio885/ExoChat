@@ -12,7 +12,7 @@ public class GruppoUtente implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PARTECIPANTE")
-    private int idPartecipante;
+    private Integer idPartecipante;
 
     @ManyToOne
     @JoinColumn(name = "GRUPPO_ID", nullable = false)
@@ -28,11 +28,11 @@ public class GruppoUtente implements Serializable{
     
     
 
-	public int getIdPartecipante() {
+	public Integer getIdPartecipante() {
 		return idPartecipante;
 	}
 
-	public void setIdPartecipante(int idPartecipante) {
+	public void setIdPartecipante(Integer idPartecipante) {
 		this.idPartecipante = idPartecipante;
 	}
 

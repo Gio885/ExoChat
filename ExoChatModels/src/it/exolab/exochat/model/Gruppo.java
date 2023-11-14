@@ -12,7 +12,7 @@ public class Gruppo implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_GRUPPO")
-    private int idGruppo;
+    private Integer idGruppo;
 
     @Column(name = "NOME_GRUPPO", nullable = false)
     private String nomeGruppo;
@@ -32,11 +32,11 @@ public class Gruppo implements Serializable {
     
     
     
-	public int getIdGruppo() {
+	public Integer getIdGruppo() {
 		return idGruppo;
 	}
 
-	public void setIdGruppo(int idGruppo) {
+	public void setIdGruppo(Integer idGruppo) {
 		this.idGruppo = idGruppo;
 	}
 

@@ -1,11 +1,14 @@
 package it.exolab.exochat.crud;
 
 import it.exolab.exochat.model.Utente;
+import it.exolab.exochat.costanti.*;
+import it.exolab.exochat.eccezioni.BusinessException;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 
@@ -24,73 +27,76 @@ import javax.persistence.Query;
 public class UtenteCrud {
 	
 	@SuppressWarnings("unchecked")
-	public List<Utente> findAllUtenti(EntityManager entityManager) {
+	public List<Utente> findAllUtenti(EntityManager entityManager) throws Exception {
         try {
             String queryString = "SELECT u FROM Utente u";
             Query query = entityManager.createQuery(queryString);
             return query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Errore durante il recupero della lista degli utenti", e);
-        }
+        }catch(Exception e) {
+			System.out.println("Errore nel metodo findAllUtenti della classe UtenteCrud ---Exception---");
+			e.printStackTrace();
+			throw new Exception(Costanti.ERRORE_CARICAMENTO_UTENTI);
+		}
     }
 
-    public Utente findUtenteById(int idUtente, EntityManager entityManager) {
+    public Utente findUtenteById(Integer idUtente, EntityManager entityManager) throws Exception {
         try {
             return entityManager.find(Utente.class, idUtente);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Errore durante la ricerca dell'utente per ID", e);
-        }
+        }catch(Exception e) {
+			System.out.println("Errore nel metodo findUtenteById della classe UtenteCrud ---Exception---");
+			e.printStackTrace();
+			throw new Exception(Costanti.ERRORE_RICERCA_UTENTE);
+		}
     }
 
-    public Utente findUtenteByUsername(String username, EntityManager entityManager) {
+    public Utente findUtenteByUsername(String username, EntityManager entityManager) throws Exception {
         try {
             String queryString = "SELECT u FROM Utente u WHERE u.username = :username";
             Query query = entityManager.createQuery(queryString);
             query.setParameter("username", username);
             return (Utente) query.getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Errore durante la ricerca dell'utente per username", e);
-        }
+        }catch(Exception e) {
+			System.out.println("Errore nel metodo findUtenteByUsername della classe UtenteCrud ---Exception---");
+			e.printStackTrace();
+			throw new Exception(Costanti.ERRORE_RICERCA_UTENTE);
+		}
     }
 
-    public Utente updateUtente(Utente utente, EntityManager entityManager) {
+    public Utente updateUtente(Utente utente, EntityManager entityManager) throws Exception {
         try {
             return entityManager.merge(utente);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Errore durante l'aggiornamento dell'utente", e);
-        }
+        }catch(Exception e) {
+			System.out.println("Errore nel metodo updateUtente della classe UtenteCrud ---Exception---");
+			e.printStackTrace();
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
     }
 	
-	public void insertUtente(Utente utente, EntityManager entityManager) {
+	public Utente insertUtente(Utente utente, EntityManager entityManager) throws Exception {
 		
 		try {
 			entityManager.persist(utente);
-			
-		} catch (Exception e) {
+			entityManager.flush();   // SI ASSICURA CHE LE MODIFICHE VENGANO APPLICATE PRIMA DI OTTENERE L'ID GENERATO
+			return utente;
+		}catch(Exception e) {
 			System.out.println("Errore nel metodo insertUtente della classe UtenteCrud");
 			e.printStackTrace();
-			throw new RuntimeException("Errore durante l'inserimento dell'utente", e);
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}
 	
-	  public void deleteUtente(int idUtente, EntityManager entityManager) {
+	  public void deleteUtente(Integer idUtente, EntityManager entityManager) throws Exception {
 		  
 	        try {
-	            Utente utenteDaEliminare = entityManager.find(Utente.class, idUtente);
-	            
+	            Utente utenteDaEliminare = entityManager.find(Utente.class, idUtente);    
 	            if (utenteDaEliminare != null) {
 	                entityManager.remove(utenteDaEliminare);
 	            } else {
 	                throw new EntityNotFoundException("Utente non trovato per l'ID specificato: " + idUtente);
-	            }
-	      
+	            }      
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	            throw new RuntimeException("Errore durante l'operazione di eliminazione dell'utente.", e);
+	            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 	        }
 	    }
 }
