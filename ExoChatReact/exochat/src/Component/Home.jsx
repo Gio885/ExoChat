@@ -20,7 +20,7 @@ export default function Home() {
 
         try {
             // Invio dei dati al tuo endpoint
-            const response = await axios.post('http://localhost:8080/ExoChatRest/rest/utenteRest/insertUtente', {
+            const response = await axios.post('http://localhost:8080/ExoChatWeb/rest/utenteRest/insertUtente', {
                 username: username,
                 email: email,
                 password: password,
