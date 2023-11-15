@@ -1,7 +1,7 @@
 package it.exolab.exochat.controller;
 
 import it.exolab.exochat.costanti.Costanti;
-import it.exolab.exochat.crud.GruppoUtenteCrud;
+import it.exolab.exochat.crud.*;
 import it.exolab.exochat.ejbinterface.GruppoUtenteControllerInterface;
 import it.exolab.exochat.model.GruppoUtente;
 
@@ -33,6 +33,7 @@ public class GruppoUtenteController implements GruppoUtenteControllerInterface {
 		try {
 			GruppoUtenteCrud gruppoUtenteCrud = new GruppoUtenteCrud();
 			gruppoUtenteCrud.findAllUtenteByGroupId(gruppoId, entityManager);
+			System.out.println();
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo findAllUtenteByGroupId ----gruppoUtenteController----  ");

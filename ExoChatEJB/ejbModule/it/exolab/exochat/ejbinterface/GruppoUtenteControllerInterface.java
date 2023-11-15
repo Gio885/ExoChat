@@ -8,7 +8,7 @@ import java.util.List;
 @Local
 public interface GruppoUtenteControllerInterface {
 
-    List<GruppoUtente> findAllUtenteByGroupId(Integer gruppoId);
+    List<GruppoUtente> findAllUtenteByGroupId(Integer gruppoId) throws Exception;
 
     List<GruppoUtente> findAllGroupByUtenteId(Integer utenteId);
 
