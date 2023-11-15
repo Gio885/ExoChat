@@ -10,11 +10,11 @@ public interface GruppoUtenteControllerInterface {
 
     List<GruppoUtente> findAllUtenteByGroupId(Integer gruppoId) throws Exception;
 
-    List<GruppoUtente> findAllGroupByUtenteId(Integer utenteId);
+    List<GruppoUtente> findAllGroupByUtenteId(Integer utenteId) throws Exception;
 
-    void insertGruppoUtente(GruppoUtente gruppoUtente);
+    GruppoUtente insertGruppoUtente(GruppoUtente gruppoUtente) throws Exception;
 
-    void updateGruppoUtente(GruppoUtente gruppoUtente);
+    GruppoUtente updateGruppoUtente(GruppoUtente gruppoUtente) throws Exception;
 
-    void deleteGruppoUtente(GruppoUtente gruppoUtente);
+    void deleteGruppoUtente(GruppoUtente gruppoUtente) throws Exception;
 }

@@ -31,6 +31,10 @@ import it.exolab.exochat.validatore.Validatore;
 
 /**
  * Session Bean implementation class UtenteController
+ * 
+ * @PersistenceContext per inettare un istanza entity manager per operazioni di persistenza JTA
+ * 
+ * @PersistenceUnit per iniettare un istanza della factory per creare entitymanager per fare operazioni di persistenza RESOURCE LOCAL quindi MANUALI
  */
 @Stateless(name = "UtenteControllerInterface")
 @LocalBean

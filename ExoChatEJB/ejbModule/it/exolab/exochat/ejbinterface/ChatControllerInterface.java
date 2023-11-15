@@ -8,9 +8,9 @@ import java.util.List;
 @Local
 public interface ChatControllerInterface {
 
-    List<Chat> findAllChatByUtenteId(Integer utenteId);
+    List<Chat> findAllChatByUtenteId(Integer utenteId) throws Exception;
 
-    void insertChat(Chat chat);
+    Chat insertChat(Chat chat) throws Exception;
 
-    void deleteChat(Chat chat);
+    void deleteChat(Chat chat) throws Exception;
 }

@@ -32,8 +32,8 @@ public class GruppoUtenteController implements GruppoUtenteControllerInterface {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
 			GruppoUtenteCrud gruppoUtenteCrud = new GruppoUtenteCrud();
-			List <GruppoUtente> gruppoUtente = gruppoUtenteCrud.findAllUtenteByGroupId(gruppoId, entityManager);
-			return gruppoUtente;
+			List <GruppoUtente> utentiGruppo = gruppoUtenteCrud.findAllUtenteByGroupId(gruppoId, entityManager);
+			return utentiGruppo;
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo findAllUtenteByGroupId ----gruppoUtenteController----  ");
@@ -44,27 +44,75 @@ public class GruppoUtenteController implements GruppoUtenteControllerInterface {
 	}
 
 	@Override
-	public List<GruppoUtente> findAllGroupByUtenteId(Integer utenteId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<GruppoUtente> findAllGroupByUtenteId(Integer utenteId) throws Exception {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			GruppoUtenteCrud gruppoUtenteCrud = new GruppoUtenteCrud();
+			List<GruppoUtente> gruppiUtente = gruppoUtenteCrud.findAllGroupByUtenteId(utenteId, entityManager);
+			return gruppiUtente;			
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo findAllGroupByUtenteId ---GruppoUtenteController---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_GRUPPI);
+		}finally {
+			entityManager.close();
+		}
 	}
 
 	@Override
-	public void insertGruppoUtente(GruppoUtente gruppoUtente) {
-		// TODO Auto-generated method stub
-		
+	public GruppoUtente insertGruppoUtente(GruppoUtente gruppoUtente) throws Exception {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			GruppoUtenteCrud gruppoUtenteCrud = new GruppoUtenteCrud();
+			entityManager.getTransaction().begin();	
+			GruppoUtente gruppoInserito = gruppoUtenteCrud.insertGruppoUtente(gruppoUtente, entityManager);
+			entityManager.getTransaction().commit();
+			return gruppoInserito;			
+		}catch(Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			System.out.println("Errore metodo insertGruppoUtente ---GruppoUtenteController---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.close();
+		}		
 	}
 
 	@Override
-	public void updateGruppoUtente(GruppoUtente gruppoUtente) {
-		// TODO Auto-generated method stub
-		
+	public GruppoUtente updateGruppoUtente(GruppoUtente gruppoUtente) throws Exception {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			GruppoUtenteCrud gruppoUtenteCrud = new GruppoUtenteCrud();
+			entityManager.getTransaction().begin();
+			GruppoUtente gruppoAggiornato = gruppoUtenteCrud.updateGruppoUtente(gruppoUtente, entityManager);
+			entityManager.getTransaction().commit();
+			return gruppoAggiornato;			
+		}catch(Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			System.out.println("Errore metodo updateGruppoUtente ---GruppoUtenteController---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.close();
+		}		
 	}
 
 	@Override
-	public void deleteGruppoUtente(GruppoUtente gruppoUtente) {
-		// TODO Auto-generated method stub
-		
+	public void deleteGruppoUtente(GruppoUtente gruppoUtente) throws Exception {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			GruppoUtenteCrud gruppoUtenteCrud = new GruppoUtenteCrud();
+			entityManager.getTransaction().begin();
+			gruppoUtenteCrud.deleteGruppoUtente(gruppoUtente, entityManager);
+			entityManager.getTransaction().commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			System.out.println("Errore metodo deleteGruppoUtente ---GruppoUtenteController---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.close();
+		}		
 	}
 
 }

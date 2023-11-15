@@ -8,11 +8,11 @@ import java.util.List;
 @Local
 public interface GruppoControllerInterface {
 
-    List<Gruppo> findAllGruppoByUtenteId(Integer utenteId);
+    List<Gruppo> findAllGruppoByUtenteId(Integer utenteId) throws Exception;
 
-    void insertGruppo(Gruppo gruppo);
+    Gruppo insertGruppo(Gruppo gruppo) throws Exception;
 
-    void updateGruppo(Gruppo gruppo);
+    Gruppo updateGruppo(Gruppo gruppo) throws Exception;
 
-    void deleteGruppo(Gruppo gruppo);
+    void deleteGruppo(Gruppo gruppo) throws Exception;
 }
