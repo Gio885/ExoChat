@@ -2,6 +2,7 @@ package it.exolab.exochat.controller;
 
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.ChatCrud;
+import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.ChatControllerInterface;
 import it.exolab.exochat.model.Chat;
 
@@ -34,7 +35,15 @@ public class ChatController implements ChatControllerInterface {
 		try {
 			ChatCrud chatCrud = new ChatCrud();
 			List<Chat> listaChatUtente = chatCrud.findChatByUtenteId(utenteId, entityManager);
-			return listaChatUtente;
+			if(!listaChatUtente.isEmpty()) {
+				return listaChatUtente;
+			}else {
+				throw new BusinessException("Nessuna chat presente");
+			}
+		}catch(BusinessException e) {
+			e.printStackTrace();
+			System.out.println("Nessuna chat presente");
+			throw new BusinessException(e.getMessage());
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo findAllChatByUtenteId ---ChatController---");
