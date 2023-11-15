@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-                
+                    
+    
     
     
     <wb-module deploy-name="ExoChatEAR">
-                                
+                                        
+        
         
         
         <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
-                                
+                                        
+        
         
         
         <dependent-module archiveName="eclipselink-2.5.2.jar" deploy-path="/" handle="module:/classpath/lib/C:/Sviluppo/jar/eclipselink-2.5.2.jar">
+                                                            
+            
+            
+            
+            <dependency-type>uses</dependency-type>
+                                                        
+        
+        
+        
+        </dependent-module>
+                                
+        
+        
+        <dependent-module archiveName="mysql-connector-java-8.0.25.jar" deploy-path="/lib" handle="module:/classpath/lib/C:/Sviluppo/jar/mysql-connector-java-8.0.25.jar">
                                                 
             
             
@@ -19,35 +36,37 @@
         
         
         </dependent-module>
-                        
-        
-        <dependent-module archiveName="mysql-connector-java-8.0.25.jar" deploy-path="/lib" handle="module:/classpath/lib/C:/Sviluppo/jar/mysql-connector-java-8.0.25.jar">
-                                    
-            
-            <dependency-type>uses</dependency-type>
-                                
-        
-        </dependent-module>
+                
         <dependent-module archiveName="ExoChatEJB.jar" deploy-path="/" handle="module:/resource/ExoChatEJB/ExoChatEJB">
+                        
             <dependency-type>uses</dependency-type>
+                    
         </dependent-module>
+                
         <dependent-module archiveName="ExoChatWeb.war" deploy-path="/" handle="module:/resource/ExoChatWeb/ExoChatWeb">
+                        
             <dependency-type>uses</dependency-type>
+                    
         </dependent-module>
-        <dependent-module archiveName="ExoChatDB.jar" deploy-path="/lib" handle="module:/resource/ExoChatDB/ExoChatDB">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
+                
         <dependent-module archiveName="ExoChatModels.jar" deploy-path="/lib" handle="module:/resource/ExoChatModels/ExoChatModels">
+                        
             <dependency-type>uses</dependency-type>
+                    
         </dependent-module>
+                
         <dependent-module archiveName="ExoChatUtils.jar" deploy-path="/lib" handle="module:/resource/ExoChatUtils/ExoChatUtils">
+                        
             <dependency-type>uses</dependency-type>
+                    
         </dependent-module>
-                            
+                                    
+    
     
     
     </wb-module>
-            
+                
+
 
 
 </project-modules>

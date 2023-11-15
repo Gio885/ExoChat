@@ -5,7 +5,6 @@
 	<projects>
 		<project>ExoChatEJB</project>
 		<project>ExoChatWeb</project>
-		<project>ExoChatDB</project>
 		<project>ExoChatModels</project>
 		<project>ExoChatUtils</project>
 	</projects>
