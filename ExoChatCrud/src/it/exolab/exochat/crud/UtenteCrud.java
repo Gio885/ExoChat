@@ -98,7 +98,7 @@ public class UtenteCrud {
 	  
 	  public Utente findUtenteByEmailAndPassword (Utente utente,EntityManager entityManager) throws Exception {
 		  try {
-			  String queryString = "SELECT u FROM utente u WHERE u.email = :emailUtente and u.password = :passwordUtente";
+			  String queryString = "SELECT u FROM Utente u WHERE u.email = :emailUtente and u.password = :passwordUtente";
 			  Query query = entityManager.createQuery(queryString);
 			  query.setParameter("emailUtente", utente.getEmail());
 			  query.setParameter("passwordUtente", utente.getPassword());
