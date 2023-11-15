@@ -27,6 +27,7 @@ public class UtenteCrud {
         try {
             String queryString = "SELECT u FROM Utente u";
             Query query = entityManager.createQuery(queryString);
+            System.out.println();
             return query.getResultList();
         }catch(Exception e) {
 			System.out.println("Errore nel metodo findAllUtenti della classe UtenteCrud ---Exception---");
