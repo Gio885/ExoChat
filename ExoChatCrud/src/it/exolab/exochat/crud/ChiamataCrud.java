@@ -55,8 +55,7 @@ public class ChiamataCrud {
     		String queryString = "UPDATE Chiamata c SET c.dataOraFine = CURRENT_TIMESTAMP, c.durata = FUNC('TIMEDIFF', CURRENT_TIMESTAMP, c.dataOraInizio) WHERE c.idChiamata = :idChiamata";
     		Query query = entityManager.createQuery(queryString);
     		query.setParameter("idChiamata", chiamata.getIdChiamata());
-    		Chiamata chiamataAggiornata = entityManager.find(Chiamata.class, chiamata.getIdChiamata());
-    		return chiamataAggiornata;
+    		return (Chiamata) query.getSingleResult();
     	}catch(Exception e) {
     		e.printStackTrace();
     		System.out.println("Errore metodo updateChiamata ---ChiamataCrud---");

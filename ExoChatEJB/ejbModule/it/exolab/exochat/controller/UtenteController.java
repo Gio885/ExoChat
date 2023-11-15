@@ -143,6 +143,9 @@ public class UtenteController implements UtenteControllerInterface {
 		}
 	}
 
+	
+	//QUANDO DEVE MODIFICARE LE IMPOSTAZIONI DEL PROFILO GLI FACCIAMO RIMETTERE LA PASSWORD CON L'EMAIL GIA INSERITA RIFACCIAMO UNA LOGIN E
+	//RESTITUIAMO L'UTENTE COMPLETO COSI POSSIAMO FARCI L'UPDATE CON IL VALIDATORE E CAMBIARE USERNAME EMAIL PASSWORD 
 	@Override
 	public Dto<Utente> updateUtente(Utente utente) throws Exception {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -181,6 +184,32 @@ public class UtenteController implements UtenteControllerInterface {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 			System.out.println("Errore nel metodo deleteUtente ---Exception---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.close();
+		}
+	}
+
+	@Override
+	public Dto<Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception{
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {		
+			Dto <Utente> dtoUtente = new Dto <Utente>();
+			UtenteCrud utenteCrud = new UtenteCrud();
+			Utente utenteDaTrovare = utenteCrud.findUtenteByEmailAndPassword(utente, entityManager);
+			if(null != utenteDaTrovare) {
+				dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteDaTrovare));
+				return dtoUtente;			
+			}else {
+				throw new BusinessException("Credenziali non valide");
+			}			
+		}catch(BusinessException e) {
+			e.printStackTrace();
+			System.out.println();
+			throw new BusinessException(e.getMessage());
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println();
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}finally {
 			entityManager.close();

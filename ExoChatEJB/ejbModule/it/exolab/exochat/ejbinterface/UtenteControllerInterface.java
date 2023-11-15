@@ -20,4 +20,6 @@ public interface UtenteControllerInterface {
     void deleteUtente(Utente utente) throws Exception;
 
     Dto <Utente> insertUtente(Utente utente) throws Exception;
+    
+    Dto <Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception;
 }

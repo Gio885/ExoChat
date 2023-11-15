@@ -95,5 +95,20 @@ public class UtenteCrud {
 	            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 	        }
 	    }
+	  
+	  public Utente findUtenteByEmailAndPassword (Utente utente,EntityManager entityManager) throws Exception {
+		  try {
+			  String queryString = "SELECT u FROM utente u WHERE u.email = :emailUtente and u.password = :passwordUtente";
+			  Query query = entityManager.createQuery(queryString);
+			  query.setParameter("emailUtente", utente.getEmail());
+			  query.setParameter("passwordUtente", utente.getPassword());
+			  return (Utente) query.getSingleResult();
+		  }catch(Exception e) {
+			  e.printStackTrace();
+			  System.out.println("Errore metodo findUtenteByEmailAndPassword ---UtenteCrud---");
+			  throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		  }
+	  }
+	  
 }
 
