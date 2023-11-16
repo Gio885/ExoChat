@@ -64,11 +64,11 @@ ORDER BY (messaggio.data_ora) desc;
     @SuppressWarnings("unchecked")
 	public List<Messaggio> findLastMessaggeForChat(Utente utente,EntityManager entityManager) throws Exception {
     	try {
-    		String queryString = "SELECT messaggio.chat_id, messaggio.contenuto_messaggio, messaggio.data_ora"
-    				+ "FROM messaggio"
-    				+ "JOIN (SELECT chat_id, MAX(data_ora) as max_data_ora FROM messaggio GROUP BY chat_id) messaggi_recenti"
-    				+ "ON messaggio.chat_id = messaggi_recenti.chat_id AND messaggio.data_ora = messaggi_recenti.max_data_ora"
-    				+ "WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId"
+    		String queryString = "SELECT messaggio.chat_id, messaggio.contenuto_messaggio, messaggio.data_ora "
+    				+ "FROM messaggio "
+    				+ "JOIN (SELECT chat_id, MAX(data_ora) as max_data_ora FROM messaggio GROUP BY chat_id) messaggi_recenti "
+    				+ "ON messaggio.chat_id = messaggi_recenti.chat_id AND messaggio.data_ora = messaggi_recenti.max_data_ora "
+    				+ "WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId "
     				+ "ORDER BY (messaggio.data_ora)DESC";
     		Query query = entityManager.createQuery(queryString);
             query.setParameter("utenteId", utente.getIdUtente());
