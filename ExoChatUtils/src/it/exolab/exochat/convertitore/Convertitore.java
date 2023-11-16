@@ -1,8 +1,12 @@
 package it.exolab.exochat.convertitore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.model.Utente;
 
 public class Convertitore {
@@ -31,5 +35,17 @@ public class Convertitore {
 		return utentiDto;		
 	}
 	
+	public Date dataDaFormattare(Date data) throws Exception {
+		try {
+			SimpleDateFormat formatoData = new SimpleDateFormat("dd MMM yy", Locale.ITALIAN);
+	        String dataFormattataString = formatoData.format(new Date());
+	        Date dataFormattata = formatoData.parse(dataFormattataString);
+	        return dataFormattata;	        
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo dataDaFormattare --- ERRORE CONVERSIONE DATA --- ");
+			throw new Exception (Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
 	
 }

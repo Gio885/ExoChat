@@ -1,5 +1,6 @@
 package it.exolab.exochat.controller;
 
+import it.exolab.exochat.convertitore.Convertitore;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.MessaggioCrud;
 import it.exolab.exochat.dto.Dto;
@@ -98,8 +99,17 @@ public class MessaggioController implements MessaggioControllerInterface {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
-			List<Messaggio> ultimoMessaggioPerChat = messaggioCrud.findLastMessaggeForChat(utente, entityManager);
-			return ultimoMessaggioPerChat;
+			List<Messaggio> listaUltimiMessaggiPerChat = messaggioCrud.findLastMessaggeForChat(utente, entityManager);
+			if(!listaUltimiMessaggiPerChat.isEmpty()) {
+				formattaLista(listaUltimiMessaggiPerChat);
+				return listaUltimiMessaggiPerChat;
+			}else {
+				throw new BusinessException("Non ci sono chat");
+			}		
+		}catch(BusinessException e) {
+			e.printStackTrace();
+			System.out.println();
+			throw new BusinessException(e.getMessage());
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println();
@@ -107,5 +117,18 @@ public class MessaggioController implements MessaggioControllerInterface {
 		}
 	}
 	
+	private void formattaLista (List<Messaggio> listaMessaggiDaFormattare) throws Exception{
+		try {
+			for(Messaggio singoloMessaggio : listaMessaggiDaFormattare) {
+				singoloMessaggio.setDestinatario(new Convertitore().convertUtenteToDto(singoloMessaggio.getDestinatario()));
+				singoloMessaggio.setMittente(new Convertitore().convertUtenteToDto(singoloMessaggio.getMittente()));
+				singoloMessaggio.setDataOra(new Convertitore().dataDaFormattare(singoloMessaggio.getDataOra()));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println();
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
 	           	
 }
