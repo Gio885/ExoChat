@@ -122,7 +122,6 @@ public class MessaggioController implements MessaggioControllerInterface {
 			for(Messaggio singoloMessaggio : listaMessaggiDaFormattare) {
 				singoloMessaggio.setDestinatario(new Convertitore().convertUtenteToDto(singoloMessaggio.getDestinatario()));
 				singoloMessaggio.setMittente(new Convertitore().convertUtenteToDto(singoloMessaggio.getMittente()));
-				singoloMessaggio.setDataOra(new Convertitore().dataDaFormattare(singoloMessaggio.getDataOra()));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
