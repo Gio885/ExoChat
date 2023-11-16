@@ -10,75 +10,84 @@ import java.util.List;
 
 public class MessaggioCrud {
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public List<Messaggio> findMessaggioByUtenteId(Integer utenteId, EntityManager entityManager) throws Exception {
-        try {
-            String queryString = "SELECT m FROM Messaggio m WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId";
-            Query query = entityManager.createQuery(queryString);
-            query.setParameter("utenteId", utenteId);
-            return query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Errore findMessaggioByUtenteId --MessaggioCrud--");
-            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-        }
-    }
+		try {
+			String queryString = "SELECT m FROM Messaggio m WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("utenteId", utenteId);
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore findMessaggioByUtenteId --MessaggioCrud--");
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public List<Messaggio> findMessaggioByGroupId(Integer gruppoId, EntityManager entityManager) throws Exception {
-        try {
-            String queryString = "SELECT m FROM Messaggio m WHERE m.gruppo.idGruppo = :gruppoId";
-            Query query = entityManager.createQuery(queryString);
-            query.setParameter("gruppoId", gruppoId);
-            return query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Errore findMessaggioByGroupId --MessaggioCrud--");
-            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-        }
-    }
+		try {
+			String queryString = "SELECT m FROM Messaggio m WHERE m.gruppo.idGruppo = :gruppoId";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("gruppoId", gruppoId);
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore findMessaggioByGroupId --MessaggioCrud--");
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
 
-    public void insertMessaggio(Messaggio messaggio, EntityManager entityManager) throws Exception {
-        try {
-            entityManager.persist(messaggio);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Errore insertMessaggio --MessaggioCrud--");
-            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-        }
-    }
-    
-    /*
-"SELECT messaggio.chat.idChat, messaggio.contenutoMessaggio, messaggio.dataOra " +
-                         "FROM Messaggio messaggio " +
-                         "JOIN (SELECT chat.idChat, MAX(messaggio.dataOra) AS max_data_ora " +
-                         "      FROM Messaggio messaggio " +
-                         "      WHERE messaggio.mittente.idUtente = :utenteId OR messaggio.destinatario.idUtente = :utenteId " +
-                         "      GROUP BY messaggio.chat.idChat) messaggi_recenti " +
-                         "ON messaggio.chat.idChat = messaggi_recenti.chat.idChat AND messaggio.dataOra = messaggi_recenti.max_data_ora " +
-                         "ORDER BY messaggio.dataOra DESC";
-     */
-    
-    @SuppressWarnings("unchecked")
-	public List<Messaggio> findLastMessaggeForChat(Utente utente,EntityManager entityManager) throws Exception {
-    	try {
-    		String queryString = 
-    				"SELECT messaggio.chat.idChat, messaggio.contenutoMessaggio, messaggio.dataOra " +
-                    "FROM Messaggio messaggio " +
-                    "JOIN (SELECT chat.idChat, MAX(messaggio.dataOra) AS max_data_ora " +
-                    "FROM Messaggio messaggio " +
-                    "WHERE messaggio.mittente.idUtente = :utenteId OR messaggio.destinatario.idUtente = :utenteId " +
-                    "GROUP BY messaggio.chat.idChat) messaggi_recenti " +
-                    "ON messaggio.chat.idChat = messaggi_recenti.chat.idChat AND messaggio.dataOra = messaggi_recenti.max_data_ora " +
-                    "ORDER BY messaggio.dataOra DESC";
-    		Query query = entityManager.createQuery(queryString);
-            query.setParameter("utenteId", utente.getIdUtente());
-    		return query.getResultList();
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		System.out.println("Errore metodo findLastMessaggeForChat ---MessaggioCrud--- ");
-    		throw new Exception(Costanti.ERRORE_CARICAMENTO_MESSAGGI);
-    	}
-    }
+	public void insertMessaggio(Messaggio messaggio, EntityManager entityManager) throws Exception {
+		try {
+			entityManager.persist(messaggio);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore insertMessaggio --MessaggioCrud--");
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+
+	/*
+	 * "SELECT messaggio.chat.idChat, messaggio.contenutoMessaggio, messaggio.dataOra "
+	 * + "FROM Messaggio messaggio " +
+	 * "JOIN (SELECT chat.idChat, MAX(messaggio.dataOra) AS max_data_ora " +
+	 * "      FROM Messaggio messaggio " +
+	 * "      WHERE messaggio.mittente.idUtente = :utenteId OR messaggio.destinatario.idUtente = :utenteId "
+	 * + "      GROUP BY messaggio.chat.idChat) messaggi_recenti " +
+	 * "ON messaggio.chat.idChat = messaggi_recenti.chat.idChat AND messaggio.dataOra = messaggi_recenti.max_data_ora "
+	 * + "ORDER BY messaggio.dataOra DESC";
+	 */
+
+	/*
+	 * "JOIN (SELECT chat.idChat, MAX(messaggio.dataOra) AS max_data_ora " +
+	 * "      FROM Messaggio messaggio " +
+	 * "      WHERE messaggio.mittente.idUtente = :utenteId OR messaggio.destinatario.idUtente = :utenteId "
+	 * + "      GROUP BY messaggio.chat.idChat) messaggi_recenti " +
+	 * "ON messaggio.chat.idChat = messaggi_recenti.idChat AND messaggio.dataOra = messaggi_recenti.max_data_ora "
+	 * +
+	 */
+
+	@SuppressWarnings("unchecked")
+	public List<Messaggio> findLastMessaggeForChat(Utente utente, EntityManager entityManager) throws Exception {
+		try {
+			String queryString = "SELECT m " +
+					"FROM Messaggio m " +
+					"WHERE (m.chat.idChat, m.dataOra) IN (" +
+					"  SELECT c1.idChat, MAX(m1.dataOra) " +
+					"  FROM Messaggio m1 " +
+					"  JOIN m1.chat c1 " +
+					"  WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
+					"  GROUP BY c1.idChat)";
+;
+
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("utenteId", utente.getIdUtente());
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo findLastMessaggeForChat ---MessaggioCrud--- ");
+			throw new Exception(Costanti.ERRORE_CARICAMENTO_MESSAGGI);
+		}
+	}
 }
-
