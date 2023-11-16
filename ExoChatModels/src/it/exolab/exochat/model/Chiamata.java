@@ -7,6 +7,7 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "CHIAMATA")
 public class Chiamata implements Serializable {
 
 	private static final long serialVersionUID = -8763645496435630199L;

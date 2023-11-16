@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "MESSAGGIO")
 public class Messaggio implements Serializable {
 
 	private static final long serialVersionUID = -6494890555390690804L;

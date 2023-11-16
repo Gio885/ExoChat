@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "TIPO_CHAT")
 public class TipoChat implements Serializable{
 
 	private static final long serialVersionUID = -3827103758971773344L;

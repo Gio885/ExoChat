@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "GRUPPO_UTENTE")
 public class GruppoUtente implements Serializable{
 
 	private static final long serialVersionUID = 2434305999037183370L;
