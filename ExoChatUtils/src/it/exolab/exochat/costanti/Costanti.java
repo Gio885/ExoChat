@@ -6,6 +6,7 @@ public class Costanti {
 	public static final String ERRORE_CONTATTA_ASSISTENZA = "Si è verificato un errore, contatta l'assistenza";
 	public static final String ERRORE_RICERCA_UTENTE = "C'è stato un errore nella ricerca dell'utente, contatta l'assistenza";
 	public static final String ERRORE_CARICAMENTO_UTENTI = "C'è stato un errore nel caricamento degli utenti, contatta l'assistenza";
+	public static final String ERRORE_CARICAMENTO_MESSAGGI = "C'è stato un errore nel caricamento dei messaggi, contatta l'assistenza";
 	public static final String ERRORE_CARICAMENTO_GRUPPI = "C'è stato un errore nel caricamento dei gruppi, contatta l'assistenza";
 	public static final String ERRORE_CARICAMENTO_CHIAMATE = "C'è stato un errore nel caricamento delle chiamate, contatta l'assistenza";
 	public static final String ERRORE_CARICAMENTO_CHAT = "C'è stato un errore nel caricamento delle chat, contatta l'assistenza";

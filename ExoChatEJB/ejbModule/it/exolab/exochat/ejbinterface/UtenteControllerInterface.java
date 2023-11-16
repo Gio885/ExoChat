@@ -1,6 +1,7 @@
 package it.exolab.exochat.ejbinterface;
 
 import it.exolab.exochat.dto.Dto;
+import it.exolab.exochat.model.Messaggio;
 import it.exolab.exochat.model.Utente;
 
 import javax.ejb.Local;
@@ -22,4 +23,5 @@ public interface UtenteControllerInterface {
     Dto <Utente> insertUtente(Utente utente) throws Exception;
     
     Dto <Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception;
+    
 }

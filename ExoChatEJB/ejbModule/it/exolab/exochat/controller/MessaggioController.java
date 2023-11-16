@@ -6,6 +6,7 @@ import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
 import it.exolab.exochat.model.Messaggio;
+import it.exolab.exochat.model.Utente;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,28 +93,19 @@ public class MessaggioController implements MessaggioControllerInterface {
 		}
 	}
 
-	private Dto<Messaggio> listaMessaggiRaggruppatiPerChat (List<Messaggio> listaMessaggiUtente) {
-		Dto<Messaggio> dtoMessaggiRaggruppatiPerChat = new Dto<Messaggio>();
-        List<Object> chatConMessaggi = new ArrayList<>();
-        Map<Integer, List<Messaggio>> messaggiPerChat = new HashMap<>();
-
-        // Iteriamo sulla lista dei messaggi
-        for (Messaggio messaggio : listaMessaggiUtente) {
-            Integer idChat = messaggio.getChat().getIdChat(); // Assumendo che esista un metodo getId() sulla classe Chat
-
-            // Controlla se l'ID chat è già nella mappa
-            if (messaggiPerChat.containsKey(idChat)) {
-                // Se l'ID chat è già presente, aggiungi il messaggio alla lista esistente
-                messaggiPerChat.get(idChat).add(messaggio);
-            } else {
-                // Se l'ID chat non è presente, crea una nuova lista e aggiungi il messaggio
-                List<Messaggio> nuovaListaMessaggi = new ArrayList<>();
-                nuovaListaMessaggi.add(messaggio);
-                messaggiPerChat.put(idChat, nuovaListaMessaggi);
-            }
-        }
-        dtoMessaggiRaggruppatiPerChat.setData(chatConMessaggi);
-        return dtoMessaggiRaggruppatiPerChat;
-    }
+	@Override
+	public List<Messaggio> findLastMessaggeForChat(Utente utente) throws Exception {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			MessaggioCrud messaggioCrud = new MessaggioCrud();
+			List<Messaggio> ultimoMessaggioPerChat = messaggioCrud.findLastMessaggeForChat(utente, entityManager);
+			return ultimoMessaggioPerChat;
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println();
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_MESSAGGI);
+		}
+	}
+	
 	           	
 }

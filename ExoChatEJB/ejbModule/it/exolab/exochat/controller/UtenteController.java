@@ -10,10 +10,12 @@ import javax.persistence.PersistenceUnit;
 
 import it.exolab.exochat.convertitore.Convertitore;
 import it.exolab.exochat.costanti.Costanti;
+import it.exolab.exochat.crud.MessaggioCrud;
 import it.exolab.exochat.crud.UtenteCrud;
 import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.UtenteControllerInterface;
+import it.exolab.exochat.model.Messaggio;
 import it.exolab.exochat.model.Utente;
 import it.exolab.exochat.validatore.Validatore;
 
@@ -215,9 +217,6 @@ public class UtenteController implements UtenteControllerInterface {
 			entityManager.close();
 		}
 	}
-	
-	
-	
-	
+
 
 }
