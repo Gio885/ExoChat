@@ -2,6 +2,7 @@ package it.exolab.exochat.controller;
 
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.MessaggioCrud;
+import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
 import it.exolab.exochat.model.Messaggio;
 
@@ -34,8 +35,15 @@ public class MessaggioController implements MessaggioControllerInterface {
 		try {
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
 			List<Messaggio> listaMessaggi = messaggioCrud.findMessaggioByUtenteId(utenteId, entityManager);
-			return listaMessaggi;			
-		}catch(Exception e) {
+			if(!listaMessaggi.isEmpty()) {
+				return listaMessaggi;	
+			}else {
+				throw new BusinessException("Non ci sono messaggi");
+			}					
+		}catch(BusinessException e) {
+			throw new BusinessException(e.getMessage());
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore findMessaggioByUtenteId --ControllerMessaggio--");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
