@@ -12,7 +12,7 @@ public class MessaggioCrud {
     @SuppressWarnings("unchecked")
 	public List<Messaggio> findMessaggioByUtenteId(Integer utenteId, EntityManager entityManager) throws Exception {
         try {
-            String queryString = "SELECT m FROM Messaggio m WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId GROUP BY m.chat.idChat";
+            String queryString = "SELECT m FROM Messaggio m WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId";
             Query query = entityManager.createQuery(queryString);
             query.setParameter("utenteId", utenteId);
             return query.getResultList();
