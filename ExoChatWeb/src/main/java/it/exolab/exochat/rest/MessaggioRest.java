@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import it.exolab.exochat.conf.EjbService;
+import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
 import it.exolab.exochat.endpoint.EndPoint;
@@ -28,7 +29,7 @@ public class MessaggioRest {
 	public Response findAllMessaggeUtente(Utente utente) {
 		try {
 			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
-			List<Messaggio> listaMessaggiUtente = messaggioService.findMessaggioByUtenteId(utente.getIdUtente());
+			Dto<Messaggio> listaMessaggiUtente = messaggioService.findMessaggioByUtenteId(utente.getIdUtente());
 			return Response.status(Status.OK).entity(listaMessaggiUtente).build();			
 		}catch(BusinessException e) {
 			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();

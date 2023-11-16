@@ -2,11 +2,15 @@ package it.exolab.exochat.controller;
 
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.MessaggioCrud;
+import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
 import it.exolab.exochat.model.Messaggio;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -30,13 +34,14 @@ public class MessaggioController implements MessaggioControllerInterface {
     }
 
 	@Override
-	public List<Messaggio> findMessaggioByUtenteId(Integer utenteId) throws Exception {
+	public Dto<Messaggio> findMessaggioByUtenteId(Integer utenteId) throws Exception {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
 			List<Messaggio> listaMessaggi = messaggioCrud.findMessaggioByUtenteId(utenteId, entityManager);
 			if(!listaMessaggi.isEmpty()) {
-				return listaMessaggi;	
+				Dto <Messaggio> dtoListaMessaggiChat = listaMessaggiRaggruppatiPerChat(listaMessaggi);
+				return dtoListaMessaggiChat;	
 			}else {
 				throw new BusinessException("Non ci sono messaggi");
 			}					
@@ -86,4 +91,28 @@ public class MessaggioController implements MessaggioControllerInterface {
 		}
 	}
 
+	private Dto<Messaggio> listaMessaggiRaggruppatiPerChat (List<Messaggio> listaMessaggiUtente) {
+		Dto<Messaggio> dtoMessaggiRaggruppatiPerChat = new Dto<Messaggio>();
+        List<Object> chatConMessaggi = new ArrayList<>();
+        Map<Integer, List<Messaggio>> messaggiPerChat = new HashMap<>();
+
+        // Iteriamo sulla lista dei messaggi
+        for (Messaggio messaggio : listaMessaggiUtente) {
+            Integer idChat = messaggio.getChat().getIdChat(); // Assumendo che esista un metodo getId() sulla classe Chat
+
+            // Controlla se l'ID chat è già nella mappa
+            if (messaggiPerChat.containsKey(idChat)) {
+                // Se l'ID chat è già presente, aggiungi il messaggio alla lista esistente
+                messaggiPerChat.get(idChat).add(messaggio);
+            } else {
+                // Se l'ID chat non è presente, crea una nuova lista e aggiungi il messaggio
+                List<Messaggio> nuovaListaMessaggi = new ArrayList<>();
+                nuovaListaMessaggi.add(messaggio);
+                messaggiPerChat.put(idChat, nuovaListaMessaggi);
+            }
+        }
+        dtoMessaggiRaggruppatiPerChat.setData(chatConMessaggi);
+        return dtoMessaggiRaggruppatiPerChat;
+    }
+	           	
 }
