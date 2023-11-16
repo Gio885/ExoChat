@@ -49,27 +49,28 @@ public class MessaggioCrud {
     }
     
     /*
-     * SELECT messaggio.chat_id, messaggio.contenuto_messaggio, messaggio.data_ora
-FROM messaggio
-JOIN (
-  SELECT chat_id, MAX(data_ora) AS max_data_ora
-  FROM messaggio
-  GROUP BY chat_id
-) messaggi_recenti
-ON messaggio.chat_id = messaggi_recenti.chat_id AND messaggio.data_ora = messaggi_recenti.max_data_ora
-WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId
-ORDER BY (messaggio.data_ora) desc;
+"SELECT messaggio.chat.idChat, messaggio.contenutoMessaggio, messaggio.dataOra " +
+                         "FROM Messaggio messaggio " +
+                         "JOIN (SELECT chat.idChat, MAX(messaggio.dataOra) AS max_data_ora " +
+                         "      FROM Messaggio messaggio " +
+                         "      WHERE messaggio.mittente.idUtente = :utenteId OR messaggio.destinatario.idUtente = :utenteId " +
+                         "      GROUP BY messaggio.chat.idChat) messaggi_recenti " +
+                         "ON messaggio.chat.idChat = messaggi_recenti.chat.idChat AND messaggio.dataOra = messaggi_recenti.max_data_ora " +
+                         "ORDER BY messaggio.dataOra DESC";
      */
     
     @SuppressWarnings("unchecked")
 	public List<Messaggio> findLastMessaggeForChat(Utente utente,EntityManager entityManager) throws Exception {
     	try {
-    		String queryString = "SELECT messaggio.chat_id, messaggio.contenuto_messaggio, messaggio.data_ora "
-    				+ "FROM messaggio "
-    				+ "JOIN (SELECT chat_id, MAX(data_ora) as max_data_ora FROM messaggio GROUP BY chat_id) messaggi_recenti "
-    				+ "ON messaggio.chat_id = messaggi_recenti.chat_id AND messaggio.data_ora = messaggi_recenti.max_data_ora "
-    				+ "WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId "
-    				+ "ORDER BY (messaggio.data_ora)DESC";
+    		String queryString = 
+    				"SELECT messaggio.chat.idChat, messaggio.contenutoMessaggio, messaggio.dataOra " +
+                    "FROM Messaggio messaggio " +
+                    "JOIN (SELECT chat.idChat, MAX(messaggio.dataOra) AS max_data_ora " +
+                    "FROM Messaggio messaggio " +
+                    "WHERE messaggio.mittente.idUtente = :utenteId OR messaggio.destinatario.idUtente = :utenteId " +
+                    "GROUP BY messaggio.chat.idChat) messaggi_recenti " +
+                    "ON messaggio.chat.idChat = messaggi_recenti.chat.idChat AND messaggio.dataOra = messaggi_recenti.max_data_ora " +
+                    "ORDER BY messaggio.dataOra DESC";
     		Query query = entityManager.createQuery(queryString);
             query.setParameter("utenteId", utente.getIdUtente());
     		return query.getResultList();
