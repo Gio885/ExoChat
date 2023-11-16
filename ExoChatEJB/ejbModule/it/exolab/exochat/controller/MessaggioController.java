@@ -34,17 +34,18 @@ public class MessaggioController implements MessaggioControllerInterface {
     }
 
 	@Override
-	public Dto<Messaggio> findMessaggioByUtenteId(Integer utenteId) throws Exception {
+	public List<Messaggio> findMessaggioByUtenteId(Integer utenteId) throws Exception {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
 			List<Messaggio> listaMessaggi = messaggioCrud.findMessaggioByUtenteId(utenteId, entityManager);
-			if(!listaMessaggi.isEmpty()) {
-				Dto <Messaggio> dtoListaMessaggiChat = listaMessaggiRaggruppatiPerChat(listaMessaggi);
-				return dtoListaMessaggiChat;	
-			}else {
-				throw new BusinessException("Non ci sono messaggi");
-			}					
+			return listaMessaggi;
+//			if(!listaMessaggi.isEmpty()) {
+//				Dto <Messaggio> dtoListaMessaggiChat = listaMessaggiRaggruppatiPerChat(listaMessaggi);
+//				return dtoListaMessaggiChat;	
+//			}else {
+//				throw new BusinessException("Non ci sono messaggi");
+//			}					
 		}catch(BusinessException e) {
 			throw new BusinessException(e.getMessage());
 		}

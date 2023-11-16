@@ -9,7 +9,7 @@ import java.util.List;
 @Local
 public interface MessaggioControllerInterface {
 
-	Dto<Messaggio> findMessaggioByUtenteId(Integer utenteId) throws Exception;
+	List<Messaggio> findMessaggioByUtenteId(Integer utenteId) throws Exception;
 
     List<Messaggio> findMessaggioByGroupId(Integer gruppoId) throws Exception;
 
