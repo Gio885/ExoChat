@@ -30,7 +30,7 @@ public class MessaggioRest {
 		try {
 			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
 			Dto<Messaggio> listaMessaggiUtente = messaggioService.findMessaggioByUtenteId(utente.getIdUtente());
-			return Response.status(Status.OK).entity(listaMessaggiUtente).build();			
+			return Response.status(Status.OK).entity(listaMessaggiUtente.getData()).build();			
 		}catch(BusinessException e) {
 			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
 		}catch(Exception e) {
