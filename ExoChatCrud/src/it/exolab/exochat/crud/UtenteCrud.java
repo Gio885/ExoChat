@@ -2,9 +2,12 @@ package it.exolab.exochat.crud;
 
 import it.exolab.exochat.model.Utente;
 import it.exolab.exochat.costanti.*;
+import it.exolab.exochat.eccezioni.BusinessException;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 
@@ -57,10 +60,20 @@ public class UtenteCrud {
 			throw new Exception(Costanti.ERRORE_RICERCA_UTENTE);
 		}
     }
-
+ // entitymanager.flush alineare il container con il DB e clear pulire entitymanager, utilizzato per il remove, bisogna essere sicuri che l'entita venga dissasociata dal continer in caso di remove
+    //entityManager FLUSH fa commit non il persist, NEL REMOVE FLUSH AND CLEAR
+  //RITORNA UN BOOLEAN, PER VERIFICARE SE L'ENTITA E ASSOCIATA AL CONTAINER
+  //LE OPERAZIONI SONO TUTTE A LIVELLO CONTAINTER NON A LIVELLO DB
     public Utente updateUtente(Utente utente, EntityManager entityManager) throws Exception {
         try {
-            return entityManager.merge(utente);
+        	if(entityManager.contains(utente)) {        		
+                 entityManager.persist(utente);        
+        	}else {
+        		entityManager.merge(utente);
+        	}
+        	entityManager.flush();
+        	entityManager.clear();
+        	return utente;
         }catch(Exception e) {
 			System.out.println("Errore nel metodo updateUtente della classe UtenteCrud ---Exception---");
 			e.printStackTrace();
@@ -103,6 +116,10 @@ public class UtenteCrud {
 			  query.setParameter("emailUtente", utente.getEmail());
 			  query.setParameter("passwordUtente", utente.getPassword());
 			  return (Utente) query.getSingleResult();
+		  }catch(NoResultException e) {
+			  e.printStackTrace();
+			  System.out.println("Errore metodo findUtenteByEmailAndPassword ----UtenteCrud---- Nessun entita trovata");
+			  throw new BusinessException("Credenziali errate");
 		  }catch(Exception e) {
 			  e.printStackTrace();
 			  System.out.println("Errore metodo findUtenteByEmailAndPassword ---UtenteCrud---");

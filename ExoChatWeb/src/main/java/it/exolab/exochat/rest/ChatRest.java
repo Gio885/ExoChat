@@ -17,7 +17,7 @@ import it.exolab.exochat.endpoint.EndPoint;
 import it.exolab.exochat.model.Chat;
 import it.exolab.exochat.model.Utente;
 
-@Path(value = EndPoint.CHAT_REST)
+@Path(EndPoint.CHAT_REST)
 public class ChatRest {
 
 	@POST
@@ -34,6 +34,7 @@ public class ChatRest {
 			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("Errore metodo findChatForUtente ---ChatRest---- ");
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}
 	}

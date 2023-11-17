@@ -1,7 +1,9 @@
 package it.exolab.exochat.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
@@ -14,20 +16,32 @@ public class Chat implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CHAT")
     private Integer idChat;
-
+	
+    @Column(name = "TIPO_CHAT_ID",nullable = false)
+	private Integer tipoChatId;
+	
     @ManyToOne
-    @JoinColumn(name = "TIPO_CHAT_ID", nullable = false)
+    @JoinColumn(name = "TIPO_CHAT_ID", insertable = false, updatable = false)
     private TipoChat tipoChat;
+    
+    @JsonbTransient
+    @OneToMany(mappedBy = "chat",fetch = FetchType.LAZY)
+    private List<Messaggio> listaMessaggiChat;
 
-    
-    
-    
 	public Integer getIdChat() {
 		return idChat;
 	}
 
 	public void setIdChat(Integer idChat) {
 		this.idChat = idChat;
+	}
+
+	public Integer getTipoChatId() {
+		return tipoChatId;
+	}
+
+	public void setTipoChatId(Integer tipoChatId) {
+		this.tipoChatId = tipoChatId;
 	}
 
 	public TipoChat getTipoChat() {
@@ -37,6 +51,15 @@ public class Chat implements Serializable{
 	public void setTipoChat(TipoChat tipoChat) {
 		this.tipoChat = tipoChat;
 	}
+
+	public List<Messaggio> getListaMessaggiChat() {
+		return listaMessaggiChat;
+	}
+
+	public void setListaMessaggiChat(List<Messaggio> listaMessaggiChat) {
+		this.listaMessaggiChat = listaMessaggiChat;
+	}
+   
     
     
     

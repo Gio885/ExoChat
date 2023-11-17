@@ -16,35 +16,36 @@ public class Chiamata implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CHIAMATA")
     private Integer idChiamata;
-
-    @ManyToOne
-    @JoinColumn(name = "CHIAMANTE_ID", nullable = false)
-    private Utente chiamante;
-
-    @ManyToOne
-    @JoinColumn(name = "RICEVENTE_ID")
-    private Utente ricevente;
-
-    @ManyToOne
-    @JoinColumn(name = "GRUPPO_RICEVENTE_ID")
-    private Gruppo gruppoRicevente;
-
-    @Column(name = "DATA_ORA_INZIO", nullable = false)
+	
+    @Column(name = "CHIAMANTE_ID", nullable = false)
+	private Integer chiamanteId;
+	
+    @Column(name = "RICEVENTE_ID")
+	private Integer riceventeId;
+	
+    @Column(name = "GRUPPO_RICEVENTE_ID")
+	private Integer gruppoRiceventeId;
+	
+	@Column(name = "DATA_ORA_INZIO")
     private Date dataOraInizio;
 
     @Column(name = "DATA_ORA_FINE")
     private Date dataOraFine;
 
-    @Column(name = "DURATA", nullable = false)
+    @Column(name = "DURATA")
     private Time durata;
-    
-    
-    
-    
-    
-    
-    
-    
+
+    @ManyToOne
+    @JoinColumn(name = "CHIAMANTE_ID", insertable = false, updatable = false)
+    private Utente chiamante;
+
+    @ManyToOne
+    @JoinColumn(name = "RICEVENTE_ID", insertable = false, updatable = false)
+    private Utente ricevente;
+
+    @ManyToOne
+    @JoinColumn(name = "GRUPPO_RICEVENTE_ID", insertable = false, updatable = false)
+    private Gruppo gruppoRicevente;
 
 	public Integer getIdChiamata() {
 		return idChiamata;
@@ -52,6 +53,54 @@ public class Chiamata implements Serializable {
 
 	public void setIdChiamata(Integer idChiamata) {
 		this.idChiamata = idChiamata;
+	}
+
+	public Integer getChiamanteId() {
+		return chiamanteId;
+	}
+
+	public void setChiamanteId(Integer chiamanteId) {
+		this.chiamanteId = chiamanteId;
+	}
+
+	public Integer getRiceventeId() {
+		return riceventeId;
+	}
+
+	public void setRiceventeId(Integer riceventeId) {
+		this.riceventeId = riceventeId;
+	}
+
+	public Integer getGruppoRiceventeId() {
+		return gruppoRiceventeId;
+	}
+
+	public void setGruppoRiceventeId(Integer gruppoRiceventeId) {
+		this.gruppoRiceventeId = gruppoRiceventeId;
+	}
+
+	public Date getDataOraInizio() {
+		return dataOraInizio;
+	}
+
+	public void setDataOraInizio(Date dataOraInizio) {
+		this.dataOraInizio = dataOraInizio;
+	}
+
+	public Date getDataOraFine() {
+		return dataOraFine;
+	}
+
+	public void setDataOraFine(Date dataOraFine) {
+		this.dataOraFine = dataOraFine;
+	}
+
+	public Time getDurata() {
+		return durata;
+	}
+
+	public void setDurata(Time durata) {
+		this.durata = durata;
 	}
 
 	public Utente getChiamante() {
@@ -78,29 +127,14 @@ public class Chiamata implements Serializable {
 		this.gruppoRicevente = gruppoRicevente;
 	}
 
-	public Date getDataOraInizio() {
-		return dataOraInizio;
-	}
-
-	public void setDataOraInizio(Date dataOraInizio) {
-		this.dataOraInizio = dataOraInizio;
-	}
-
-	public Date getDataOraFine() {
-		return dataOraFine;
-	}
-
-	public void setDataOraFine(Date dataOraFine) {
-		this.dataOraFine = dataOraFine;
-	}
-
-	public Time getDurata() {
-		return durata;
-	}
-
-	public void setDurata(Time durata) {
-		this.durata = durata;
-	}
+	
+    
+    
+    
+    
+    
+    
+    
     
     
 

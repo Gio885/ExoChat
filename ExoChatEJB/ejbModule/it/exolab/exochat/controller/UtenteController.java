@@ -15,6 +15,7 @@ import it.exolab.exochat.crud.UtenteCrud;
 import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.UtenteControllerInterface;
+import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
 import it.exolab.exochat.model.Messaggio;
 import it.exolab.exochat.model.Utente;
 import it.exolab.exochat.validatore.Validatore;
@@ -40,7 +41,7 @@ import it.exolab.exochat.validatore.Validatore;
  */
 @Stateless(name = "UtenteControllerInterface")
 @LocalBean
-public class UtenteController implements UtenteControllerInterface {
+public class UtenteController extends EntityManagerProvider  implements UtenteControllerInterface {
 
 	@PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
 	private EntityManagerFactory entityManagerFactory;
@@ -53,6 +54,7 @@ public class UtenteController implements UtenteControllerInterface {
 	public Dto <Utente> insertUtente(Utente utente) throws Exception {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
+			//RITORNO LISTA ERRORI SE VUOTA VA AVANTI ALTRIMENTI LANCIA BUSINESS EXCEPTION
 			Dto <Utente> dtoUtente = new Dto <Utente>();
 			new Validatore().validatoreUtente(utente);
 			UtenteCrud crud = new UtenteCrud();
@@ -199,15 +201,9 @@ public class UtenteController implements UtenteControllerInterface {
 			Dto <Utente> dtoUtente = new Dto <Utente>();
 			UtenteCrud utenteCrud = new UtenteCrud();
 			Utente utenteDaTrovare = utenteCrud.findUtenteByEmailAndPassword(utente, entityManager);
-			if(null != utenteDaTrovare) {
-				dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteDaTrovare));
-				return dtoUtente;			
-			}else {
-				throw new BusinessException("Credenziali non valide");
-			}			
+			dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteDaTrovare));
+			return dtoUtente;							
 		}catch(BusinessException e) {
-			e.printStackTrace();
-			System.out.println();
 			throw new BusinessException(e.getMessage());
 		}catch(Exception e) {
 			e.printStackTrace();

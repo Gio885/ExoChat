@@ -14,20 +14,20 @@ public class GruppoUtente implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PARTECIPANTE")
     private Integer idPartecipante;
+	
+    @Column(name = "GRUPPO_ID", nullable = false)
+	private Integer gruppoId;
+    
+    @Column(name = "UTENTE_ID", nullable = false)
+	private Integer utenteId;
 
     @ManyToOne
-    @JoinColumn(name = "GRUPPO_ID", nullable = false)
+    @JoinColumn(name = "GRUPPO_ID", insertable = false, updatable = false)
     private Gruppo gruppo;
 
     @ManyToOne
-    @JoinColumn(name = "UTENTE_ID", nullable = false)
+    @JoinColumn(name = "UTENTE_ID", insertable = false, updatable = false)
     private Utente utente;
-    
-    
-    
-    
-    
-    
 
 	public Integer getIdPartecipante() {
 		return idPartecipante;
@@ -35,6 +35,22 @@ public class GruppoUtente implements Serializable{
 
 	public void setIdPartecipante(Integer idPartecipante) {
 		this.idPartecipante = idPartecipante;
+	}
+
+	public Integer getGruppoId() {
+		return gruppoId;
+	}
+
+	public void setGruppoId(Integer gruppoId) {
+		this.gruppoId = gruppoId;
+	}
+
+	public Integer getUtenteId() {
+		return utenteId;
+	}
+
+	public void setUtenteId(Integer utenteId) {
+		this.utenteId = utenteId;
 	}
 
 	public Gruppo getGruppo() {
@@ -52,6 +68,8 @@ public class GruppoUtente implements Serializable{
 	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
+    
+    
     
     
 }

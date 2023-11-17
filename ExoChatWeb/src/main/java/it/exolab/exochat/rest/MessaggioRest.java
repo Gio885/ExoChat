@@ -38,7 +38,6 @@ public class MessaggioRest {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}
 	}
-	
 	@POST
 	@Path(EndPoint.LISTA_LAST_MESSAGGIO_CHAT)
 	@Produces(MediaType.APPLICATION_JSON)

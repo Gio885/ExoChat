@@ -48,26 +48,6 @@ public class MessaggioCrud {
 		}
 	}
 
-	/*
-	 * "SELECT messaggio.chat.idChat, messaggio.contenutoMessaggio, messaggio.dataOra "
-	 * + "FROM Messaggio messaggio " +
-	 * "JOIN (SELECT chat.idChat, MAX(messaggio.dataOra) AS max_data_ora " +
-	 * "      FROM Messaggio messaggio " +
-	 * "      WHERE messaggio.mittente.idUtente = :utenteId OR messaggio.destinatario.idUtente = :utenteId "
-	 * + "      GROUP BY messaggio.chat.idChat) messaggi_recenti " +
-	 * "ON messaggio.chat.idChat = messaggi_recenti.chat.idChat AND messaggio.dataOra = messaggi_recenti.max_data_ora "
-	 * + "ORDER BY messaggio.dataOra DESC";
-	 */
-
-	/*
-	 * "JOIN (SELECT chat.idChat, MAX(messaggio.dataOra) AS max_data_ora " +
-	 * "      FROM Messaggio messaggio " +
-	 * "      WHERE messaggio.mittente.idUtente = :utenteId OR messaggio.destinatario.idUtente = :utenteId "
-	 * + "      GROUP BY messaggio.chat.idChat) messaggi_recenti " +
-	 * "ON messaggio.chat.idChat = messaggi_recenti.idChat AND messaggio.dataOra = messaggi_recenti.max_data_ora "
-	 * +
-	 */
-
 	@SuppressWarnings("unchecked")
 	public List<Messaggio> findLastMessaggeForChat(Utente utente, EntityManager entityManager) throws Exception {
 		try {
@@ -79,8 +59,6 @@ public class MessaggioCrud {
 					"  JOIN m1.chat c1 " +
 					"  WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
 					"  GROUP BY c1.idChat)";
-;
-
 			Query query = entityManager.createQuery(queryString);
 			query.setParameter("utenteId", utente.getIdUtente());
 			return query.getResultList();

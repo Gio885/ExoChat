@@ -1,7 +1,9 @@
 package it.exolab.exochat.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
@@ -24,15 +26,22 @@ public class Gruppo implements Serializable {
     @Lob
     @Column(name = "FOTO_GRUPPO")
     private byte[] fotoGruppo;
+    
+    @Column(name = "AMMINISTRATORE_GRUPPO")
+    private Integer amministratoreGruppo;
 
     @ManyToOne
-    @JoinColumn(name = "AMMINISTRATOREl", nullable = false)
+    @JoinColumn(name = "ID_UTENTE", insertable = false, updatable = false)
     private Utente amministratore;
+    
+    @JsonbTransient
+    @OneToMany(mappedBy = "gruppo",fetch = FetchType.LAZY)
+    private List<Messaggio> listaMessaggiGruppo;
+    
+    @JsonbTransient
+    @OneToMany(mappedBy = "gruppoRicevente",fetch = FetchType.LAZY)
+    private List<Chiamata> chiamateGruppo;
 
-    
-    
-    
-    
 	public Integer getIdGruppo() {
 		return idGruppo;
 	}
@@ -65,6 +74,14 @@ public class Gruppo implements Serializable {
 		this.fotoGruppo = fotoGruppo;
 	}
 
+	public Integer getAmministratoreGruppo() {
+		return amministratoreGruppo;
+	}
+
+	public void setAmministratoreGruppo(Integer amministratoreGruppo) {
+		this.amministratoreGruppo = amministratoreGruppo;
+	}
+
 	public Utente getAmministratore() {
 		return amministratore;
 	}
@@ -72,6 +89,23 @@ public class Gruppo implements Serializable {
 	public void setAmministratore(Utente amministratore) {
 		this.amministratore = amministratore;
 	}
+
+	public List<Messaggio> getListaMessaggiGruppo() {
+		return listaMessaggiGruppo;
+	}
+
+	public void setListaMessaggiGruppo(List<Messaggio> listaMessaggiGruppo) {
+		this.listaMessaggiGruppo = listaMessaggiGruppo;
+	}
+
+	public List<Chiamata> getChiamateGruppo() {
+		return chiamateGruppo;
+	}
+
+	public void setChiamateGruppo(List<Chiamata> chiamateGruppo) {
+		this.chiamateGruppo = chiamateGruppo;
+	}
+
 
     
 	

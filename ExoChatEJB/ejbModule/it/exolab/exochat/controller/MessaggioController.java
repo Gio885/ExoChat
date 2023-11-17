@@ -108,11 +108,11 @@ public class MessaggioController implements MessaggioControllerInterface {
 			}		
 		}catch(BusinessException e) {
 			e.printStackTrace();
-			System.out.println();
+			System.out.println("Errore metodo findLastMessaggeForChat ---MessaggioController--- BusinessException");
 			throw new BusinessException(e.getMessage());
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println();
+			System.out.println("Errore metodo findLastMessaggeForChat ---MessaggioController--- ");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_MESSAGGI);
 		}
 	}
@@ -125,7 +125,7 @@ public class MessaggioController implements MessaggioControllerInterface {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println();
+			System.out.println("Errore metodo formattaLista MessaggioController ");
 			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}

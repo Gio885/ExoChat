@@ -3,6 +3,7 @@ package it.exolab.exochat.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
@@ -15,19 +16,16 @@ public class Messaggio implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_MESSAGGIO")
 	private Integer idMessaggio;
-
-	@ManyToOne
-	@JoinColumn(name = "MITTENTE_ID", nullable = false)
-	private Utente mittente;
-
-	@ManyToOne
-	@JoinColumn(name = "DESTINATARIO_ID")
-	private Utente destinatario;
-
-	@ManyToOne
-	@JoinColumn(name = "GRUPPO_ID")
-	private Gruppo gruppo;
-
+	
+	@Column(name = "MITTENTE_ID")
+	private Integer mittenteId;
+	
+	@Column(name = "DESTINATARIO_ID")
+	private Integer destinatarioId;
+	
+	@Column(name = "GRUPPO_ID")
+	private Integer gruppoId;
+	
 	@Column(name = "CONTENUTO_MESSAGGIO", nullable = false)
 	private String contenutoMessaggio;
 
@@ -35,18 +33,27 @@ public class Messaggio implements Serializable {
 	@Column(name = "FILE")
 	private byte[] file;
 
-	@Column(name = "DATA_ORA", nullable = false)
+	@Column(name = "DATA_ORA")
 	private Date dataOra;
+	
+	@Column(name = "CHAT_ID", nullable = false)
+	private Integer chatId;
 
-	@ManyToOne
-	@JoinColumn(name = "CHAT_ID", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MITTENTE_ID", insertable = false, updatable = false)
+	private Utente mittente;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "DESTINATARIO_ID", insertable = false, updatable = false)
+	private Utente destinatario;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "GRUPPO_ID", insertable = false, updatable = false)
+	private Gruppo gruppo;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CHAT_ID", insertable = false, updatable = false)
 	private Chat chat;
-	
-	
-	
-	
-	
-	
 
 	public Integer getIdMessaggio() {
 		return idMessaggio;
@@ -56,28 +63,28 @@ public class Messaggio implements Serializable {
 		this.idMessaggio = idMessaggio;
 	}
 
-	public Utente getMittente() {
-		return mittente;
+	public Integer getMittenteId() {
+		return mittenteId;
 	}
 
-	public void setMittente(Utente mittente) {
-		this.mittente = mittente;
+	public void setMittenteId(Integer mittenteId) {
+		this.mittenteId = mittenteId;
 	}
 
-	public Utente getDestinatario() {
-		return destinatario;
+	public Integer getDestinatarioId() {
+		return destinatarioId;
 	}
 
-	public void setDestinatario(Utente destinatario) {
-		this.destinatario = destinatario;
+	public void setDestinatarioId(Integer destinatarioId) {
+		this.destinatarioId = destinatarioId;
 	}
 
-	public Gruppo getGruppo() {
-		return gruppo;
+	public Integer getGruppoId() {
+		return gruppoId;
 	}
 
-	public void setGruppo(Gruppo gruppo) {
-		this.gruppo = gruppo;
+	public void setGruppoId(Integer gruppoId) {
+		this.gruppoId = gruppoId;
 	}
 
 	public String getContenutoMessaggio() {
@@ -104,6 +111,38 @@ public class Messaggio implements Serializable {
 		this.dataOra = dataOra;
 	}
 
+	public Integer getChatId() {
+		return chatId;
+	}
+
+	public void setChatId(Integer chatId) {
+		this.chatId = chatId;
+	}
+
+	public Utente getMittente() {
+		return mittente;
+	}
+
+	public void setMittente(Utente mittente) {
+		this.mittente = mittente;
+	}
+
+	public Utente getDestinatario() {
+		return destinatario;
+	}
+
+	public void setDestinatario(Utente destinatario) {
+		this.destinatario = destinatario;
+	}
+
+	public Gruppo getGruppo() {
+		return gruppo;
+	}
+
+	public void setGruppo(Gruppo gruppo) {
+		this.gruppo = gruppo;
+	}
+
 	public Chat getChat() {
 		return chat;
 	}
@@ -111,5 +150,13 @@ public class Messaggio implements Serializable {
 	public void setChat(Chat chat) {
 		this.chat = chat;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
