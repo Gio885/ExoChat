@@ -51,7 +51,7 @@ public class MessaggioCrud {
 
 	public List<Messaggio> findMessaggiForChatId(Chat chat,EntityManager entityManager) throws Exception{
 		try {
-			String queryString = "SELECT m FROM Messaggio m WHERE m.chatId.idChat = :chatId";
+			String queryString = "SELECT m FROM Messaggio m WHERE m.chat.idChat = :chatId";
 			Query query = entityManager.createQuery(queryString);
 			query.setParameter("chatId", chat.getIdChat());
 			return query.getResultList();		
