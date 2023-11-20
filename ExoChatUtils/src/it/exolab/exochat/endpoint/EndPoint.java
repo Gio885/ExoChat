@@ -12,6 +12,6 @@ public class EndPoint {
 	public static final String LISTA_MESSAGGI_UTENTE = "/listaMessaggiPerUtenteIdPerChat";
 	public static final String LISTA_LAST_MESSAGGIO_CHAT = "/listaUltimiMessaggiPerChat";
 	public static final String LISTA_MESSAGGI_CHAT = "/listaMessaggiPerChat";
-
+	public static final String INSERT_MESSAGGIO = "/insertMessage";
 
 }

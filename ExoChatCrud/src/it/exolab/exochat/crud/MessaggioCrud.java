@@ -42,6 +42,8 @@ public class MessaggioCrud {
 	public void insertMessaggio(Messaggio messaggio, EntityManager entityManager) throws Exception {
 		try {
 			entityManager.persist(messaggio);
+			entityManager.flush();
+			entityManager.clear();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore insertMessaggio --MessaggioCrud--");
