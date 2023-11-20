@@ -96,8 +96,18 @@ public class MessaggioController implements MessaggioControllerInterface {
 		try {
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
 			List<Messaggio> listaMessaggiChat = messaggioCrud.findMessaggiForChatId(chat, entityManager);
-			return listaMessaggiChat;			
-		}catch(Exception e) {
+			if(!listaMessaggiChat.isEmpty()) {
+				formattaLista(listaMessaggiChat);
+				return listaMessaggiChat;
+			}else {
+				throw new BusinessException("Non ci sono messaggi");
+			}			
+		}catch(BusinessException e) {
+			e.printStackTrace();
+			System.out.println("Errore findMessaggiForChatId   ----MessaggioController----");
+			throw new BusinessException(e.getMessage());
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo findMessaggiForChatId  ---MessaggioController----");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_CHAT);
