@@ -1,12 +1,9 @@
 package it.exolab.exochat.convertitore;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Base64;
 import java.util.List;
-import java.util.Locale;
 
-import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.model.Utente;
 
 public class Convertitore {
@@ -21,7 +18,8 @@ public class Convertitore {
 			utenteDTO.setInfo(utente.getInfo());
 		}
 		if(null != utente.getFoto()) {
-			utenteDTO.setFoto(utente.getFoto());
+			String foto = Base64.getEncoder().encodeToString(utente.getFoto());
+			utenteDTO.setFotoConvertita(foto);
 		}
 		return utenteDTO;
 	}

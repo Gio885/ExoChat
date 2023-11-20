@@ -1,5 +1,9 @@
 package it.exolab.exochat.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -58,6 +62,10 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 			List<String> errori = new Validatore().validatoreUtente(utente);
 			if(errori.isEmpty()) {
 				UtenteCrud crud = new UtenteCrud();
+				if(null == utente.getFoto()) {
+					setFotoUtente(utente);
+				}
+				System.out.println(utente.getFoto());
 				entityManager.getTransaction().begin();
 				Utente utenteInserito = crud.insert(utente, entityManager);
 				entityManager.getTransaction().commit();
@@ -215,6 +223,27 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 		}finally {
 			entityManager.close();
 		}
+	}
+	
+	private void setFotoUtente(Utente utente) throws IOException {
+		try {
+			String imagePath = "fotoprofilo.png";
+			
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			InputStream inputStream = classLoader.getResourceAsStream(imagePath);
+			if (inputStream != null) {
+			    // Leggi l'immagine dall'input stream e convertila in un array di byte
+			    byte[] imageBytes = inputStream.readAllBytes();
+
+			    // Imposta l'array di byte nella proprietà 'foto' dell'utente
+			    utente.setFoto(imageBytes);		    
+			    inputStream.close();
+			}
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Errore metodo setFotoUtente  ----UtenteController----");
+            throw new IOException(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+        }
 	}
 
 

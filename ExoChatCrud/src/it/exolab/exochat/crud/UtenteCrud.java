@@ -1,6 +1,6 @@
 package it.exolab.exochat.crud;
 
-import it.exolab.exochat.model.Utente;
+import it.exolab.exochat.model.*;
 import it.exolab.exochat.costanti.*;
 import it.exolab.exochat.eccezioni.BusinessException;
 
