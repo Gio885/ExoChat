@@ -14,13 +14,9 @@ public class Convertitore {
 		utenteDTO.setIdUtente(utente.getIdUtente());
 		utenteDTO.setUsername(utente.getUsername());
 		utenteDTO.setEmail(utente.getEmail());
-		if(null != utente.getInfo()) {
-			utenteDTO.setInfo(utente.getInfo());
-		}
-		if(null != utente.getFoto()) {
-			String foto = Base64.getEncoder().encodeToString(utente.getFoto());
-			utenteDTO.setFotoConvertita(foto);
-		}
+		utenteDTO.setInfo(utente.getInfo());	
+		String foto = Base64.getEncoder().encodeToString(utente.getFoto());
+		utenteDTO.setFotoConvertita(foto);
 		return utenteDTO;
 	}
 	

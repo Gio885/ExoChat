@@ -62,10 +62,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 			List<String> errori = new Validatore().validatoreUtente(utente);
 			if(errori.isEmpty()) {
 				UtenteCrud crud = new UtenteCrud();
-				if(null == utente.getFoto()) {
-					setFotoUtente(utente);
-				}
-				System.out.println(utente.getFoto());
+				buildUtente(utente);			
 				entityManager.getTransaction().begin();
 				Utente utenteInserito = crud.insert(utente, entityManager);
 				entityManager.getTransaction().commit();
@@ -225,10 +222,10 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 		}
 	}
 	
-	private void setFotoUtente(Utente utente) throws IOException {
+	private void buildUtente(Utente utente) throws IOException {
 		try {
-			String imagePath = "fotoprofilo.png";
-			
+			utente.setInfo("Disponibile");
+			String imagePath = "fotoprofilo.png";			
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			InputStream inputStream = classLoader.getResourceAsStream(imagePath);
 			if (inputStream != null) {
