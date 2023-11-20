@@ -34,6 +34,7 @@ public class Messaggio implements Serializable {
 	private byte[] file;
 
 	@Column(name = "DATA_ORA")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Date dataOra;
 	
 	@Column(name = "CHAT_ID", nullable = false)
