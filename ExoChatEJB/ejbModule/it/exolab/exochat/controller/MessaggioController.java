@@ -3,16 +3,12 @@ package it.exolab.exochat.controller;
 import it.exolab.exochat.convertitore.Convertitore;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.MessaggioCrud;
-import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
 import it.exolab.exochat.model.Messaggio;
-import it.exolab.exochat.model.Utente;
+import it.exolab.exochat.model.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -93,6 +89,21 @@ public class MessaggioController implements MessaggioControllerInterface {
 			entityManager.close();
 		}
 	}
+	
+	@Override
+	public List<Messaggio> findMessaggiForChatId(Chat chat) throws Exception {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			MessaggioCrud messaggioCrud = new MessaggioCrud();
+			List<Messaggio> listaMessaggiChat = messaggioCrud.findMessaggiForChatId(chat, entityManager);
+			return listaMessaggiChat;			
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo findMessaggiForChatId  ---MessaggioController----");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_CHAT);
+		}
+	}
+	    
 
 	@Override
 	public List<Messaggio> findLastMessaggeForChat(Utente utente) throws Exception {
@@ -129,5 +140,6 @@ public class MessaggioController implements MessaggioControllerInterface {
 			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}
-	           	
+
+       	
 }

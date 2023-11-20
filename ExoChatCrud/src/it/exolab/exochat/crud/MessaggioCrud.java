@@ -1,6 +1,7 @@
 package it.exolab.exochat.crud;
 
 import it.exolab.exochat.costanti.Costanti;
+import it.exolab.exochat.model.Chat;
 import it.exolab.exochat.model.Messaggio;
 import it.exolab.exochat.model.Utente;
 
@@ -48,6 +49,20 @@ public class MessaggioCrud {
 		}
 	}
 
+	public List<Messaggio> findMessaggiForChatId(Chat chat,EntityManager entityManager) throws Exception{
+		try {
+			String queryString = "SELECT m FROM Messaggio m WHERE m.chatId.idChat = :chatId";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("chatId", chat.getIdChat());
+			return query.getResultList();		
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo findMessaggiForChatId ----MessaggioCrud----");
+			throw new Exception(Costanti.ERRORE_CARICAMENTO_CHAT);
+		}
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public List<Messaggio> findLastMessaggeForChat(Utente utente, EntityManager entityManager) throws Exception {
 		try {

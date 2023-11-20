@@ -54,15 +54,18 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 	public Dto <Utente> insertUtente(Utente utente) throws Exception {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
-			//RITORNO LISTA ERRORI SE VUOTA VA AVANTI ALTRIMENTI LANCIA BUSINESS EXCEPTION
 			Dto <Utente> dtoUtente = new Dto <Utente>();
-			new Validatore().validatoreUtente(utente);
-			UtenteCrud crud = new UtenteCrud();
-			entityManager.getTransaction().begin();
-			Utente utenteInserito = crud.insertUtente(utente, entityManager);
-			entityManager.getTransaction().commit();
-			dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteInserito));
-			return dtoUtente;
+			List<String> errori = new Validatore().validatoreUtente(utente);
+			if(errori.isEmpty()) {
+				UtenteCrud crud = new UtenteCrud();
+				entityManager.getTransaction().begin();
+				Utente utenteInserito = crud.insert(utente, entityManager);
+				entityManager.getTransaction().commit();
+				dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteInserito));
+				return dtoUtente;
+			}else {
+				throw new BusinessException(String.join("\n", errori));
+			}		
 		}catch (BusinessException e) {
 			e.printStackTrace();
 			System.out.println("Errore validazione Utente insertUtente UtenteController  ---BusinessException--- ");
@@ -109,7 +112,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 		try {
 			Dto <Utente> dtoUtente = new Dto <Utente>();
 			UtenteCrud utenteCrud = new UtenteCrud();
-			Utente utenteDaTrovare = utenteCrud.findUtenteById(idUtente, entityManager);
+			Utente utenteDaTrovare = utenteCrud.findById(idUtente, entityManager);
 			dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteDaTrovare));
 			return dtoUtente;
 		}catch(Exception e) {
@@ -158,7 +161,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 			new Validatore().validatoreUtente(utente);
 			UtenteCrud utenteCrud = new UtenteCrud();
 			entityManager.getTransaction().begin();
-			Utente utenteAggiornato = utenteCrud.updateUtente(utente, entityManager);
+			Utente utenteAggiornato = utenteCrud.update(utente, entityManager);
 			entityManager.getTransaction().commit();
 			dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteAggiornato));
 			return dtoUtente;		
@@ -182,7 +185,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 		try {
 			UtenteCrud utenteCrud = new UtenteCrud();
 			entityManager.getTransaction().begin();
-			utenteCrud.deleteUtente(utente.getIdUtente(), entityManager);
+			utenteCrud.delete(utente, entityManager);
 			entityManager.getTransaction().commit();
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -15,6 +15,7 @@ import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
 import it.exolab.exochat.endpoint.EndPoint;
+import it.exolab.exochat.model.Chat;
 import it.exolab.exochat.model.Messaggio;
 import it.exolab.exochat.model.Utente;
 
@@ -38,6 +39,26 @@ public class MessaggioRest {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}
 	}
+	
+	@POST
+	@Path(EndPoint.LISTA_MESSAGGI_CHAT)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response findMessaggiForChatId(Chat chat) {
+		try {
+			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
+			List<Messaggio> listaMessaggiChat = messaggioService.findMessaggiForChatId(chat);
+			return Response.status(Status.OK).entity(listaMessaggiChat).build();			
+		}catch(BusinessException e) {
+			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+	}
+	
+	
+	
 	@POST
 	@Path(EndPoint.LISTA_LAST_MESSAGGIO_CHAT)
 	@Produces(MediaType.APPLICATION_JSON)
