@@ -1,7 +1,10 @@
 package it.exolab.exochat.rest;
 
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -55,6 +58,24 @@ public class UtenteRest {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();		
 		}
 		
+	}
+	
+	@GET
+	@Path(EndPoint.FIND_ALL_UTENTE)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAllUtente() {
+		try {
+			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
+			Dto<List<Utente>> dtoUtente = utenteService.findAllUtenti();
+			return Response.status(Status.OK).entity(dtoUtente.getData()).build();
+		}catch(BusinessException e) {
+			e.printStackTrace();
+			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo findAllUtente ---UtenteRest----");
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();		
+		}
 	}
 	
 	

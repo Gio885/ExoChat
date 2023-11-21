@@ -26,11 +26,11 @@ public class ChatCrud {
         }
     }
 
-    public Chat insertChat(Chat chat, EntityManager entityManager) throws Exception {
-    	
+    public Chat insertChat(Chat chat, EntityManager entityManager) throws Exception {   	
         try {
             entityManager.persist(chat);
             entityManager.flush();
+            entityManager.clear();
             return chat;
         } catch (Exception e) {
             e.printStackTrace();

@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import it.exolab.exochat.conf.EjbService;
+import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.ChatControllerInterface;
 import it.exolab.exochat.endpoint.EndPoint;
@@ -35,7 +36,23 @@ public class ChatRest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo findChatForUtente ---ChatRest---- ");
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
+		}
+	}
+	
+	@POST
+	@Path(EndPoint.INSERT_CHAT)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response insertChat(Chat chat) {
+		try {
+			ChatControllerInterface serviceChat = new EjbService<ChatControllerInterface>(ChatControllerInterface.class).getEJB();
+			Chat chatInserita = serviceChat.insertChat(chat);
+			return Response.status(Status.OK).entity(chatInserita).build();
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo insertChat ---ChatRest---- ");
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
 		}
 	}
 	
