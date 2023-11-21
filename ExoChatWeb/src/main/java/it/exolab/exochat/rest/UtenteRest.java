@@ -54,7 +54,7 @@ public class UtenteRest {
 			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("Errore metodo loginUtente ---ChatRest---- ");
+			System.out.println("Errore metodo loginUtente ---UtenteRest---- ");
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();		
 		}
 		
