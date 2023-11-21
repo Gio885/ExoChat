@@ -2,6 +2,7 @@ package it.exolab.exochat.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
@@ -54,6 +55,39 @@ public class Messaggio implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CHAT_ID", insertable = false, updatable = false)
 	private Chat chat;
+	
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(dataOra, destinatarioId, gruppoId, mittenteId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	        return true;
+	    }
+	    if (obj == null || getClass() != obj.getClass()) {
+	        return false;
+	    }
+	    Messaggio other = (Messaggio) obj;
+
+	    // Check if destinatarioId is null
+	    if (destinatarioId == null) {
+	        // If destinatarioId is null, check gruppoId
+	        return Objects.equals(gruppoId, other.gruppoId) &&
+	               Objects.equals(dataOra, other.dataOra) &&
+	               Objects.equals(mittenteId, other.mittenteId);
+	    }
+
+	    // If destinatarioId is not null, perform standard equality check
+	    return Objects.equals(dataOra, other.dataOra) &&
+	           Objects.equals(destinatarioId, other.destinatarioId) &&
+	           Objects.equals(gruppoId, other.gruppoId) &&
+	           Objects.equals(mittenteId, other.mittenteId);
+	}
 
 	public Integer getIdMessaggio() {
 		return idMessaggio;
