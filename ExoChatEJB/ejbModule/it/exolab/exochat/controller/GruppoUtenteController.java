@@ -39,6 +39,7 @@ public class GruppoUtenteController implements GruppoUtenteControllerInterface {
 			System.out.println("Errore metodo findAllUtenteByGroupId ----gruppoUtenteController----  ");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_UTENTI);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
 		}
 	}
@@ -55,6 +56,7 @@ public class GruppoUtenteController implements GruppoUtenteControllerInterface {
 			System.out.println("Errore metodo findAllGroupByUtenteId ---GruppoUtenteController---");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_GRUPPI);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
 		}
 	}
@@ -74,6 +76,7 @@ public class GruppoUtenteController implements GruppoUtenteControllerInterface {
 			System.out.println("Errore metodo insertGruppoUtente ---GruppoUtenteController---");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
 		}		
 	}
@@ -93,8 +96,9 @@ public class GruppoUtenteController implements GruppoUtenteControllerInterface {
 			System.out.println("Errore metodo updateGruppoUtente ---GruppoUtenteController---");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
-		}		
+		}	
 	}
 
 	@Override
@@ -111,6 +115,7 @@ public class GruppoUtenteController implements GruppoUtenteControllerInterface {
 			System.out.println("Errore metodo deleteGruppoUtente ---GruppoUtenteController---");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
 		}		
 	}

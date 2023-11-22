@@ -78,6 +78,24 @@ public class UtenteRest {
 		}
 	}
 	
+	@POST
+	@Path(EndPoint.FIND_ALL_CHAT_NON_INIZIATE)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response findAllUtentiChatNonIniziate(Utente utente) {
+		try {
+			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
+			Dto<List<Utente>> dtoUtente = utenteService.findAllUtentiChatNonIniziate(utente);
+			return Response.status(Status.OK).entity(dtoUtente.getData()).build();
+		}catch(BusinessException e) {
+			e.printStackTrace();
+			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo findAllUtente ---UtenteRest----");
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();		
+		}
+	}
 	
 	
 	

@@ -46,6 +46,26 @@ public class Chiamata implements Serializable {
     @ManyToOne
     @JoinColumn(name = "GRUPPO_RICEVENTE_ID", insertable = false, updatable = false)
     private Gruppo gruppoRicevente;
+    
+    
+    
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idChiamata);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Chiamata other = (Chiamata) obj;
+		return Objects.equals(idChiamata, other.idChiamata);
+	}
 
 	public Integer getIdChiamata() {
 		return idChiamata;

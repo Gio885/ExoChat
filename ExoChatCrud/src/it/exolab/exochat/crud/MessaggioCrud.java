@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class MessaggioCrud {
+public class MessaggioCrud extends BaseCrud <Messaggio> {
 
 	@SuppressWarnings("unchecked")
 	public List<Messaggio> findMessaggioByUtenteId(Integer utenteId, EntityManager entityManager) throws Exception {
@@ -39,17 +39,7 @@ public class MessaggioCrud {
 		}
 	}
 
-	public void insertMessaggio(Messaggio messaggio, EntityManager entityManager) throws Exception {
-		try {
-			entityManager.persist(messaggio);
-			entityManager.flush();
-			entityManager.clear();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Errore insertMessaggio --MessaggioCrud--");
-			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-		}
-	}
+
 
 	public List<Messaggio> findMessaggiForChatId(Chat chat,EntityManager entityManager) throws Exception{
 		try {
@@ -75,7 +65,7 @@ public class MessaggioCrud {
 					"  FROM Messaggio m1 " +
 					"  JOIN m1.chat c1 " +
 					"  WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
-					"  GROUP BY c1.idChat)";
+					"  GROUP BY c1.idChat) order by m.dataOra DESC";
 			Query query = entityManager.createQuery(queryString);
 			query.setParameter("utenteId", utente.getIdUtente());
 			return query.getResultList();
@@ -85,4 +75,55 @@ public class MessaggioCrud {
 			throw new Exception(Costanti.ERRORE_CARICAMENTO_MESSAGGI);
 		}
 	}
+
+	@Override
+	public Messaggio insert(Messaggio messaggio, EntityManager entityManager) throws Exception {
+		try {
+			entityManager.persist(messaggio);
+			entityManager.flush();
+			entityManager.clear();
+			return messaggio;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore insertMessaggio --MessaggioCrud--");
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+
+	@Override
+	public Messaggio update(Messaggio messaggio, EntityManager entityManager) throws Exception {
+		try {
+			if (!entityManager.contains(messaggio)) {
+				messaggio = entityManager.merge(messaggio);
+			}
+			entityManager.flush();
+			entityManager.clear();
+			return messaggio;
+		} catch (Exception e) {
+			System.out.println("Errore nel metodo updateUtente della classe UtenteCrud ---Exception---");
+			e.printStackTrace();
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+
+	@Override
+	public boolean delete(Messaggio messaggio, EntityManager entityManager) throws Exception {
+		try {
+			if (!entityManager.contains(messaggio)) {
+				messaggio = entityManager.merge(messaggio);
+			}
+			entityManager.remove(messaggio);
+			entityManager.flush();
+			entityManager.clear();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+	
+	
+	
+	
+	
 }

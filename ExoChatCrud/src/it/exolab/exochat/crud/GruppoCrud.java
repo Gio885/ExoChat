@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class GruppoCrud {
+public class GruppoCrud extends BaseCrud <Gruppo> {
 
     @SuppressWarnings("unchecked")
 	public List<Gruppo> findAllGruppoByUtenteId(Integer utenteId, EntityManager entityManager) throws Exception {
@@ -22,18 +22,6 @@ public class GruppoCrud {
             e.printStackTrace();
             System.out.println("Errore metodo findAllGruppoByUtenteId ---GruppoCrud---");
             throw new Exception(Costanti.ERRORE_CARICAMENTO_GRUPPI);
-        }
-    }
-
-    public Gruppo insertGruppo(Gruppo gruppo, EntityManager entityManager) throws Exception {
-        try {
-            entityManager.persist(gruppo);
-            entityManager.flush();
-            return gruppo;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Errore metodo insertGruppo ---GruppoCrud---");
-            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
 
@@ -57,4 +45,40 @@ public class GruppoCrud {
             throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
+
+	@Override
+	public Gruppo insert(Gruppo gruppo, EntityManager entityManager) throws Exception {
+		try {
+			entityManager.persist(gruppo);
+			entityManager.flush();
+			entityManager.clear();
+			return gruppo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore insertMessaggio --MessaggioCrud--");
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+
+	@Override
+	public Gruppo update(Gruppo gruppo, EntityManager entityManager) throws Exception {
+		try {
+			if (!entityManager.contains(gruppo)) {
+				gruppo = entityManager.merge(gruppo);
+			}
+			entityManager.flush();
+			entityManager.clear();
+			return gruppo;
+		} catch (Exception e) {
+			System.out.println("Errore nel metodo updateUtente della classe UtenteCrud ---Exception---");
+			e.printStackTrace();
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+
+	@Override
+	public boolean delete(Gruppo oggetto, EntityManager entityManager) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

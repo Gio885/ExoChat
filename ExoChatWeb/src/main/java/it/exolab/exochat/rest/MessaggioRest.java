@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response.Status;
 import it.exolab.exochat.conf.EjbService;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.dto.Dto;
+import it.exolab.exochat.dto.MessaggioDto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
 import it.exolab.exochat.endpoint.EndPoint;
@@ -24,23 +25,25 @@ import it.exolab.exochat.model.Utente;
 @Path(value = EndPoint.MESSAGGIO_REST)
 public class MessaggioRest {
 
-	@POST
-	@Path(EndPoint.LISTA_MESSAGGI_UTENTE)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response findAllMessageUtente(Utente utente) {
-		try {
-			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
-			List<Messaggio> listaMessaggiUtente = messaggioService.findMessaggioByUtenteId(utente.getIdUtente());
-			return Response.status(Status.OK).entity(listaMessaggiUtente).build();			
-		}catch(BusinessException e) {
-			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
-		}catch(Exception e) {
-			e.printStackTrace();
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
-		}
-	}
+//	@POST
+//	@Path(EndPoint.LISTA_MESSAGGI_UTENTE)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Response findAllMessageUtente(Utente utente) {
+//		try {
+//			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
+//			List<Messaggio> listaMessaggiUtente = messaggioService.findMessaggioByUtenteId(utente.getIdUtente());
+//			return Response.status(Status.OK).entity(listaMessaggiUtente).build();			
+//		}catch(BusinessException e) {
+//			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
+//		}
+//	}
 	
+	
+	//INSERT MESSAGE
 	@POST
 	@Path(EndPoint.INSERT_MESSAGGIO)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -58,7 +61,7 @@ public class MessaggioRest {
 	
 	
 	
-	
+	//LISTA MESSAGGI DI UNA CHAT
 	@POST
 	@Path(EndPoint.LISTA_MESSAGGI_CHAT)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -66,8 +69,8 @@ public class MessaggioRest {
 	public Response findMessaggiForChatId(Chat chat) {
 		try {
 			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
-			List<Messaggio> listaMessaggiChat = messaggioService.findMessaggiForChatId(chat);
-			return Response.status(Status.OK).entity(listaMessaggiChat).build();			
+			Dto<List<MessaggioDto>> listaMessaggiChat = messaggioService.findMessaggiForChatId(chat);
+			return Response.status(Status.OK).entity(listaMessaggiChat.getData()).build();			
 		}catch(BusinessException e) {
 			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
 		}catch(Exception e) {
@@ -78,6 +81,7 @@ public class MessaggioRest {
 	
 	
 	
+	//LISTA ULTIMI MESSAGGI DIVISI PER CHAT
 	@POST
 	@Path(EndPoint.LISTA_LAST_MESSAGGIO_CHAT)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -85,8 +89,8 @@ public class MessaggioRest {
 	public Response findLastMessaggeForChat(Utente utente) {
 		try {
 			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
-			List<Messaggio> ultimoMessaggioPerChat = messaggioService.findLastMessaggeForChat(utente);
-			return Response.status(Status.OK).entity(ultimoMessaggioPerChat).build();			
+			Dto<List<MessaggioDto>> ultimoMessaggioPerChat = messaggioService.findLastMessaggeForChat(utente);
+			return Response.status(Status.OK).entity(ultimoMessaggioPerChat.getData()).build();			
 		}catch(BusinessException e) {
 			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
 		}catch(Exception e) {
