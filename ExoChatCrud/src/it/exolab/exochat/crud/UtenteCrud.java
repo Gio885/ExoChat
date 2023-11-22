@@ -33,6 +33,18 @@ public class UtenteCrud extends BaseCrud <Utente> {
     private BaseCrud<Utente> baseCrud = new BaseCrud<Utente>();
     
 	
+    
+    public Utente findUtenteById(Integer idUtente, EntityManager entityManager) throws Exception {
+  		try {
+  			return baseCrud.findById(idUtente, Utente.class, entityManager);
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  			System.out.println("Errore nel metodo insertUtente della classe UtenteCrud");
+  			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+  		}
+  	}
+    
+    
     public Utente insertUtente(Utente utente, EntityManager entityManager) throws Exception {
 		try {
 			return baseCrud.insert(utente, entityManager);

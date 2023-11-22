@@ -31,7 +31,7 @@ public class Gruppo implements Serializable {
     @Column(name = "AMMINISTRATORE_GRUPPO")
     private Integer amministratoreGruppo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_UTENTE", insertable = false, updatable = false)
     private Utente amministratore;
     

@@ -8,6 +8,18 @@ public class BaseCrud <T> {
 
 	//public abstract T findById(Integer id,EntityManager entityManager) throws Exception;
 	
+	
+	protected T findById(Integer id,Class<T> entityClass,EntityManager entityManager) throws Exception {
+		try {
+			return (T) entityManager.find(entityClass,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo findById della classe BaseCrud ---Exception---");
+			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+	
+	
 	protected T insert(T oggetto,EntityManager entityManager) throws Exception{
 		try {
 			entityManager.persist(oggetto);

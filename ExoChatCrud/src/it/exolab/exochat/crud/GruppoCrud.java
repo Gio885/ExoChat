@@ -33,7 +33,7 @@ public class GruppoCrud extends BaseCrud <Gruppo> {
 
 	public Gruppo insertGruppo(Gruppo gruppo, EntityManager entityManager) throws Exception {
 		try {
-			return baseCrud.insert(gruppo, entityManager);
+			return baseCrud.insert(gruppo, entityManager);		
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore insertGruppo GruppoCrud ---Exception---");
@@ -61,5 +61,5 @@ public class GruppoCrud extends BaseCrud <Gruppo> {
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
-
+    
 }
