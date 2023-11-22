@@ -5,6 +5,7 @@ public class EndPoint {
 	
 	public static final String LOGIN_UTENTE = "/loginUtente";
 	public static final String INSERT_UTENTE = "/insertUtente";
+	public static final String UPDATE_UTENTE = "/updateUtente";
 	public static final String UTENTE_REST = "/utenteRest";
 	public static final String CHAT_REST = "/chatRest";
 	public static final String GRUPPO_REST = "/gruppoRest";
@@ -19,5 +20,5 @@ public class EndPoint {
 	public static final String INSERT_CHAT = "/insertChat";
 	public static final String INSERT_GRUPPO = "/insertGruppo";
 	public static final String INSERT_UTENTI_GRUPPO = "/insertUtentiGruppo";
-
+	
 }
