@@ -49,6 +49,7 @@ public class ChatController implements ChatControllerInterface {
 			System.out.println("Errore metodo findAllChatByUtenteId ---ChatController---");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_CHAT);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
 		}
 	}
@@ -68,8 +69,9 @@ public class ChatController implements ChatControllerInterface {
 			System.out.println("Errore metodo insertChat ---ChatController---");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
-		}		
+		}	
 	}
 
 	@Override
@@ -86,8 +88,9 @@ public class ChatController implements ChatControllerInterface {
 			System.out.println("Errore metodo deleteChat ---ChatController---");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
-		}				
+		}			
 	}
 
 }

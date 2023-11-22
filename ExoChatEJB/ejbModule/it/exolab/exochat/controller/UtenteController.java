@@ -81,8 +81,59 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 			System.out.println("Errore nel metodo insertUtente UtenteController ---Exception---");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		} finally {
+			entityManager.clear();
 			entityManager.close();
 		}	
+	}
+	
+	
+	@Override
+	public Dto<Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception{
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {		
+			Dto <Utente> dtoUtente = new Dto <Utente>();
+			UtenteCrud utenteCrud = new UtenteCrud();
+			Utente utenteDaTrovare = utenteCrud.findUtenteByEmailAndPassword(utente, entityManager);
+			dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteDaTrovare));
+			return dtoUtente;							
+		}catch(BusinessException e) {
+			System.out.println("Errore nel metodo findUtenteByEmailAndPassword BusinessException---UtenteController----");
+			throw new BusinessException(e.getMessage());
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo findUtenteByEmailAndPassword ---UtenteController----");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.clear();
+			entityManager.close();
+		}
+	}
+	
+	@Override
+	public Dto<List<Utente>> findAllUtentiChatNonIniziate(Utente utente) throws Exception {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			Dto<List<Utente>> listaUtentiDto = new Dto<List<Utente>>();
+			UtenteCrud utenteCrud = new UtenteCrud();
+			List<Utente> listaUtenti = utenteCrud.findAllUtentiChatNonIniziate(utente, entityManager);
+			if(!listaUtenti.isEmpty()) {
+				listaUtentiDto.setData(new Convertitore().convertListaUtenteToDto(listaUtenti));
+				return listaUtentiDto;	
+			}else {
+				throw new BusinessException("Non ci sono contatti");
+			}					
+		}catch(BusinessException e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo findAllUtentiChatNonIniziate UtenteController ---Exception---");
+			throw new Exception(e.getMessage());
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo findAllUtentiChatNonIniziate UtenteController ---Exception---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_UTENTI);
+		} finally {
+			entityManager.clear();
+			entityManager.close();
+		}
 	}
 
 	@Override
@@ -107,10 +158,12 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 			System.out.println("Errore nel metodo findAllUtenti UtenteController ---Exception---");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_UTENTI);
 		} finally {
+			entityManager.clear();
 			entityManager.close();
 		}
 	}
 
+	/*
 	@Override
 	public Dto<Utente> findUtenteById(Integer idUtente) throws Exception {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -201,26 +254,8 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 			entityManager.close();
 		}
 	}
+	*/
 
-	@Override
-	public Dto<Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception{
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		try {		
-			Dto <Utente> dtoUtente = new Dto <Utente>();
-			UtenteCrud utenteCrud = new UtenteCrud();
-			Utente utenteDaTrovare = utenteCrud.findUtenteByEmailAndPassword(utente, entityManager);
-			dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteDaTrovare));
-			return dtoUtente;							
-		}catch(BusinessException e) {
-			throw new BusinessException(e.getMessage());
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println();
-			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
-		}finally {
-			entityManager.close();
-		}
-	}
 	
 	private void buildUtente(Utente utente) throws IOException {
 		try {
@@ -242,6 +277,8 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
             throw new IOException(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
 	}
+
+	
 
 
 }

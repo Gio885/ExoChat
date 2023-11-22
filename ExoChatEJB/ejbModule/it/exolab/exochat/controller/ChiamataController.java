@@ -40,6 +40,7 @@ public class ChiamataController implements ChiamataControllerInterface {
 			System.out.println("Errore metodo findAllChiamateByUtenteId ---ChiamataCrud--- ");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_CHIAMATE);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
 		}
 	}
@@ -56,6 +57,7 @@ public class ChiamataController implements ChiamataControllerInterface {
 			System.out.println("Errore metodo findAllChiamateByGroupId ---ChiamataCrud--- ");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_CHIAMATE);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
 		}
 	}
@@ -75,8 +77,9 @@ public class ChiamataController implements ChiamataControllerInterface {
 			System.out.println("Errore metodo insertChiamata ---ChiamataCrud--- ");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
-		}		
+		}	
 	}
 
 	@Override
@@ -94,8 +97,9 @@ public class ChiamataController implements ChiamataControllerInterface {
 			System.out.println("Errore metodo updataChiamata ---ChiamataCrud--- ");
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}finally {
+			entityManager.clear();
 			entityManager.close();
-		}	
+		}
 	}
 
 

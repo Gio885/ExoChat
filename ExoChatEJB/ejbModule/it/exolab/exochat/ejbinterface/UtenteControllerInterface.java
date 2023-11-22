@@ -12,16 +12,19 @@ public interface UtenteControllerInterface {
 
 	Dto <List<Utente>> findAllUtenti() throws Exception;
 
-	Dto<Utente> findUtenteById(Integer idUtente) throws Exception;
+	Dto <List<Utente>> findAllUtentiChatNonIniziate(Utente utente) throws Exception;
 
-	Dto<Utente> findUtenteByUsername(String username) throws Exception;
+	//Dto<Utente> findUtenteById(Integer idUtente) throws Exception;
 
-	Dto<Utente> updateUtente(Utente utente) throws Exception;
+	//Dto<Utente> findUtenteByUsername(String username) throws Exception;
 
-    void deleteUtente(Utente utente) throws Exception;
+	//Dto<Utente> updateUtente(Utente utente) throws Exception;
+
+    //void deleteUtente(Utente utente) throws Exception;
 
     Dto <Utente> insertUtente(Utente utente) throws Exception;
     
     Dto <Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception;
+    
     
 }

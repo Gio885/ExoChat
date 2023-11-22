@@ -2,6 +2,7 @@ package it.exolab.exochat.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
@@ -27,6 +28,25 @@ public class Chat implements Serializable{
     @JsonbTransient
     @OneToMany(mappedBy = "chat",fetch = FetchType.LAZY)
     private List<Messaggio> listaMessaggiChat;
+    
+    
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idChat);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Chat other = (Chat) obj;
+		return Objects.equals(idChat, other.idChat);
+	}
 
 	public Integer getIdChat() {
 		return idChat;

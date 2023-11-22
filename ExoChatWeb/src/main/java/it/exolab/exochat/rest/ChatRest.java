@@ -21,25 +21,25 @@ import it.exolab.exochat.model.Utente;
 @Path(EndPoint.CHAT_REST)
 public class ChatRest {
 
-	@POST
-	@Path(EndPoint.LISTA_CHAT_UTENTE)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findChatForUtente(Utente utente) {
-		try {
-			ChatControllerInterface serviceChat = new EjbService<ChatControllerInterface>(ChatControllerInterface.class).getEJB();
-			List<Chat> listaChatUtente = serviceChat.findAllChatByUtenteId(utente.getIdUtente());
-			return Response.status(Status.OK).entity(listaChatUtente).build();
-		} catch (BusinessException e) {
-			e.printStackTrace();
-			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Errore metodo findChatForUtente ---ChatRest---- ");
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
-		}
-	}
-	
+//	@POST
+//	@Path(EndPoint.LISTA_CHAT_UTENTE)
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response findChatForUtente(Utente utente) {
+//		try {
+//			ChatControllerInterface serviceChat = new EjbService<ChatControllerInterface>(ChatControllerInterface.class).getEJB();
+//			List<Chat> listaChatUtente = serviceChat.findAllChatByUtenteId(utente.getIdUtente());
+//			return Response.status(Status.OK).entity(listaChatUtente).build();
+//		} catch (BusinessException e) {
+//			e.printStackTrace();
+//			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("Errore metodo findChatForUtente ---ChatRest---- ");
+//			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
+//		}
+//	}
+//	
 	@POST
 	@Path(EndPoint.INSERT_CHAT)
 	@Consumes(MediaType.APPLICATION_JSON)

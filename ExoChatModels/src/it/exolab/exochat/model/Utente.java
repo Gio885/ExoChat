@@ -33,9 +33,6 @@ public class Utente implements Serializable {
 	@Lob
 	@Column(name = "FOTO")
 	private byte[] foto;
-	
-	@Transient
-	private String fotoConvertita;
 
 	@JsonbTransient
 	@OneToMany(mappedBy = "mittente",fetch = FetchType.LAZY)
@@ -123,14 +120,6 @@ public class Utente implements Serializable {
 
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
-	}
-
-	public String getFotoConvertita() {
-		return fotoConvertita;
-	}
-
-	public void setFotoConvertita(String fotoConvertita) {
-		this.fotoConvertita = fotoConvertita;
 	}
 
 	public List<Messaggio> getMessaggiMittente() {

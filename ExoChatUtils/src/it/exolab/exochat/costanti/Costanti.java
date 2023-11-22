@@ -13,5 +13,6 @@ public class Costanti {
 	public static final String REGEX_USERNAME = "^[a-zA-Z0-9_]{3,20}$";  
 	public static final String REGEX_EMAIL = "^[A-Za-z0-9._%+-]{4,}@([A-Za-z0-9-]{4,}\\.)+[A-Za-z]{2,}$";
 	public static final String REGEX_PASSWORD = "^(?=.[a-z])(?=.[A-Z])(?=.\\d)(?=.[@#$%^&!])[A-Za-z\\d@#$%^&!]+$";
-
+	public static final Integer TIPO_CHAT_SINGOLA = 1;
+	public static final Integer TIPO_CHAT_GRUPPO = 2;
 }
