@@ -8,7 +8,10 @@ import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.ejbinterface.GruppoControllerInterface;
 import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
 import it.exolab.exochat.model.Gruppo;
+import it.exolab.exochat.model.Utente;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -55,6 +58,7 @@ public class GruppoController extends EntityManagerProvider implements GruppoCon
 		try {
 			Dto<Gruppo> gruppoDto = new Dto<Gruppo>();
 			GruppoCrud gruppoCrud = new GruppoCrud();
+			buildGruppo(gruppo);			
 			entityManager.getTransaction().begin();
 			Gruppo gruppoInserito = gruppoCrud.insertGruppo(gruppo, entityManager);
 			entityManager.getTransaction().commit();
@@ -110,5 +114,32 @@ public class GruppoController extends EntityManagerProvider implements GruppoCon
 		}
 		
 	}
+	
+	private void buildGruppo(Gruppo gruppo) throws IOException {
+		try {
+			if(null == gruppo.getInfoGruppo()) {
+				gruppo.setInfoGruppo("Disponibile");
+			}
+			if(null == gruppo.getFotoGruppo()) {
+				String imagePath = "fotoprofilogruppo.png";			
+				ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+				InputStream inputStream = classLoader.getResourceAsStream(imagePath);
+				if (inputStream != null) {
+				    // Leggi l'immagine dall'input stream e convertila in un array di byte
+				    byte[] imageBytes = inputStream.readAllBytes();
+
+				    // Imposta l'array di byte nella proprietà 'foto' dell'utente
+				    gruppo.setFotoGruppo(imageBytes);		    
+				    inputStream.close();
+				}	
+			}		
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Errore metodo setFotoUtente  ----UtenteController----");
+            throw new IOException(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+        }
+	}
+
+	
 
 }
