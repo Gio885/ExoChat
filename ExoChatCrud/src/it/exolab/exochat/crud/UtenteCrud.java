@@ -19,7 +19,7 @@ import javax.persistence.Query;
 	PersistenceException: Eccezione generica per problemi di persistenza.
  */
 
-public class UtenteCrud extends BaseCrud<Utente> {
+public class UtenteCrud extends BaseCrud <Utente> {
 
 	/*
 	 * entitymanager.flush alineare il container con il DB e clear pulisce
@@ -30,6 +30,40 @@ public class UtenteCrud extends BaseCrud<Utente> {
 	 * OPERAZIONI SONO TUTTE A LIVELLO CONTAINTER NON A LIVELLO DB
 	 */
 
+    private BaseCrud<Utente> baseCrud = new BaseCrud<Utente>();
+    
+	
+    public Utente insertUtente(Utente utente, EntityManager entityManager) throws Exception {
+		try {
+			return baseCrud.insert(utente, entityManager);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo insertUtente della classe UtenteCrud");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+    
+	public Utente updateUtente(Utente utente, EntityManager entityManager) throws Exception {
+		try {
+			return baseCrud.update(utente, entityManager);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo updateUtente della classe UtenteCrud ---Exception---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+
+	public boolean deleteUtente(Utente utenteDaEliminare, EntityManager entityManager) throws Exception {
+		try {
+			return baseCrud.delete(utenteDaEliminare, entityManager);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo updateUtente della classe UtenteCrud ---Exception---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public List<Utente> findAllUtenti(EntityManager entityManager) throws Exception {
 		try {
@@ -68,6 +102,9 @@ public class UtenteCrud extends BaseCrud<Utente> {
 			Query query = entityManager.createQuery(queryString, Utente.class);
 			query.setParameter("emailUtente", utente.getEmail());
 			query.setParameter("passwordUtente", utente.getPassword());
+			System.out.println("-----------------------------------------------------------------------------------------------");
+			System.out.println("ClassLoader: " + Utente.class.getClassLoader());
+			System.out.println("-----------------------------------------------------------------------------------------------");
 			return (Utente) query.getSingleResult();
 		} catch (NoResultException e) {
 			e.printStackTrace();
@@ -80,52 +117,10 @@ public class UtenteCrud extends BaseCrud<Utente> {
 		}
 	}
 
-	@Override
-	public Utente insert(Utente utente, EntityManager entityManager) throws Exception {
-		try {
-			entityManager.persist(utente);
-			entityManager.flush(); // SI ASSICURA CHE LE MODIFICHE VENGANO APPLICATE PRIMA DI OTTENERE L'ID
-									// GENERATO
-			entityManager.clear();
-			return utente;
-		} catch (Exception e) {
-			System.out.println("Errore nel metodo insertUtente della classe UtenteCrud");
-			e.printStackTrace();
-			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-		}
-	}
 
-	@Override
-	public Utente update(Utente utente, EntityManager entityManager) throws Exception {
-		try {
-			if (!entityManager.contains(utente)) {
-				utente = entityManager.merge(utente);
-			}
-			entityManager.flush();
-			entityManager.clear();
-			return utente;
-		} catch (Exception e) {
-			System.out.println("Errore nel metodo updateUtente della classe UtenteCrud ---Exception---");
-			e.printStackTrace();
-			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-		}
-	}
 
-	@Override
-	public boolean delete(Utente utenteDaEliminare, EntityManager entityManager) throws Exception {
-		try {
-			if (!entityManager.contains(utenteDaEliminare)) {
-				utenteDaEliminare = entityManager.merge(utenteDaEliminare);
-			}
-			entityManager.remove(utenteDaEliminare);
-			entityManager.flush();
-			entityManager.clear();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-		}
-	}
+
+
 
 	/*
 	 * 

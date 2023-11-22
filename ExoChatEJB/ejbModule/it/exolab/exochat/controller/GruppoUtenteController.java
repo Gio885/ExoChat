@@ -62,14 +62,13 @@ public class GruppoUtenteController implements GruppoUtenteControllerInterface {
 	}
 
 	@Override
-	public GruppoUtente insertGruppoUtente(GruppoUtente gruppoUtente) throws Exception {
+	public void insertUtentiGruppo(List<GruppoUtente> gruppoUtente) throws Exception {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
 			GruppoUtenteCrud gruppoUtenteCrud = new GruppoUtenteCrud();
 			entityManager.getTransaction().begin();	
-			GruppoUtente gruppoInserito = gruppoUtenteCrud.insertGruppoUtente(gruppoUtente, entityManager);
-			entityManager.getTransaction().commit();
-			return gruppoInserito;			
+			gruppoUtenteCrud.insertGruppoUtente(gruppoUtente, entityManager);
+			entityManager.getTransaction().commit();			
 		}catch(Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();

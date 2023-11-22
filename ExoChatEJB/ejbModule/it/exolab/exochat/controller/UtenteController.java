@@ -47,8 +47,8 @@ import it.exolab.exochat.validatore.Validatore;
 @LocalBean
 public class UtenteController extends EntityManagerProvider  implements UtenteControllerInterface {
 
-	@PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
-	private EntityManagerFactory entityManagerFactory;
+//	@PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
+//	private EntityManagerFactory entityManagerFactory;
 	
 	public UtenteController() {
 		
@@ -56,7 +56,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 
 	@Override
 	public Dto <Utente> insertUtente(Utente utente) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			Dto <Utente> dtoUtente = new Dto <Utente>();
 			List<String> errori = new Validatore().validatoreUtente(utente);
@@ -64,7 +64,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 				UtenteCrud crud = new UtenteCrud();
 				buildUtente(utente);			
 				entityManager.getTransaction().begin();
-				Utente utenteInserito = crud.insert(utente, entityManager);
+				Utente utenteInserito = crud.insertUtente(utente, entityManager);
 				entityManager.getTransaction().commit();
 				dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteInserito));
 				return dtoUtente;
@@ -89,7 +89,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 	
 	@Override
 	public Dto<Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception{
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {		
 			Dto <Utente> dtoUtente = new Dto <Utente>();
 			UtenteCrud utenteCrud = new UtenteCrud();
@@ -111,7 +111,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 	
 	@Override
 	public Dto<List<Utente>> findAllUtentiChatNonIniziate(Utente utente) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			Dto<List<Utente>> listaUtentiDto = new Dto<List<Utente>>();
 			UtenteCrud utenteCrud = new UtenteCrud();
@@ -138,7 +138,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 
 	@Override
 	public Dto<List<Utente>> findAllUtenti() throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			Dto<List<Utente>> listaUtentiDto = new Dto<List<Utente>>();
 			UtenteCrud utenteCrud = new UtenteCrud();

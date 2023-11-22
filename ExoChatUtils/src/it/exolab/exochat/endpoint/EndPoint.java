@@ -7,6 +7,8 @@ public class EndPoint {
 	public static final String INSERT_UTENTE = "/insertUtente";
 	public static final String UTENTE_REST = "/utenteRest";
 	public static final String CHAT_REST = "/chatRest";
+	public static final String GRUPPO_REST = "/gruppoRest";
+	public static final String GRUPPO_UTENTE_REST = "/gruppoUtenteRest";
 	public static final String MESSAGGIO_REST = "/messaggioRest";
 	public static final String LISTA_MESSAGGI_UTENTE = "/listaMessaggiPerUtenteIdPerChat";
 	public static final String LISTA_LAST_MESSAGGIO_CHAT = "/listaUltimiMessaggiPerChat";
@@ -15,5 +17,7 @@ public class EndPoint {
 	public static final String FIND_ALL_UTENTE = "/findAllUtente";
 	public static final String FIND_ALL_CHAT_NON_INIZIATE = "/findAllChatNonIniziate";
 	public static final String INSERT_CHAT = "/insertChat";
+	public static final String INSERT_GRUPPO = "/insertGruppo";
+	public static final String INSERT_UTENTI_GRUPPO = "/insertUtentiGruppo";
 
 }

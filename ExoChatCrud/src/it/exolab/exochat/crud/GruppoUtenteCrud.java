@@ -1,14 +1,19 @@
 package it.exolab.exochat.crud;
 
 import it.exolab.exochat.costanti.Costanti;
+import it.exolab.exochat.model.Gruppo;
 import it.exolab.exochat.model.GruppoUtente;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class GruppoUtenteCrud {
+public class GruppoUtenteCrud extends BaseCrud <GruppoUtente> {
 
+	
+	private BaseCrud <GruppoUtente> baseCrud = new BaseCrud <GruppoUtente>();
+	
+	
     @SuppressWarnings("unchecked")
 	public List<GruppoUtente> findAllUtenteByGroupId(Integer gruppoId, EntityManager entityManager) throws Exception {
     	
@@ -39,38 +44,36 @@ public class GruppoUtenteCrud {
         }
     }
 
-    public GruppoUtente insertGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) throws Exception {
-    	
+    public void insertGruppoUtente(List<GruppoUtente> listaUtentiGruppo, EntityManager entityManager) throws Exception {
         try {
-            entityManager.persist(gruppoUtente);
-            entityManager.flush();
-            return gruppoUtente;
+        	for(GruppoUtente utenteDaAssociareAlGruppo : listaUtentiGruppo) {
+                baseCrud.insert(utenteDaAssociareAlGruppo, entityManager);
+                entityManager.clear();
+        	}
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Errore insertGruppoUtente ---GruppoUtenteCrud");
-            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
 
-    public GruppoUtente updateGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) throws Exception {
-    	
+    public GruppoUtente updateGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) throws Exception {    	
         try {
-            return entityManager.merge(gruppoUtente);
+            return baseCrud.update(gruppoUtente, entityManager);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Errore updateGruppoUtente ---GruppoUtenteCrud");
-            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
     
-    public void deleteGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) throws Exception {
+    public boolean deleteGruppoUtente(GruppoUtente gruppoUtente, EntityManager entityManager) throws Exception {
         try {
-            GruppoUtente gruppoDaEliminare = entityManager.find(GruppoUtente.class,gruppoUtente.getIdPartecipante());
-            entityManager.remove(gruppoDaEliminare);
+            return baseCrud.delete(gruppoUtente, entityManager);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Errore deleteGruppoUtente ---GruppoUtenteCrud");
-            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
     }
 }

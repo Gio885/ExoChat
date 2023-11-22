@@ -7,6 +7,7 @@ import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.dto.MessaggioDto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
+import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
 import it.exolab.exochat.model.Messaggio;
 import it.exolab.exochat.model.*;
 
@@ -23,11 +24,12 @@ import javax.persistence.PersistenceUnit;
  */
 @Stateless(name = "MessaggioControllerInterface")
 @LocalBean
-public class MessaggioController implements MessaggioControllerInterface {
+public class MessaggioController extends EntityManagerProvider implements MessaggioControllerInterface {
 
     
-	@PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
-	private EntityManagerFactory entityManagerFactory;
+//NON VA INIZIALIZZATO IN QUANTO L EJB ESTENDE LA LA CLASSE ENTITYMANAGERPROVIDER
+//	@PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
+//	private EntityManagerFactory entityManagerFactory;
 	
     public MessaggioController() {
     	
@@ -35,11 +37,11 @@ public class MessaggioController implements MessaggioControllerInterface {
 
 	@Override
 	public void insertMessaggio(Messaggio messaggio) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
-			messaggioCrud.insert(messaggio, entityManager);
+			messaggioCrud.insertMessaggio(messaggio, entityManager);
 			entityManager.getTransaction().commit();			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -54,7 +56,7 @@ public class MessaggioController implements MessaggioControllerInterface {
 	
 	@Override
 	public Dto<List<MessaggioDto>> findMessaggiForChatId(Chat chat) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		Dto <List<MessaggioDto>> messaggiDto = new Dto <List<MessaggioDto>>();
 		try {
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
@@ -67,7 +69,6 @@ public class MessaggioController implements MessaggioControllerInterface {
 				throw new BusinessException("Non ci sono messaggi");
 			}			
 		}catch(BusinessException e) {
-			e.printStackTrace();
 			System.out.println("Errore findMessaggiForChatId   ----MessaggioController----");
 			throw new BusinessException(e.getMessage());
 		}catch(Exception e) {
@@ -83,7 +84,7 @@ public class MessaggioController implements MessaggioControllerInterface {
 
 	@Override
 	public Dto<List<MessaggioDto>> findLastMessaggeForChat(Utente utente) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		Dto <List<MessaggioDto>> messaggiDto = new Dto <List<MessaggioDto>>();
 		try {
 			MessaggioCrud messaggioCrud = new MessaggioCrud();

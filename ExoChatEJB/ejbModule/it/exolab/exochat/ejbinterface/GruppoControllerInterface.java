@@ -1,5 +1,6 @@
 package it.exolab.exochat.ejbinterface;
 
+import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.model.Gruppo;
 
 import javax.ejb.Local;
@@ -10,7 +11,7 @@ public interface GruppoControllerInterface {
 
     List<Gruppo> findAllGruppoByUtenteId(Integer utenteId) throws Exception;
 
-    Gruppo insertGruppo(Gruppo gruppo) throws Exception;
+    Dto<Gruppo> insertGruppo(Gruppo gruppo) throws Exception;
 
     Gruppo updateGruppo(Gruppo gruppo) throws Exception;
 
