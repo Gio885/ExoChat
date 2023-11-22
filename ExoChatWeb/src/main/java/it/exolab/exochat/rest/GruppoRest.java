@@ -27,7 +27,7 @@ public class GruppoRest {
 		try {
 			GruppoControllerInterface gruppoService = new EjbService<GruppoControllerInterface>(GruppoControllerInterface.class).getEJB();
 			Dto<Gruppo> gruppoInserito = gruppoService.insertGruppo(gruppo);
-			return Response.status(Status.OK).entity(gruppoInserito).build();
+			return Response.status(Status.OK).entity(gruppoInserito.getData()).build();
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo insertGruppo ----GruppoRest----");
