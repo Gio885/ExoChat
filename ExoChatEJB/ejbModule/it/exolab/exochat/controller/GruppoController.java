@@ -3,6 +3,7 @@ package it.exolab.exochat.controller;
 import it.exolab.exochat.convertitore.Convertitore;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.GruppoCrud;
+import it.exolab.exochat.crud.UtenteCrud;
 import it.exolab.exochat.dto.AccountDto;
 import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.ejbinterface.GruppoControllerInterface;
@@ -58,8 +59,10 @@ public class GruppoController extends EntityManagerProvider implements GruppoCon
 		try {
 			Dto<Gruppo> gruppoDto = new Dto<Gruppo>();
 			GruppoCrud gruppoCrud = new GruppoCrud();
-			buildGruppo(gruppo);			
+			UtenteCrud utenteCrud = new UtenteCrud();
 			entityManager.getTransaction().begin();
+			Utente utenteDaTrovare = utenteCrud.findUtenteById(gruppo.getAmministratoreGruppo(), entityManager);
+			buildGruppo(gruppo,utenteDaTrovare);			
 			Gruppo gruppoInserito = gruppoCrud.insertGruppo(gruppo, entityManager);
 			entityManager.getTransaction().commit();
 			gruppoDto.setData(new Convertitore().convertGruppoToDto(gruppoInserito));
@@ -115,7 +118,7 @@ public class GruppoController extends EntityManagerProvider implements GruppoCon
 		
 	}
 	
-	private void buildGruppo(Gruppo gruppo) throws IOException {
+	private void buildGruppo(Gruppo gruppo,Utente amministratore) throws IOException {
 		try {
 			if(null == gruppo.getInfoGruppo()) {
 				gruppo.setInfoGruppo("Disponibile");
@@ -132,7 +135,8 @@ public class GruppoController extends EntityManagerProvider implements GruppoCon
 				    gruppo.setFotoGruppo(imageBytes);		    
 				    inputStream.close();
 				}	
-			}		
+			}
+			gruppo.setAmministratore(amministratore);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Errore metodo setFotoUtente  ----UtenteController----");
