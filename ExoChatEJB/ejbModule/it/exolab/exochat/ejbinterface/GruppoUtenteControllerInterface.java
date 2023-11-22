@@ -12,7 +12,7 @@ public interface GruppoUtenteControllerInterface {
 
     List<GruppoUtente> findAllGroupByUtenteId(Integer utenteId) throws Exception;
 
-    GruppoUtente insertGruppoUtente(GruppoUtente gruppoUtente) throws Exception;
+    void insertUtentiGruppo(List<GruppoUtente> gruppoUtente) throws Exception;
 
     GruppoUtente updateGruppoUtente(GruppoUtente gruppoUtente) throws Exception;
 

@@ -3,6 +3,7 @@ package it.exolab.exochat.controller;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.ChiamataCrud;
 import it.exolab.exochat.ejbinterface.ChiamataControllerInterface;
+import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
 import it.exolab.exochat.model.Chiamata;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.persistence.PersistenceUnit;
  */
 @Stateless(name = "ChiamataControllerInterface")
 @LocalBean
-public class ChiamataController implements ChiamataControllerInterface {
+public class ChiamataController extends EntityManagerProvider implements ChiamataControllerInterface {
 
     
 	@PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
@@ -30,7 +31,7 @@ public class ChiamataController implements ChiamataControllerInterface {
 
 	@Override
 	public List<Chiamata> findAllChiamateByUtenteId(Integer utenteId) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			ChiamataCrud chiamataCrud = new ChiamataCrud();
 			List<Chiamata> chiamateUtente = chiamataCrud.findAllChiamateByUtenteId(utenteId, entityManager);
@@ -47,7 +48,7 @@ public class ChiamataController implements ChiamataControllerInterface {
 
 	@Override
 	public List<Chiamata> findAllChiamateByGroupId(Integer gruppoId) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			ChiamataCrud chiamataCrud = new ChiamataCrud();
 			List<Chiamata> chiamateDiGruppo = chiamataCrud.findAllChiamateByGroupId(gruppoId, entityManager);
@@ -64,7 +65,7 @@ public class ChiamataController implements ChiamataControllerInterface {
 
 	@Override
 	public Chiamata insertChiamata(Chiamata chiamata) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			ChiamataCrud chiamataCrud = new ChiamataCrud();
 			entityManager.getTransaction().begin();
@@ -84,7 +85,7 @@ public class ChiamataController implements ChiamataControllerInterface {
 
 	@Override
 	public Chiamata updataChiamata(Chiamata chiamata) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			ChiamataCrud chiamataCrud = new ChiamataCrud();
 			entityManager.getTransaction().begin();

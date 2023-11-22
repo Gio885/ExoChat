@@ -15,8 +15,16 @@ import it.exolab.exochat.costanti.Costanti;
 
 public class EntityManagerProvider {
 
-	private static EntityManagerFactory entityManagerFactory;
+	protected static EntityManagerFactory entityManagerFactory;
 	
+	/*
+	Blocco di inizializzazione statica:
+	Questo blocco statico viene eseguito quando la classe viene caricata, generalmente al momento dell'avvio 
+	dell'applicazione. Viene creata l'entitymanagerfactory tramite il nome dell'unita di persistenza definita
+	nel persistence.xml
+	Questa classe viene estesa da tutti i controller che vanno a prendere l'unica istanza della Factory che viene
+	inizializzata tramite il blocco di inizializzazione statico con cui poi andiamo a stanziare l'entityManager
+	*/
 	 static {
 		 entityManagerFactory = Persistence.createEntityManagerFactory(Costanti.PERSISTENCE_UNIT_NAME);
 	    }

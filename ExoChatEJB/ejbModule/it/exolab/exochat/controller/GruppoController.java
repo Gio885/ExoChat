@@ -1,8 +1,12 @@
 package it.exolab.exochat.controller;
 
+import it.exolab.exochat.convertitore.Convertitore;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.GruppoCrud;
+import it.exolab.exochat.dto.AccountDto;
+import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.ejbinterface.GruppoControllerInterface;
+import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
 import it.exolab.exochat.model.Gruppo;
 
 import java.util.List;
@@ -18,7 +22,7 @@ import javax.persistence.PersistenceUnit;
  */
 @Stateless(name = "GruppoControllerInterface")
 @LocalBean
-public class GruppoController implements GruppoControllerInterface {
+public class GruppoController extends EntityManagerProvider implements GruppoControllerInterface {
 
     @PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
     private EntityManagerFactory entityManagerFactory;
@@ -30,7 +34,7 @@ public class GruppoController implements GruppoControllerInterface {
 
 	@Override
 	public List<Gruppo> findAllGruppoByUtenteId(Integer utenteId) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			GruppoCrud gruppoCrud = new GruppoCrud();
 			List<Gruppo> listaGruppiUtente = gruppoCrud.findAllGruppoByUtenteId(utenteId, entityManager);
@@ -46,14 +50,16 @@ public class GruppoController implements GruppoControllerInterface {
 	}
 
 	@Override
-	public Gruppo insertGruppo(Gruppo gruppo) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+	public Dto<Gruppo> insertGruppo(Gruppo gruppo) throws Exception {
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
+			Dto<Gruppo> gruppoDto = new Dto<Gruppo>();
 			GruppoCrud gruppoCrud = new GruppoCrud();
 			entityManager.getTransaction().begin();
-			Gruppo gruppoInserito = gruppoCrud.insert(gruppo, entityManager);
+			Gruppo gruppoInserito = gruppoCrud.insertGruppo(gruppo, entityManager);
 			entityManager.getTransaction().commit();
-			return gruppoInserito;
+			gruppoDto.setData(new Convertitore().convertGruppoToDto(gruppoInserito));
+			return gruppoDto;
 		}catch(Exception e) {
 			e.printStackTrace();
 			entityManager.close();
@@ -67,7 +73,7 @@ public class GruppoController implements GruppoControllerInterface {
 
 	@Override
 	public Gruppo updateGruppo(Gruppo gruppo) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			GruppoCrud gruppoCrud = new GruppoCrud();
 			entityManager.getTransaction().begin();
@@ -87,11 +93,11 @@ public class GruppoController implements GruppoControllerInterface {
 
 	@Override
 	public void deleteGruppo(Gruppo gruppo) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			GruppoCrud gruppoCrud = new GruppoCrud();
 			entityManager.getTransaction().begin();
-			gruppoCrud.deleteGruppo(gruppo.getIdGruppo(), entityManager);
+			gruppoCrud.deleteGruppo(gruppo, entityManager);
 			entityManager.getTransaction().commit();
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -9,6 +9,10 @@ import java.util.List;
 
 public class GruppoCrud extends BaseCrud <Gruppo> {
 
+	
+	private BaseCrud <Gruppo> baseCrud = new BaseCrud <Gruppo>();
+	
+	
     @SuppressWarnings("unchecked")
 	public List<Gruppo> findAllGruppoByUtenteId(Integer utenteId, EntityManager entityManager) throws Exception {
         try {
@@ -25,60 +29,37 @@ public class GruppoCrud extends BaseCrud <Gruppo> {
         }
     }
 
-    public Gruppo updateGruppo(Gruppo gruppo, EntityManager entityManager) throws Exception {
-        try {
-            return entityManager.merge(gruppo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Errore metodo updateGruppo ---GruppoCrud---");
-            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-        }
-    }
 
-    public void deleteGruppo(Integer gruppoId, EntityManager entityManager) throws Exception {
-        try {
-            Gruppo gruppo = entityManager.find(Gruppo.class, gruppoId);
-            entityManager.remove(gruppo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Errore metodo deleteGruppo ---GruppoCrud---");
-            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-        }
-    }
 
-	@Override
-	public Gruppo insert(Gruppo gruppo, EntityManager entityManager) throws Exception {
+	public Gruppo insertGruppo(Gruppo gruppo, EntityManager entityManager) throws Exception {
 		try {
-			entityManager.persist(gruppo);
-			entityManager.flush();
-			entityManager.clear();
-			return gruppo;
+			return baseCrud.insert(gruppo, entityManager);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Errore insertMessaggio --MessaggioCrud--");
-			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+			System.out.println("Errore insertGruppo GruppoCrud ---Exception---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}
 
-	@Override
-	public Gruppo update(Gruppo gruppo, EntityManager entityManager) throws Exception {
+	public Gruppo updateGruppo(Gruppo gruppo, EntityManager entityManager) throws Exception {
 		try {
-			if (!entityManager.contains(gruppo)) {
-				gruppo = entityManager.merge(gruppo);
-			}
-			entityManager.flush();
-			entityManager.clear();
-			return gruppo;
+			return baseCrud.update(gruppo, entityManager);
 		} catch (Exception e) {
-			System.out.println("Errore nel metodo updateUtente della classe UtenteCrud ---Exception---");
+			System.out.println("Errore nel metodo updateGruppo della classe GruppoCrud ---Exception---");
 			e.printStackTrace();
-			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}
 
-	@Override
-	public boolean delete(Gruppo oggetto, EntityManager entityManager) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
+    public boolean deleteGruppo(Gruppo gruppoDaEliminare, EntityManager entityManager) throws Exception {
+        try {
+            return baseCrud.delete(gruppoDaEliminare, entityManager);
+        } catch (Exception e) {
+            e.printStackTrace();
+			System.out.println("Errore nel metodo deleteGruppo della classe GruppoCrud ---Exception---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+        }
+    }
+
 }

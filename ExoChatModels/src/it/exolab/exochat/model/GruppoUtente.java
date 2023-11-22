@@ -1,6 +1,7 @@
 package it.exolab.exochat.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -28,6 +29,25 @@ public class GruppoUtente implements Serializable{
     @ManyToOne
     @JoinColumn(name = "UTENTE_ID", insertable = false, updatable = false)
     private Utente utente;
+    
+    
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idPartecipante);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GruppoUtente other = (GruppoUtente) obj;
+		return Objects.equals(idPartecipante, other.idPartecipante);
+	}
 
 	public Integer getIdPartecipante() {
 		return idPartecipante;

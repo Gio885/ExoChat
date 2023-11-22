@@ -4,6 +4,7 @@ import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.ChatCrud;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.ChatControllerInterface;
+import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
 import it.exolab.exochat.model.Chat;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.persistence.PersistenceUnit;
  */
 @Stateless(name = "ChatControllerInterface")
 @LocalBean
-public class ChatController implements ChatControllerInterface {
+public class ChatController extends EntityManagerProvider implements ChatControllerInterface {
 
     @PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
 	private EntityManagerFactory entityManagerFactory;
@@ -31,7 +32,7 @@ public class ChatController implements ChatControllerInterface {
 
 	@Override
 	public List<Chat> findAllChatByUtenteId(Integer utenteId) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			ChatCrud chatCrud = new ChatCrud();
 			List<Chat> listaChatUtente = chatCrud.findChatByUtenteId(utenteId, entityManager);
@@ -56,7 +57,7 @@ public class ChatController implements ChatControllerInterface {
 
 	@Override
 	public Chat insertChat(Chat chat) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			ChatCrud chatCrud = new ChatCrud();
 			entityManager.getTransaction().begin();
@@ -76,7 +77,7 @@ public class ChatController implements ChatControllerInterface {
 
 	@Override
 	public void deleteChat(Chat chat) throws Exception {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			ChatCrud chatCrud = new ChatCrud();
 			entityManager.getTransaction().begin();
