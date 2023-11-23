@@ -31,6 +31,7 @@ public class Convertitore {
 		AccountDto accountDto = new AccountDto();
 		accountDto.setIdUtente(utente.getIdUtente());;
 		accountDto.setUsername(utente.getUsername());
+		accountDto.setPassword(utente.getPassword());
 		accountDto.setEmail(utente.getEmail());
 		accountDto.setInfo(utente.getInfo());			
 		String foto = Base64.getEncoder().encodeToString(utente.getFoto());
