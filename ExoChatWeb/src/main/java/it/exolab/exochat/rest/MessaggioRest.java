@@ -69,7 +69,7 @@ public class MessaggioRest {
 	public Response findMessaggiForChatId(Chat chat) {
 		try {
 			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
-			Dto<List<MessaggioDto>> listaMessaggiChat = messaggioService.findMessaggiForChatId(chat);
+			Dto<List<Messaggio>> listaMessaggiChat = messaggioService.findMessaggiForChatId(chat);
 			return Response.status(Status.OK).entity(listaMessaggiChat.getData()).build();			
 		}catch(BusinessException e) {
 			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
@@ -89,10 +89,10 @@ public class MessaggioRest {
 	public Response findLastMessaggeForChat(Utente utente) {
 		try {
 			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
-			Dto<List<MessaggioDto>> ultimoMessaggioPerChat = messaggioService.findLastMessaggeForChat(utente);
+			Dto<List<Messaggio>> ultimoMessaggioPerChat = messaggioService.findLastMessaggeForChat(utente);
 			return Response.status(Status.OK).entity(ultimoMessaggioPerChat.getData()).build();			
 		}catch(BusinessException e) {
-			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();

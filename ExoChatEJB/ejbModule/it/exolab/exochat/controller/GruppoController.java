@@ -28,9 +28,7 @@ import javax.persistence.PersistenceUnit;
 @LocalBean
 public class GruppoController extends EntityManagerProvider implements GruppoControllerInterface {
 
-    @PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
-    private EntityManagerFactory entityManagerFactory;
-	
+    
 	
     public GruppoController() {
         // TODO Auto-generated constructor stub

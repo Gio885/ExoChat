@@ -22,10 +22,6 @@ import javax.persistence.PersistenceUnit;
 @LocalBean
 public class ChatController extends EntityManagerProvider implements ChatControllerInterface {
 
-    @PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
-	private EntityManagerFactory entityManagerFactory;
-	
-	
     public ChatController() {
         // TODO Auto-generated constructor stub
     }

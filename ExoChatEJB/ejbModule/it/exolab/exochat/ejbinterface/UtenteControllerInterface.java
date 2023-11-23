@@ -18,7 +18,7 @@ public interface UtenteControllerInterface {
 
 	//Dto<Utente> findUtenteByUsername(String username) throws Exception;
 
-	//Dto<Utente> updateUtente(Utente utente) throws Exception;
+	Dto<Utente> updateUtente(Utente utente) throws Exception;
 
     //void deleteUtente(Utente utente) throws Exception;
 

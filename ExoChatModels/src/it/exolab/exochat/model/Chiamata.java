@@ -17,13 +17,13 @@ public class Chiamata implements Serializable {
     @Column(name = "ID_CHIAMATA")
     private Integer idChiamata;
 	
-    @Column(name = "CHIAMANTE_ID", nullable = false)
+    @Column(name = "CHIAMANTE_ID", nullable = false,insertable = false, updatable = false)
 	private Integer chiamanteId;
 	
-    @Column(name = "RICEVENTE_ID")
+    @Column(name = "RICEVENTE_ID", insertable = false, updatable = false)
 	private Integer riceventeId;
 	
-    @Column(name = "GRUPPO_RICEVENTE_ID")
+    @Column(name = "GRUPPO_RICEVENTE_ID", insertable = false, updatable = false)
 	private Integer gruppoRiceventeId;
 	
 	@Column(name = "DATA_ORA_INZIO")
@@ -36,15 +36,15 @@ public class Chiamata implements Serializable {
     private Time durata;
 
     @ManyToOne
-    @JoinColumn(name = "CHIAMANTE_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "CHIAMANTE_ID", referencedColumnName = "ID_UTENTE")
     private Utente chiamante;
 
     @ManyToOne
-    @JoinColumn(name = "RICEVENTE_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "RICEVENTE_ID", referencedColumnName = "ID_UTENTE")
     private Utente ricevente;
 
     @ManyToOne
-    @JoinColumn(name = "GRUPPO_RICEVENTE_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "GRUPPO_RICEVENTE_ID", referencedColumnName = "ID_GRUPPO")
     private Gruppo gruppoRicevente;
     
     

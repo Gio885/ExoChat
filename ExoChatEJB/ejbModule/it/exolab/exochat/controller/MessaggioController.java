@@ -55,9 +55,9 @@ public class MessaggioController extends EntityManagerProvider implements Messag
 	}
 	
 	@Override
-	public Dto<List<MessaggioDto>> findMessaggiForChatId(Chat chat) throws Exception {
+	public Dto<List<Messaggio>> findMessaggiForChatId(Chat chat) throws Exception {
 		EntityManager entityManager = EntityManagerProvider.getEntityManager();
-		Dto <List<MessaggioDto>> messaggiDto = new Dto <List<MessaggioDto>>();
+		Dto <List<Messaggio>> messaggiDto = new Dto <List<Messaggio>>();
 		try {
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
 			List<Messaggio> listaMessaggiChat = messaggioCrud.findMessaggiForChatId(chat, entityManager);
@@ -83,9 +83,9 @@ public class MessaggioController extends EntityManagerProvider implements Messag
 	    
 
 	@Override
-	public Dto<List<MessaggioDto>> findLastMessaggeForChat(Utente utente) throws Exception {
+	public Dto<List<Messaggio>> findLastMessaggeForChat(Utente utente) throws Exception {
 		EntityManager entityManager = EntityManagerProvider.getEntityManager();
-		Dto <List<MessaggioDto>> messaggiDto = new Dto <List<MessaggioDto>>();
+		Dto <List<Messaggio>> messaggiDto = new Dto <List<Messaggio>>();
 		try {
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
 			List<Messaggio> listaUltimiMessaggiPerChat = messaggioCrud.findLastMessaggeForChat(utente, entityManager);

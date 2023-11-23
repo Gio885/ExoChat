@@ -26,7 +26,7 @@ public class Chat implements Serializable{
     private TipoChat tipoChat;
     
     @JsonbTransient
-    @OneToMany(mappedBy = "chat",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
     private List<Messaggio> listaMessaggiChat;
     
     

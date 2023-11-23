@@ -3,6 +3,7 @@ package it.exolab.exochat.controller;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.GruppoUtenteCrud;
 import it.exolab.exochat.ejbinterface.GruppoUtenteControllerInterface;
+import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
 import it.exolab.exochat.model.GruppoUtente;
 
 import java.util.List;
@@ -18,11 +19,8 @@ import javax.persistence.PersistenceUnit;
  */
 @Stateless(name = "GruppoUtenteControllerInterface")
 @LocalBean
-public class GruppoUtenteController implements GruppoUtenteControllerInterface {
+public class GruppoUtenteController extends EntityManagerProvider implements GruppoUtenteControllerInterface {
 
-    @PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
-    private EntityManagerFactory entityManagerFactory;
-	
     public GruppoUtenteController() {
         // TODO Auto-generated constructor stub
     }

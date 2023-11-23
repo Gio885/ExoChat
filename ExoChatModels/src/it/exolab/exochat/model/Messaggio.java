@@ -18,13 +18,13 @@ public class Messaggio implements Serializable {
 	@Column(name = "ID_MESSAGGIO")
 	private Integer idMessaggio;
 	
-//	@Column(name = "MITTENTE_ID")
-//	private Integer mittenteId;
-//	
-//	@Column(name = "DESTINATARIO_ID")
-//	private Integer destinatarioId;
-//	
-	@Column(name = "GRUPPO_ID")
+	@Column(name = "MITTENTE_ID", insertable = false, updatable = false)
+	private Integer mittenteId;
+	
+	@Column(name = "DESTINATARIO_ID", insertable = false, updatable = false)
+	private Integer destinatarioId;
+	
+	@Column(name = "GRUPPO_ID", insertable = false, updatable = false)
 	private Integer gruppoId;
 	
 	@Column(name = "CONTENUTO_MESSAGGIO", nullable = false)
@@ -37,96 +37,75 @@ public class Messaggio implements Serializable {
 	@Column(name = "DATA_ORA")
 	private Date dataOra;
 	
-//	@Column(name = "CHAT_ID", nullable = false)
-//	private Integer chatId;
+	@Column(name = "CHAT_ID", nullable = false, insertable = false, updatable = false)
+	private Integer chatId;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "MITTENTE_ID")
+	@JoinColumn(name = "MITTENTE_ID", referencedColumnName = "ID_UTENTE")
 	private Utente mittente;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DESTINATARIO_ID")
+	@JoinColumn(name = "DESTINATARIO_ID", referencedColumnName = "ID_UTENTE")
 	private Utente destinatario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "GRUPPO_ID", insertable = false, updatable = false)
+	@JoinColumn(name = "GRUPPO_ID", referencedColumnName = "ID_GRUPPO")
 	private Gruppo gruppo;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "CHAT_ID")
+	@JoinColumn(name = "CHAT_ID" , referencedColumnName = "ID_CHAT")
 	private Chat chat;
 	
-	
-	
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(idMessaggio);
-	}
-
-//	@Override
-//	public boolean equals(Object obj) {
-//	    if (this == obj) {
-//	        return true;
-//	    }
-//	    if (obj == null || getClass() != obj.getClass()) {
-//	        return false;
-//	    }
-//	    Messaggio other = (Messaggio) obj;
-//
-//	    // Check if destinatarioId is null
-//	    if (destinatarioId == null) {
-//	        // If destinatarioId is null, check gruppoId
-//	        return Objects.equals(gruppoId, other.gruppoId) &&
-//	               Objects.equals(dataOra, other.dataOra) &&
-//	               Objects.equals(mittenteId, other.mittenteId);
-//	    }
-//
-//	    // If destinatarioId is not null, perform standard equality check
-//	    return Objects.equals(dataOra, other.dataOra) &&
-//	           Objects.equals(destinatarioId, other.destinatarioId) &&
-//	           Objects.equals(gruppoId, other.gruppoId) &&
-//	           Objects.equals(mittenteId, other.mittenteId);
-//	}
-
-	
-	
-	
-	public Integer getIdMessaggio() {
-		return idMessaggio;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Messaggio other = (Messaggio) obj;
-		return Objects.equals(idMessaggio, other.idMessaggio);
+	    if (this == obj) {
+	        return true;
+	    }
+	    if (obj == null || getClass() != obj.getClass()) {
+	        return false;
+	    }
+	    Messaggio other = (Messaggio) obj;
+
+	    // Check if destinatarioId is null
+	    if (destinatarioId == null) {
+	        // If destinatarioId is null, check gruppoId
+	        return Objects.equals(gruppoId, other.gruppoId) &&
+	               Objects.equals(dataOra, other.dataOra) &&
+	               Objects.equals(mittenteId, other.mittenteId);
+	    }
+
+	    // If destinatarioId is not null, perform standard equality check
+	    return Objects.equals(dataOra, other.dataOra) &&
+	           Objects.equals(destinatarioId, other.destinatarioId) &&
+	           Objects.equals(gruppoId, other.gruppoId) &&
+	           Objects.equals(mittenteId, other.mittenteId);
+	}
+
+	
+	public Integer getIdMessaggio() {
+		return idMessaggio;
 	}
 
 	public void setIdMessaggio(Integer idMessaggio) {
 		this.idMessaggio = idMessaggio;
 	}
 
-//	public Integer getMittenteId() {
-//		return mittenteId;
-//	}
-//
-//	public void setMittenteId(Integer mittenteId) {
-//		this.mittenteId = mittenteId;
-//	}
-//
-//	public Integer getDestinatarioId() {
-//		return destinatarioId;
-//	}
-//
-//	public void setDestinatarioId(Integer destinatarioId) {
-//		this.destinatarioId = destinatarioId;
-//	}
+	public Integer getMittenteId() {
+		return mittenteId;
+	}
+
+	public void setMittenteId(Integer mittenteId) {
+		this.mittenteId = mittenteId;
+	}
+
+	public Integer getDestinatarioId() {
+		return destinatarioId;
+	}
+
+	public void setDestinatarioId(Integer destinatarioId) {
+		this.destinatarioId = destinatarioId;
+	}
 
 	public Integer getGruppoId() {
 		return gruppoId;
@@ -160,13 +139,13 @@ public class Messaggio implements Serializable {
 		this.dataOra = dataOra;
 	}
 
-//	public Integer getChatId() {
-//		return chatId;
-//	}
-//
-//	public void setChatId(Integer chatId) {
-//		this.chatId = chatId;
-//	}
+	public Integer getChatId() {
+		return chatId;
+	}
+
+	public void setChatId(Integer chatId) {
+		this.chatId = chatId;
+	}
 
 	public Utente getMittente() {
 		return mittente;

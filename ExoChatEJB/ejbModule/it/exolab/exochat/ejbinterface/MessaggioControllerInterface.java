@@ -19,9 +19,9 @@ public interface MessaggioControllerInterface {
 
     void insertMessaggio(Messaggio messaggio) throws Exception;
     
-    Dto<List<MessaggioDto>> findLastMessaggeForChat (Utente utente) throws Exception;
+    Dto<List<Messaggio>> findLastMessaggeForChat (Utente utente) throws Exception;
     
-    Dto<List<MessaggioDto>> findMessaggiForChatId(Chat chat) throws Exception;
+    Dto<List<Messaggio>> findMessaggiForChatId(Chat chat) throws Exception;
 
 
 }

@@ -69,8 +69,15 @@ public class MessaggioCrud extends BaseCrud <Messaggio> {
 					"  JOIN m1.chat c1 " +
 					"  WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
 					"  GROUP BY c1.idChat) order by m.dataOra DESC";
-			Query query = entityManager.createQuery(queryString);
-			query.setParameter("utenteId", utente.getIdUtente());
+			
+			String queryString2 = "SELECT * FROM MESSAGGIO m " +
+                    "WHERE (m.CHAT_ID, m.DATA_ORA) IN (" +
+                    "    SELECT c1.ID_CHAT, MAX(m1.DATA_ORA) " +
+                    "    FROM MESSAGGIO m1 " +
+                    "    JOIN CHAT c1 ON m1.CHAT_ID = c1.ID_CHAT " +
+                    "    GROUP BY c1.ID_CHAT) " +
+                    "ORDER BY m.DATA_ORA DESC";
+			Query query = entityManager.createNativeQuery(queryString2,Messaggio.class);
 			return query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -28,11 +28,11 @@ public class Gruppo implements Serializable {
     @Column(name = "FOTO_GRUPPO")
     private byte[] fotoGruppo;
     
-    @Column(name = "AMMINISTRATORE_GRUPPO")
+    @Column(name = "AMMINISTRATORE_GRUPPO", insertable = false, updatable = false)
     private Integer amministratoreGruppo;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_UTENTE", insertable = false, updatable = false)
+    @JoinColumn(name = "AMMINISTRATORE_GRUPPO",referencedColumnName = "ID_UTENTE")
     private Utente amministratore;
     
     @JsonbTransient

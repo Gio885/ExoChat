@@ -86,6 +86,28 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 		}	
 	}
 	
+	@Override
+	public Dto<Utente> updateUtente(Utente utente) throws Exception {
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
+		try {
+			Dto <Utente> dtoUtente = new Dto <Utente>();
+				UtenteCrud crud = new UtenteCrud();
+				entityManager.getTransaction().begin();
+				Utente utenteInserito = crud.updateUtente(utente, entityManager);
+				entityManager.getTransaction().commit();
+				dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteInserito));
+				return dtoUtente;		
+		}catch(Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+			System.out.println("Errore nel metodo updateUtente UtenteController ---Exception---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		} finally {
+			entityManager.clear();
+			entityManager.close();
+		}	
+	}
+	
 	
 	@Override
 	public Dto<Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception{
@@ -277,6 +299,8 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
             throw new IOException(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
 	}
+
+	
 
 	
 

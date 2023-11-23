@@ -32,8 +32,6 @@ public class UtenteCrud extends BaseCrud <Utente> {
 
     private BaseCrud<Utente> baseCrud = new BaseCrud<Utente>();
     
-	
-    
     public Utente findUtenteById(Integer idUtente, EntityManager entityManager) throws Exception {
   		try {
   			return baseCrud.findById(idUtente, Utente.class, entityManager);
@@ -43,8 +41,7 @@ public class UtenteCrud extends BaseCrud <Utente> {
   			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
   		}
   	}
-    
-    
+     
     public Utente insertUtente(Utente utente, EntityManager entityManager) throws Exception {
 		try {
 			return baseCrud.insert(utente, entityManager);
@@ -74,8 +71,7 @@ public class UtenteCrud extends BaseCrud <Utente> {
 			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}
-	
-	
+		
 	@SuppressWarnings("unchecked")
 	public List<Utente> findAllUtenti(EntityManager entityManager) throws Exception {
 		try {
@@ -114,9 +110,6 @@ public class UtenteCrud extends BaseCrud <Utente> {
 			Query query = entityManager.createQuery(queryString, Utente.class);
 			query.setParameter("emailUtente", utente.getEmail());
 			query.setParameter("passwordUtente", utente.getPassword());
-			System.out.println("-----------------------------------------------------------------------------------------------");
-			System.out.println("ClassLoader: " + Utente.class.getClassLoader());
-			System.out.println("-----------------------------------------------------------------------------------------------");
 			return (Utente) query.getSingleResult();
 		} catch (NoResultException e) {
 			e.printStackTrace();

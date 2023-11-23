@@ -22,9 +22,6 @@ import javax.persistence.PersistenceUnit;
 public class ChiamataController extends EntityManagerProvider implements ChiamataControllerInterface {
 
     
-	@PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
-	private EntityManagerFactory entityManagerFactory;
-	
     public ChiamataController() {
         // TODO Auto-generated constructor stub
     }
