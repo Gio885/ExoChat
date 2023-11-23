@@ -16,6 +16,7 @@ import it.exolab.exochat.convertitore.Convertitore;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.MessaggioCrud;
 import it.exolab.exochat.crud.UtenteCrud;
+import it.exolab.exochat.dto.AccountDto;
 import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.UtenteControllerInterface;
@@ -87,13 +88,14 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 	}
 	
 	@Override
-	public Dto<Utente> updateUtente(Utente utente) throws Exception {
+	public Dto<Utente> updateUtente(AccountDto utenteDto) throws Exception {
 		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			Dto <Utente> dtoUtente = new Dto <Utente>();
 				UtenteCrud crud = new UtenteCrud();
+				Utente utenteDaAggiornare = new Convertitore().convertDtoToUtente(utenteDto);
 				entityManager.getTransaction().begin();
-				Utente utenteInserito = crud.updateUtente(utente, entityManager);
+				Utente utenteInserito = crud.updateUtente(utenteDaAggiornare, entityManager);
 				entityManager.getTransaction().commit();
 				dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteInserito));
 				return dtoUtente;		

@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response.Status;
 
 import it.exolab.exochat.conf.EjbService;
 import it.exolab.exochat.costanti.Costanti;
+import it.exolab.exochat.dto.AccountDto;
 import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.UtenteControllerInterface;
@@ -46,10 +47,10 @@ public class UtenteRest {
 	@Path(EndPoint.UPDATE_UTENTE)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateUtente(Utente utente) {
+	public Response updateUtente(AccountDto utenteDto) {
 		try {
 			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
-			Dto<Utente> utenteAggiornato = utenteService.updateUtente(utente);
+			Dto<Utente> utenteAggiornato = utenteService.updateUtente(utenteDto);
 			return Response.status(Status.OK).entity(utenteAggiornato.getData()).build();		
 		}catch(BusinessException e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();

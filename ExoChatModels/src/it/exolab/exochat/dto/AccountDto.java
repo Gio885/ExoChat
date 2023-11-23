@@ -7,6 +7,7 @@ public class AccountDto {
 	private Integer idUtente;
 	private String username;
 	private String email;
+	private String password;
 	private String info;
 	private String fotoConvertita;
 	private AccountDto amministratoreGruppo;
@@ -30,6 +31,12 @@ public class AccountDto {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getInfo() {
 		return info;

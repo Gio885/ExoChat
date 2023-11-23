@@ -13,6 +13,19 @@ import it.exolab.exochat.model.Utente;
 
 public class Convertitore {
 
+	
+	public Utente convertDtoToUtente(AccountDto utenteDto) {
+		Utente utente = new Utente();
+		utente.setIdUtente(utenteDto.getIdUtente());
+		utente.setUsername(utenteDto.getUsername());
+		utente.setEmail(utenteDto.getEmail());
+		utente.setPassword(utenteDto.getPassword());
+		utente.setInfo(utenteDto.getInfo());	
+        byte[] fotoArrayByte = Base64.getDecoder().decode(utenteDto.getFotoConvertita());
+		utente.setFoto(fotoArrayByte);
+		return utente;
+	}
+	
 
 	public AccountDto convertUtenteToDto(Utente utente) {
 		AccountDto accountDto = new AccountDto();

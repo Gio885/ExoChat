@@ -1,5 +1,6 @@
 package it.exolab.exochat.ejbinterface;
 
+import it.exolab.exochat.dto.AccountDto;
 import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.model.Messaggio;
 import it.exolab.exochat.model.Utente;
@@ -18,7 +19,7 @@ public interface UtenteControllerInterface {
 
 	//Dto<Utente> findUtenteByUsername(String username) throws Exception;
 
-	Dto<Utente> updateUtente(Utente utente) throws Exception;
+	Dto<Utente> updateUtente(AccountDto utente) throws Exception;
 
     //void deleteUtente(Utente utente) throws Exception;
 
