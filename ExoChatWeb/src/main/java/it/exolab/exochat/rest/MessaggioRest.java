@@ -90,7 +90,7 @@ public class MessaggioRest {
 		try {
 			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
 			Dto<List<Messaggio>> ultimoMessaggioPerChat = messaggioService.findLastMessaggeForChat(utente);
-			return Response.status(Status.OK).entity(ultimoMessaggioPerChat.getData()).build();			
+			return Response.status(Status.OK).entity(ultimoMessaggioPerChat).build();			
 		}catch(BusinessException e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}catch(Exception e) {

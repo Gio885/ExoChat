@@ -56,12 +56,10 @@ public class Utente implements Serializable {
 
 	
 	
-	
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, messaggiDestinatario);
+		return Objects.hash(idUtente);
 	}
 
 	@Override
@@ -73,7 +71,7 @@ public class Utente implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Utente other = (Utente) obj;
-		return Objects.equals(email, other.email) && Objects.equals(messaggiDestinatario, other.messaggiDestinatario);
+		return Objects.equals(idUtente, other.idUtente);
 	}
 
 	public Integer getIdUtente() {
