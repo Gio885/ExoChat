@@ -26,6 +26,18 @@ public class Convertitore {
 		return utente;
 	}
 	
+	
+	public Gruppo convertDtoToGruppo(AccountDto gruppoDto) {
+		Gruppo gruppo = new Gruppo();
+		gruppo.setIdGruppo(gruppoDto.getIdUtente());
+		gruppo.setNomeGruppo(gruppoDto.getUsername());
+		gruppo.setInfoGruppo(gruppoDto.getInfo());
+		gruppo.setAmministratore(convertDtoToUtente(gruppoDto.getAmministratoreGruppo()));
+        byte[] fotoArrayByte = Base64.getDecoder().decode(gruppoDto.getFotoConvertita());
+        gruppo.setFotoGruppo(fotoArrayByte);
+		return gruppo;
+	}
+	
 
 	public AccountDto convertUtenteToDto(Utente utente) {
 		AccountDto accountDto = new AccountDto();

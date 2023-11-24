@@ -1,5 +1,6 @@
 package it.exolab.exochat.ejbinterface;
 
+import it.exolab.exochat.dto.AccountDto;
 import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.model.*;
 
@@ -13,7 +14,7 @@ public interface GruppoControllerInterface {
     
     Dto<List<Gruppo>> findAllChatGruppoNonIniziate(Utente utente) throws Exception;
 
-    Dto<Gruppo> insertGruppo(Gruppo gruppo) throws Exception;
+    Dto<Gruppo> insertGruppo(AccountDto gruppo) throws Exception;
 
     Gruppo updateGruppo(Gruppo gruppo) throws Exception;
 

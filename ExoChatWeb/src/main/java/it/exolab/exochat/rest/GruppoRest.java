@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response.Status;
 
 import it.exolab.exochat.conf.EjbService;
 import it.exolab.exochat.costanti.Costanti;
+import it.exolab.exochat.dto.AccountDto;
 import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.ejbinterface.GruppoControllerInterface;
 import it.exolab.exochat.endpoint.EndPoint;
@@ -26,7 +27,7 @@ public class GruppoRest {
 	@Path(EndPoint.INSERT_GRUPPO)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response insertGruppo(Gruppo gruppo) {
+	public Response insertGruppo(AccountDto gruppo) {
 		try {
 			GruppoControllerInterface gruppoService = new EjbService<GruppoControllerInterface>(GruppoControllerInterface.class).getEJB();
 			Dto<Gruppo> gruppoInserito = gruppoService.insertGruppo(gruppo);

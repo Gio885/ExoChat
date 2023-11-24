@@ -1,5 +1,13 @@
 package it.exolab.exochat.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+
 import it.exolab.exochat.convertitore.Convertitore;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.GruppoCrud;
@@ -10,16 +18,6 @@ import it.exolab.exochat.ejbinterface.GruppoControllerInterface;
 import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
 import it.exolab.exochat.model.Gruppo;
 import it.exolab.exochat.model.Utente;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 
 /**
  * Session Bean implementation class GruppoController
@@ -72,16 +70,15 @@ public class GruppoController extends EntityManagerProvider implements GruppoCon
 	}
 
 	@Override
-	public Dto<Gruppo> insertGruppo(Gruppo gruppo) throws Exception {
+	public Dto<Gruppo> insertGruppo(AccountDto gruppo) throws Exception {
 		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			Dto<Gruppo> gruppoDto = new Dto<Gruppo>();
 			GruppoCrud gruppoCrud = new GruppoCrud();
-			UtenteCrud utenteCrud = new UtenteCrud();
-			entityManager.getTransaction().begin();
-			Utente utenteDaTrovare = utenteCrud.findUtenteById(gruppo.getAmministratoreGruppo(), entityManager);
-			buildGruppo(gruppo,utenteDaTrovare);			
-			Gruppo gruppoInserito = gruppoCrud.insertGruppo(gruppo, entityManager);
+			Gruppo gruppoConvertito = new Convertitore().convertDtoToGruppo(gruppo);
+			buildGruppo(gruppoConvertito);			
+			entityManager.getTransaction().begin();	
+			Gruppo gruppoInserito = gruppoCrud.insertGruppo(gruppoConvertito, entityManager);
 			entityManager.getTransaction().commit();
 			gruppoDto.setData(new Convertitore().convertGruppoToDto(gruppoInserito));
 			return gruppoDto;
@@ -136,7 +133,7 @@ public class GruppoController extends EntityManagerProvider implements GruppoCon
 		
 	}
 	
-	private void buildGruppo(Gruppo gruppo,Utente amministratore) throws IOException {
+	private void buildGruppo(Gruppo gruppo) throws IOException {
 		try {
 			if(null == gruppo.getInfoGruppo()) {
 				gruppo.setInfoGruppo("Disponibile");
@@ -154,7 +151,6 @@ public class GruppoController extends EntityManagerProvider implements GruppoCon
 				    inputStream.close();
 				}	
 			}
-			gruppo.setAmministratore(amministratore);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Errore metodo setFotoUtente  ----UtenteController----");

@@ -3,6 +3,7 @@ package it.exolab.exochat.crud;
 import javax.persistence.EntityManager;
 
 import it.exolab.exochat.costanti.Costanti;
+import it.exolab.exochat.model.Utente;
 
 public class BaseCrud <T> {
 

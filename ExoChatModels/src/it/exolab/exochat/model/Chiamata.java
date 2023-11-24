@@ -26,7 +26,7 @@ public class Chiamata implements Serializable {
     @Column(name = "GRUPPO_RICEVENTE_ID", insertable = false, updatable = false)
 	private Integer gruppoRiceventeId;
 	
-	@Column(name = "DATA_ORA_INZIO")
+	@Column(name = "DATA_ORA_INIZIO")
     private Date dataOraInizio;
 
     @Column(name = "DATA_ORA_FINE")
