@@ -7,7 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class ChatCrud {
+public class ChatCrud extends BaseCrud<Chat>{
+	
+	private BaseCrud<Chat> baseCrud = new BaseCrud<Chat>();
 
     @SuppressWarnings("unchecked")
 	public List<Chat> findChatByUtenteId(Integer utenteId, EntityManager entityManager) throws Exception {
@@ -28,10 +30,7 @@ public class ChatCrud {
 
     public Chat insertChat(Chat chat, EntityManager entityManager) throws Exception {   	
         try {
-            entityManager.persist(chat);
-            entityManager.flush();
-            entityManager.clear();
-            return chat;
+        	return baseCrud.insert(chat, entityManager);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Errore metodo insertChat ---ChatCrud---");
@@ -39,11 +38,11 @@ public class ChatCrud {
         }
     }
 
-    public void deleteChat(Integer chatId, EntityManager entityManager) throws Exception {
+    public boolean deleteChat(Chat chat, EntityManager entityManager) throws Exception {
     	
         try {
-            Chat chat = entityManager.find(Chat.class, chatId);
-            entityManager.remove(chat);
+        	return baseCrud.delete(chat, entityManager);
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Errore metodo deleteChat ---ChatCrud---");

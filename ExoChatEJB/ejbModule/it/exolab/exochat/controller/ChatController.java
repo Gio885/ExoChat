@@ -77,7 +77,7 @@ public class ChatController extends EntityManagerProvider implements ChatControl
 		try {
 			ChatCrud chatCrud = new ChatCrud();
 			entityManager.getTransaction().begin();
-			chatCrud.deleteChat(chat.getIdChat(), entityManager);
+			chatCrud.deleteChat(chat, entityManager);
 			entityManager.getTransaction().commit();
 		}catch(Exception e) {
 			e.printStackTrace();

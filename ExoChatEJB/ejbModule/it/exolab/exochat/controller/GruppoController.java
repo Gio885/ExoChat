@@ -50,6 +50,26 @@ public class GruppoController extends EntityManagerProvider implements GruppoCon
 			entityManager.close();
 		}
 	}
+	
+	@Override
+	public Dto<List<Gruppo>> findAllChatGruppoNonIniziate(Utente utente) throws Exception {
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
+		try {
+			GruppoCrud gruppoCrud = new GruppoCrud();
+			Dto<List<Gruppo>> gruppoDto = new Dto<List<Gruppo>>();
+			List<Gruppo> listaGruppiChatNonIniziate = gruppoCrud.findAllChatGruppoNonIniziate(utente, entityManager);
+			List<AccountDto> listaGruppiConvertita = new Convertitore().convertListaGruppoToDto(listaGruppiChatNonIniziate);
+			gruppoDto.setData(listaGruppiConvertita);
+			return gruppoDto;
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo findAllChatGruppoNonIniziate ---GruppoController--- ");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.clear();
+			entityManager.close();
+		}
+	}
 
 	@Override
 	public Dto<Gruppo> insertGruppo(Gruppo gruppo) throws Exception {
