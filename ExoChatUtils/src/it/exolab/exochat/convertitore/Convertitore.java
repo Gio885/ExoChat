@@ -30,10 +30,14 @@ public class Convertitore {
 	public Gruppo convertDtoToGruppo(AccountDto gruppoDto) {
 		Gruppo gruppo = new Gruppo();
 		gruppo.setNomeGruppo(gruppoDto.getUsername());
-		gruppo.setInfoGruppo(gruppoDto.getInfo());
 		gruppo.setAmministratore(convertDtoToUtente(gruppoDto.getAmministratoreGruppo()));
-        byte[] fotoArrayByte = Base64.getDecoder().decode(gruppoDto.getFotoConvertita());
-        gruppo.setFotoGruppo(fotoArrayByte);
+		if(null != gruppoDto.getInfo()) {
+			gruppo.setInfoGruppo(gruppoDto.getInfo());
+		}
+		if(null != gruppoDto.getFotoConvertita()) {
+			byte[] fotoArrayByte = Base64.getDecoder().decode(gruppoDto.getFotoConvertita());
+	        gruppo.setFotoGruppo(fotoArrayByte);
+		}     
 		return gruppo;
 	}
 	

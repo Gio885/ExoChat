@@ -31,20 +31,20 @@ public class GruppoCrud extends BaseCrud <Gruppo> {
     }
     
     @SuppressWarnings("unchecked")
-	public List<Gruppo> findAllChatGruppoNonIniziate(Utente utente,EntityManager entityManager) throws Exception{
-		try {
-			String queryString = "SELECT DISTINC g FROM Gruppo g INNER JOIN GruppoUtente gu"
-					+ " ON gu.gruppoId = g.idGruppo WHERE gu.utenteId = :idUtente AND"
-					+ " g.idGruppo NOT IN (SELECT m.gruppoId FROM messaggio m WHERE g.idGruppo = m.gruppoId";
-			Query query = entityManager.createQuery(queryString, Gruppo.class);
-			query.setParameter("idUtente", utente.getIdUtente());
-			return query.getResultList();
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("Errore findAllChatGruppoNonIniziate GruppoCrud ---Exception---");
-			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-		}
-	}
+    public List<Gruppo> findAllChatGruppoNonIniziate(Utente utente, EntityManager entityManager) throws Exception {
+        try {
+            String queryString = "SELECT DISTINCT g FROM Gruppo g INNER JOIN GruppoUtente gu"
+                    + " ON gu.gruppoId = g.idGruppo WHERE gu.utenteId = :idUtente AND"
+                    + " g.idGruppo NOT IN (SELECT m.gruppoId FROM Messaggio m WHERE g.idGruppo = m.gruppoId)";
+            Query query = entityManager.createQuery(queryString, Gruppo.class);
+            query.setParameter("idUtente", utente.getIdUtente());
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Errore findAllChatGruppoNonIniziate GruppoCrud ---Exception---");
+            throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+        }
+    }
 
 
 	public Gruppo insertGruppo(Gruppo gruppo, EntityManager entityManager) throws Exception {
