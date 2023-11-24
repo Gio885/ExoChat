@@ -21,5 +21,6 @@ public class EndPoint {
 	public static final String INSERT_GRUPPO = "/insertGruppo";
 	public static final String INSERT_UTENTI_GRUPPO = "/insertUtentiGruppo";
 	public static final String FIND_ALL_CHAT_GRUPPO_NON_INIZIATE = "/findAllChatGruppoNonIniziate";
+	public static final String PROVA = "";
 	
 }
