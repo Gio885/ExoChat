@@ -61,14 +61,14 @@ public class MessaggioCrud extends BaseCrud <Messaggio> {
 	@SuppressWarnings("unchecked")
 	public List<Messaggio> findLastMessaggeForChat(Utente utente, EntityManager entityManager) throws Exception {
 		try {
-			String queryString = "SELECT m " +
-					"FROM Messaggio m " +
-					"WHERE (m.chat.idChat, m.dataOra) IN (" +
-					"  SELECT c1.idChat, MAX(m1.dataOra) " +
-					"  FROM Messaggio m1 " +
-					"  JOIN m1.chat c1 " +
-					"  WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
-					"  GROUP BY c1.idChat) order by m.dataOra DESC";
+			String queryString = "SELECT m FROM Messaggio m " +
+			        "WHERE (m.chat.id, m.dataOra) IN (" +
+			        "    SELECT c1.idChat, MAX(m1.dataOra) " +
+			        "    FROM Messaggio m1 " +
+			        "    JOIN m1.chat c1 " +
+			        "    WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
+			        "    GROUP BY c1.idChat) " +
+			        "ORDER BY m.dataOra DESC";
 			
 			String queryString2 = "SELECT * FROM MESSAGGIO m " +
                     "WHERE (m.CHAT_ID, m.DATA_ORA) IN (" +
@@ -86,7 +86,8 @@ public class MessaggioCrud extends BaseCrud <Messaggio> {
 //                    "    JOIN m1.chat c1 " +
 //                    "    GROUP BY c1.idChat) " +
 //                    "ORDER BY m.dataOra DESC";
-			Query query = entityManager.createNativeQuery(queryString2,Messaggio.class);
+			Query query = entityManager.createQuery(queryString,Messaggio.class);
+			query.setParameter("utenteId", utente.getIdUtente());
 			return query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
