@@ -4,8 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.json.bind.annotation.JsonbTransient;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "MESSAGGIO")
@@ -81,7 +89,6 @@ public class Messaggio implements Serializable {
 	           Objects.equals(gruppoId, other.gruppoId) &&
 	           Objects.equals(mittenteId, other.mittenteId);
 	}
-
 	
 	public Integer getIdMessaggio() {
 		return idMessaggio;
@@ -178,13 +185,4 @@ public class Messaggio implements Serializable {
 	public void setChat(Chat chat) {
 		this.chat = chat;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

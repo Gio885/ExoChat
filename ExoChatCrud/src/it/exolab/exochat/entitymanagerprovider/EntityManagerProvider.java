@@ -34,5 +34,25 @@ public class EntityManagerProvider {
 	 }
 	 
 	 
+	 
+	 
+	 /**
+	  * Session Bean implementation class UtenteController
+	  * 
+	  * @PersistenceContext per inettare un istanza entity manager per operazioni di persistenza JTA
+	  * 
+	  * @PersistenceUnit per iniettare un istanza della factory per creare entitymanager per fare operazioni di persistenza RESOURCE LOCAL quindi MANUALI
+	  */
+	 
+	 //LINEA UTENTE OK DA REST A CRUD
+	 //LINEA CHIAMATA OK DA REST A CRUD
+	 //LINEA UTENTEGRUPPO OK DA REST A CRUD
+	 //LINEA CHAT OK DA REST A CRUD
+	 //LINEA GRUPPO OK DA REST A CRUD
+	 //LINEA MESSAGGIO
+	 
+	 
+	 
+	 
 
 }

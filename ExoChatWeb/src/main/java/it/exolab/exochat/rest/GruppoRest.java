@@ -22,7 +22,6 @@ import it.exolab.exochat.model.Utente;
 @Path(EndPoint.GRUPPO_REST)
 public class GruppoRest {
 
-	
 	@POST
 	@Path(EndPoint.INSERT_GRUPPO)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -35,9 +34,8 @@ public class GruppoRest {
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo insertGruppo ----GruppoRest----");
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
-		}
-			
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CREAZIONE_GRUPPO).build();
+		}			
 	}
 	
 	@POST
@@ -52,7 +50,7 @@ public class GruppoRest {
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo findAllChatGruppoNonIniziate ----GruppoRest----");
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_CHAT).build();
 		}
 	}
 	

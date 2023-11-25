@@ -3,7 +3,6 @@ package it.exolab.exochat.model;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
@@ -53,9 +52,6 @@ public class Utente implements Serializable {
 	@JsonbTransient
 	@OneToMany(mappedBy = "ricevente",fetch = FetchType.LAZY)
 	private List<Chiamata> chiamateRicevute;
-
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -161,13 +157,5 @@ public class Utente implements Serializable {
 	public void setChiamateRicevute(List<Chiamata> chiamateRicevute) {
 		this.chiamateRicevute = chiamateRicevute;
 	}
-
-	
-	
-	
-	
-
-	
-
 
 }

@@ -1,18 +1,9 @@
 package it.exolab.exochat.controller;
 
-import it.exolab.exochat.costanti.Costanti;
-import it.exolab.exochat.crud.ChiamataCrud;
-import it.exolab.exochat.ejbinterface.ChiamataControllerInterface;
-import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
-import it.exolab.exochat.model.Chiamata;
-
-import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import it.exolab.exochat.ejbinterface.ChiamataControllerInterface;
+import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
 
 /**
  * Session Bean implementation class ChiamataController
@@ -26,6 +17,19 @@ public class ChiamataController extends EntityManagerProvider implements Chiamat
         // TODO Auto-generated constructor stub
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    
 	@Override
 	public List<Chiamata> findAllChiamateByUtenteId(Integer utenteId) throws Exception {
 		EntityManager entityManager = EntityManagerProvider.getEntityManager();
@@ -99,6 +103,6 @@ public class ChiamataController extends EntityManagerProvider implements Chiamat
 			entityManager.close();
 		}
 	}
-
+   */
 
 }

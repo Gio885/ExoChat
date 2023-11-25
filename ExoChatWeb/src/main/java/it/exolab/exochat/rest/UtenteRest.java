@@ -25,43 +25,6 @@ import it.exolab.exochat.model.Utente;
 public class UtenteRest {
 	
 	@POST
-	@Path(EndPoint.INSERT_UTENTE)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response insertUtente(Utente utente) {
-		try {
-			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
-			Dto<Utente> utenteInserito = utenteService.insertUtente(utente);
-			return Response.status(Status.OK).entity(utenteInserito.getData()).build();		
-		}catch(BusinessException e) {
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("Errore metodo insertUtente ---ChatRest---- ");
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
-		}		
-	}
-	
-	
-	@POST
-	@Path(EndPoint.UPDATE_UTENTE)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateUtente(AccountDto utenteDto) {
-		try {
-			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
-			Dto<Utente> utenteAggiornato = utenteService.updateUtente(utenteDto);
-			return Response.status(Status.OK).entity(utenteAggiornato.getData()).build();		
-		}catch(BusinessException e) {
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("Errore metodo updateUtente ---ChatRest---- ");
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
-		}		
-	}
-	
-	@POST
 	@Path(EndPoint.LOGIN_UTENTE)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -76,8 +39,43 @@ public class UtenteRest {
 			e.printStackTrace();
 			System.out.println("Errore metodo loginUtente ---UtenteRest---- ");
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();		
-		}
-		
+		}	
+	}
+	
+	@POST
+	@Path(EndPoint.INSERT_UTENTE)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response insertUtente(Utente utente) {
+		try {
+			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
+			Dto<Utente> utenteInserito = utenteService.insertUtente(utente);
+			return Response.status(Status.OK).entity(utenteInserito.getData()).build();		
+		}catch(BusinessException e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo insertUtente ---UtenteRest---- ");
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
+		}		
+	}
+	
+	@POST
+	@Path(EndPoint.UPDATE_UTENTE)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateUtente(AccountDto utenteDto) {
+		try {
+			UtenteControllerInterface utenteService = new EjbService<UtenteControllerInterface>(UtenteControllerInterface.class).getEJB();
+			Dto<Utente> utenteAggiornato = utenteService.updateUtente(utenteDto);
+			return Response.status(Status.OK).entity(utenteAggiornato.getData()).build();		
+		}catch(BusinessException e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore metodo updateUtente ---UtenteRest---- ");
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();
+		}		
 	}
 	
 	@GET
@@ -90,7 +88,7 @@ public class UtenteRest {
 			return Response.status(Status.OK).entity(dtoUtente.getData()).build();
 		}catch(BusinessException e) {
 			e.printStackTrace();
-			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo findAllUtente ---UtenteRest----");
@@ -109,11 +107,11 @@ public class UtenteRest {
 			return Response.status(Status.OK).entity(dtoUtente.getData()).build();
 		}catch(BusinessException e) {
 			e.printStackTrace();
-			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("Errore metodo findAllUtente ---UtenteRest----");
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA).build();		
+			System.out.println("Errore metodo findAllUtentiChatNonIniziate ---UtenteRest----");
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_CHAT).build();		
 		}
 	}
 	

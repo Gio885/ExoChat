@@ -43,8 +43,6 @@ public class Gruppo implements Serializable {
     @OneToMany(mappedBy = "gruppoRicevente",fetch = FetchType.LAZY)
     private List<Chiamata> chiamateGruppo;
     
-    
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(idGruppo);
@@ -126,7 +124,4 @@ public class Gruppo implements Serializable {
 		this.chiamateGruppo = chiamateGruppo;
 	}
 
-
-    
-	
 }

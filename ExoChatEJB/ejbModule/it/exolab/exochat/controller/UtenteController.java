@@ -1,7 +1,5 @@
 package it.exolab.exochat.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -9,50 +7,47 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 
 import it.exolab.exochat.convertitore.Convertitore;
 import it.exolab.exochat.costanti.Costanti;
-import it.exolab.exochat.crud.MessaggioCrud;
 import it.exolab.exochat.crud.UtenteCrud;
 import it.exolab.exochat.dto.AccountDto;
 import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.UtenteControllerInterface;
 import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
-import it.exolab.exochat.model.Messaggio;
 import it.exolab.exochat.model.Utente;
 import it.exolab.exochat.validatore.Validatore;
 
 
-/*
- * 	IllegalArgumentException: Se l'argomento passato a find è di tipo non valido o è null.
-
-	TransactionRequiredException: Se l'operazione find viene eseguita fuori da una transazione attiva e se la persistenza richiede una transazione.
-
-	EntityNotFoundException: Se l'entità richiesta non esiste nel database.
-
-	PersistenceException: Eccezione generica per problemi di persistenza.
- */
-
-
-/**
- * Session Bean implementation class UtenteController
- * 
- * @PersistenceContext per inettare un istanza entity manager per operazioni di persistenza JTA
- * 
- * @PersistenceUnit per iniettare un istanza della factory per creare entitymanager per fare operazioni di persistenza RESOURCE LOCAL quindi MANUALI
- */
 @Stateless(name = "UtenteControllerInterface")
 @LocalBean
 public class UtenteController extends EntityManagerProvider  implements UtenteControllerInterface {
 
-//	@PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
-//	private EntityManagerFactory entityManagerFactory;
-	
 	public UtenteController() {
 		
+	}
+	
+	@Override
+	public Dto<Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception{
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
+		try {		
+			Dto <Utente> dtoUtente = new Dto <Utente>();
+			UtenteCrud utenteCrud = new UtenteCrud();
+			Utente utenteDaTrovare = utenteCrud.findUtenteByEmailAndPassword(utente, entityManager);
+			dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteDaTrovare));
+			return dtoUtente;							
+		}catch(BusinessException e) {
+			System.out.println("Errore nel metodo findUtenteByEmailAndPassword BusinessException---UtenteController----");
+			throw new BusinessException(e.getMessage());
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo findUtenteByEmailAndPassword ---UtenteController----");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}finally {
+			entityManager.clear();
+			entityManager.close();
+		}
 	}
 
 	@Override
@@ -110,56 +105,6 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 		}	
 	}
 	
-	
-	@Override
-	public Dto<Utente> findUtenteByEmailAndPassword(Utente utente) throws Exception{
-		EntityManager entityManager = EntityManagerProvider.getEntityManager();
-		try {		
-			Dto <Utente> dtoUtente = new Dto <Utente>();
-			UtenteCrud utenteCrud = new UtenteCrud();
-			Utente utenteDaTrovare = utenteCrud.findUtenteByEmailAndPassword(utente, entityManager);
-			dtoUtente.setData(new Convertitore().convertUtenteToDto(utenteDaTrovare));
-			return dtoUtente;							
-		}catch(BusinessException e) {
-			System.out.println("Errore nel metodo findUtenteByEmailAndPassword BusinessException---UtenteController----");
-			throw new BusinessException(e.getMessage());
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("Errore nel metodo findUtenteByEmailAndPassword ---UtenteController----");
-			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
-		}finally {
-			entityManager.clear();
-			entityManager.close();
-		}
-	}
-	
-	@Override
-	public Dto<List<Utente>> findAllUtentiChatNonIniziate(Utente utente) throws Exception {
-		EntityManager entityManager = EntityManagerProvider.getEntityManager();
-		try {
-			Dto<List<Utente>> listaUtentiDto = new Dto<List<Utente>>();
-			UtenteCrud utenteCrud = new UtenteCrud();
-			List<Utente> listaUtenti = utenteCrud.findAllUtentiChatNonIniziate(utente, entityManager);
-			if(!listaUtenti.isEmpty()) {
-				listaUtentiDto.setData(new Convertitore().convertListaUtenteToDto(listaUtenti));
-				return listaUtentiDto;	
-			}else {
-				throw new BusinessException("Non ci sono contatti");
-			}					
-		}catch(BusinessException e) {
-			e.printStackTrace();
-			System.out.println("Errore nel metodo findAllUtentiChatNonIniziate UtenteController ---Exception---");
-			throw new Exception(e.getMessage());
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("Errore nel metodo findAllUtentiChatNonIniziate UtenteController ---Exception---");
-			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_UTENTI);
-		} finally {
-			entityManager.clear();
-			entityManager.close();
-		}
-	}
-
 	@Override
 	public Dto<List<Utente>> findAllUtenti() throws Exception {
 		EntityManager entityManager = EntityManagerProvider.getEntityManager();
@@ -171,7 +116,7 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 				listaUtentiDto.setData(new Convertitore().convertListaUtenteToDto(listaUtenti));
 				return listaUtentiDto;	
 			}else {
-				throw new BusinessException("Non ci sono contatti");
+				throw new BusinessException(Costanti.NON_CI_SONO_CONTATTI);
 			}					
 		}catch(BusinessException e) {
 			e.printStackTrace();
@@ -186,6 +131,61 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 			entityManager.close();
 		}
 	}
+
+	@Override
+	public Dto<List<Utente>> findAllUtentiChatNonIniziate(Utente utente) throws Exception {
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
+		try {
+			Dto<List<Utente>> listaUtentiDto = new Dto<List<Utente>>();
+			UtenteCrud utenteCrud = new UtenteCrud();
+			List<Utente> listaUtenti = utenteCrud.findAllUtentiChatNonIniziate(utente, entityManager);
+			if(!listaUtenti.isEmpty()) {
+				listaUtentiDto.setData(new Convertitore().convertListaUtenteToDto(listaUtenti));
+				return listaUtentiDto;	
+			}else {
+				throw new BusinessException(Costanti.NON_CI_SONO_CHAT_NON_INIZIATE);
+			}					
+		}catch(BusinessException e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo findAllUtentiChatNonIniziate UtenteController ---Exception---");
+			throw new Exception(e.getMessage());
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo findAllUtentiChatNonIniziate UtenteController ---Exception---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_CHAT);
+		} finally {
+			entityManager.clear();
+			entityManager.close();
+		}
+	}
+	
+	private void buildUtente(Utente utente) throws IOException {
+		try {
+			utente.setInfo("Disponibile");
+			String imagePath = "fotoprofilo.png";			
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			InputStream inputStream = classLoader.getResourceAsStream(imagePath);
+			if (inputStream != null) {
+			    // Leggi l'immagine dall'input stream e convertila in un array di byte
+			    byte[] imageBytes = inputStream.readAllBytes();
+
+			    // Imposta l'array di byte nella proprietà 'foto' dell'utente
+			    utente.setFoto(imageBytes);		    
+			    inputStream.close();
+			}
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Errore metodo buildUtente  ----UtenteController----");
+            throw new IOException(Costanti.ERRORE_CONTATTA_ASSISTENZA);
+        }
+	}
+
+	
+
+	
+	
+	
+	
 
 	/*
 	@Override
@@ -279,32 +279,6 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 		}
 	}
 	*/
-
-	
-	private void buildUtente(Utente utente) throws IOException {
-		try {
-			utente.setInfo("Disponibile");
-			String imagePath = "fotoprofilo.png";			
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			InputStream inputStream = classLoader.getResourceAsStream(imagePath);
-			if (inputStream != null) {
-			    // Leggi l'immagine dall'input stream e convertila in un array di byte
-			    byte[] imageBytes = inputStream.readAllBytes();
-
-			    // Imposta l'array di byte nella proprietà 'foto' dell'utente
-			    utente.setFoto(imageBytes);		    
-			    inputStream.close();
-			}
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Errore metodo setFotoUtente  ----UtenteController----");
-            throw new IOException(Costanti.ERRORE_CONTATTA_ASSISTENZA);
-        }
-	}
-
-	
-
-	
 
 
 }

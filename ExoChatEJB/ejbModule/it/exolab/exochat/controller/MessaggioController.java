@@ -1,5 +1,11 @@
 package it.exolab.exochat.controller;
 
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+
 import it.exolab.exochat.convertitore.Convertitore;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.crud.MessaggioCrud;
@@ -8,16 +14,9 @@ import it.exolab.exochat.dto.MessaggioDto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
 import it.exolab.exochat.entitymanagerprovider.EntityManagerProvider;
+import it.exolab.exochat.model.Chat;
 import it.exolab.exochat.model.Messaggio;
-import it.exolab.exochat.model.*;
-
-import java.util.List;
-
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import it.exolab.exochat.model.Utente;
 
 /**
  * Session Bean implementation class MessaggioController
@@ -26,11 +25,6 @@ import javax.persistence.PersistenceUnit;
 @LocalBean
 public class MessaggioController extends EntityManagerProvider implements MessaggioControllerInterface {
 
-    
-//NON VA INIZIALIZZATO IN QUANTO L EJB ESTENDE LA LA CLASSE ENTITYMANAGERPROVIDER
-//	@PersistenceUnit(name = Costanti.PERSISTENCE_UNIT_NAME)
-//	private EntityManagerFactory entityManagerFactory;
-	
     public MessaggioController() {
     	
     }
@@ -47,7 +41,7 @@ public class MessaggioController extends EntityManagerProvider implements Messag
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 			System.out.println("Errore insertMessaggio --ControllerMessaggio--");
-			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_DURANTE_INVIO_MESSAGGIO);
 		}finally {
 			entityManager.clear();
 			entityManager.close();
@@ -66,22 +60,21 @@ public class MessaggioController extends EntityManagerProvider implements Messag
 				messaggiDto.setData(listaMessaggiDto);
 				return messaggiDto;
 			}else {
-				throw new BusinessException("Non ci sono messaggi");
+				throw new BusinessException(Costanti.NON_CI_SONO_MESSAGGI);
 			}			
 		}catch(BusinessException e) {
-			System.out.println("Errore findMessaggiForChatId   ----MessaggioController----");
+			System.out.println("Errore findMessaggiForChatId   ----MessaggioController---- NON CI SONO MESSAGGI");
 			throw new BusinessException(e.getMessage());
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Errore metodo findMessaggiForChatId  ---MessaggioController----");
-			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_CHAT);
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_MESSAGGI);
 		}finally {
 			entityManager.clear();
 			entityManager.close();
 		}
 	}
 	    
-
 	@Override
 	public Dto<List<Messaggio>> findLastMessaggeForChat(Utente utente) throws Exception {
 		EntityManager entityManager = EntityManagerProvider.getEntityManager();
@@ -94,11 +87,10 @@ public class MessaggioController extends EntityManagerProvider implements Messag
 				messaggiDto.setData(listaMessaggiDto);
 				return messaggiDto;
 			}else {
-				throw new BusinessException("Non ci sono chat");
+				throw new BusinessException(Costanti.NON_CI_SONO_CHAT_INIZIATE);
 			}		
 		}catch(BusinessException e) {
-			e.printStackTrace();
-			System.out.println("Errore metodo findLastMessaggeForChat ---MessaggioController--- BusinessException");
+			System.out.println("Errore metodo findLastMessaggeForChat ---MessaggioController--- BusinessException  NON CI SONO CHAT INIZIATE");
 			throw new BusinessException(e.getMessage());
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -109,6 +101,19 @@ public class MessaggioController extends EntityManagerProvider implements Messag
 			entityManager.close();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 //	private void formattaLista (List<Messaggio> listaMessaggiDaFormattare) throws Exception{
 //		try {

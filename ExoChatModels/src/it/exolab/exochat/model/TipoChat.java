@@ -47,10 +47,4 @@ public class TipoChat implements Serializable{
 	public void setListaChat(List<Chat> listaChat) {
 		this.listaChat = listaChat;
 	}
-    
- 
-	
-	
-	
-    
 }

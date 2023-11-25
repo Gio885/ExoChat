@@ -1,15 +1,18 @@
 package it.exolab.exochat.crud;
 
-import it.exolab.exochat.costanti.Costanti;
-import it.exolab.exochat.model.Chiamata;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import java.util.List;
-
 public class ChiamataCrud {
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
     @SuppressWarnings("unchecked")
 	public List<Chiamata> findAllChiamateByUtenteId(Integer utenteId, EntityManager entityManager) throws Exception {
         try {
@@ -62,5 +65,5 @@ public class ChiamataCrud {
     		throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
     	}
     }
-    
+    */
 }

@@ -47,8 +47,6 @@ public class Chiamata implements Serializable {
     @JoinColumn(name = "GRUPPO_RICEVENTE_ID", referencedColumnName = "ID_GRUPPO")
     private Gruppo gruppoRicevente;
     
-    
-    
 
 	@Override
 	public int hashCode() {
@@ -146,16 +144,5 @@ public class Chiamata implements Serializable {
 	public void setGruppoRicevente(Gruppo gruppoRicevente) {
 		this.gruppoRicevente = gruppoRicevente;
 	}
-
-	
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 }

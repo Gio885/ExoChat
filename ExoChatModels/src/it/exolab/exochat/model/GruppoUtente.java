@@ -30,8 +30,6 @@ public class GruppoUtente implements Serializable{
     @JoinColumn(name = "UTENTE_ID", insertable = false, updatable = false)
     private Utente utente;
     
-    
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(idPartecipante);
@@ -88,8 +86,5 @@ public class GruppoUtente implements Serializable{
 	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
-    
-    
-    
-    
+       
 }

@@ -13,7 +13,6 @@ import it.exolab.exochat.model.Utente;
 
 public class Convertitore {
 
-	
 	public Utente convertDtoToUtente(AccountDto utenteDto) {
 		Utente utente = new Utente();
 		utente.setIdUtente(utenteDto.getIdUtente());
@@ -25,7 +24,6 @@ public class Convertitore {
 		utente.setFoto(fotoArrayByte);
 		return utente;
 	}
-	
 	
 	public Gruppo convertDtoToGruppo(AccountDto gruppoDto) {
 		Gruppo gruppo = new Gruppo();
@@ -41,7 +39,6 @@ public class Convertitore {
 		return gruppo;
 	}
 	
-
 	public AccountDto convertUtenteToDto(Utente utente) {
 		AccountDto accountDto = new AccountDto();
 		accountDto.setIdUtente(utente.getIdUtente());;
@@ -82,7 +79,6 @@ public class Convertitore {
 		}
 		return listaAccountDto;		
 	}
-	
 	
 	public MessaggioDto convertMessaggioToDto(Messaggio messaggio) {
 		MessaggioDto messaggioDto = new MessaggioDto();

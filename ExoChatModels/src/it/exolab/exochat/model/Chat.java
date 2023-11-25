@@ -29,8 +29,6 @@ public class Chat implements Serializable{
     @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
     private List<Messaggio> listaMessaggiChat;
     
-    
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(idChat);
@@ -79,9 +77,5 @@ public class Chat implements Serializable{
 	public void setListaMessaggiChat(List<Messaggio> listaMessaggiChat) {
 		this.listaMessaggiChat = listaMessaggiChat;
 	}
-   
-    
-    
-    
-    
+     
 }

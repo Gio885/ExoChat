@@ -3,7 +3,6 @@ package it.exolab.exochat.crud;
 import javax.persistence.EntityManager;
 
 import it.exolab.exochat.costanti.Costanti;
-import it.exolab.exochat.model.Utente;
 
 public class BaseCrud <T> {
 
@@ -15,7 +14,7 @@ public class BaseCrud <T> {
 			return (T) entityManager.find(entityClass,id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Errore nel metodo findById della classe BaseCrud ---Exception---");
+			System.out.println("Errore nel metodo findById "+ entityClass+" della classe BaseCrud ---Exception---");
 			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}
@@ -29,7 +28,7 @@ public class BaseCrud <T> {
 			return oggetto;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Errore nel metodo insert della classe BaseCrud ---Exception---");
+			System.out.println("Errore nel metodo insert "+ oggetto.getClass() +" della classe BaseCrud ---Exception---");
 			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}
@@ -43,7 +42,7 @@ public class BaseCrud <T> {
 			return oggetto;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Errore nel metodo update della classe BaseCrud ---Exception---");
+			System.out.println("Errore nel metodo update "+ oggetto.getClass() +" della classe BaseCrud ---Exception---");
 			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}
@@ -58,7 +57,7 @@ public class BaseCrud <T> {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Errore nel metodo delete della classe BaseCrud ---Exception---");
+			System.out.println("Errore nel metodo delete "+ oggetto.getClass() +" della classe BaseCrud ---Exception---");
 			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
 	}
