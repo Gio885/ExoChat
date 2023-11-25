@@ -75,6 +75,7 @@ public class MessaggioCrud extends BaseCrud <Messaggio> {
                     "    SELECT c1.ID_CHAT, MAX(m1.DATA_ORA) " +
                     "    FROM MESSAGGIO m1 " +
                     "    JOIN CHAT c1 ON m1.CHAT_ID = c1.ID_CHAT " +
+					" 	 WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
                     "    GROUP BY c1.ID_CHAT) " +
                     "ORDER BY m.DATA_ORA DESC";
 			
