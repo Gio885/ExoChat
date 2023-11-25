@@ -62,7 +62,7 @@ public class MessaggioCrud extends BaseCrud <Messaggio> {
 	public List<Messaggio> findLastMessaggeForChat(Utente utente, EntityManager entityManager) throws Exception {
 		try {
 			String queryString = "SELECT m FROM Messaggio m " +
-			        "WHERE (m.chat.id, m.dataOra) IN (" +
+			        "WHERE (m.chat.idChat, m.dataOra) IN (" +
 			        "    SELECT c1.idChat, MAX(m1.dataOra) " +
 			        "    FROM Messaggio m1 " +
 			        "    JOIN m1.chat c1 " +
