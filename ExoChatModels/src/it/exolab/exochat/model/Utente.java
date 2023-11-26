@@ -6,6 +6,12 @@ import java.util.Objects;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
+/*
+ * @JsonbTransient --> annotazione utilizzata per specificare che una proprietà 
+ * di una classe non deve essere inclusa nella rappresentazione JSON della classe 
+ * durante la serializzazione
+ */
+
 @Entity
 @Table(name = "UTENTE")
 public class Utente implements Serializable {

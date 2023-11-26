@@ -29,7 +29,7 @@ public class EntityManagerProvider {
 		 entityManagerFactory = Persistence.createEntityManagerFactory(Costanti.PERSISTENCE_UNIT_NAME);
 	    }
 	 
-	 public static EntityManager getEntityManager() {
+	 protected static EntityManager getEntityManager() {
 		 return entityManagerFactory.createEntityManager();	 
 	 }
 	 

@@ -24,9 +24,11 @@ import it.exolab.exochat.validatore.Validatore;
 @LocalBean
 public class UtenteController extends EntityManagerProvider  implements UtenteControllerInterface {
 
-	//@PersistenceUnit(unitName = "PersistenceUnit")
-	//private EntityManagerFactory entityManagerFactory;
-	
+	/*
+	 * AL POSTO DI ESTENDERE LA CLASSE ENTITYMANAGERPROVIDER PER ANDARE AD ACCEDERE
+	 * @PersistenceUnit(Costanti.PERSISTENCE_UNIT_NAME)
+	 * private EntityManagerFactory entityManagerFactory;
+	 */
 	public UtenteController() {
 		
 	}
