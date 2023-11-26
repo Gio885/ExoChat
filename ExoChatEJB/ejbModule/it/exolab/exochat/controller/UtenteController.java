@@ -24,6 +24,9 @@ import it.exolab.exochat.validatore.Validatore;
 @LocalBean
 public class UtenteController extends EntityManagerProvider  implements UtenteControllerInterface {
 
+	//@PersistenceUnit(unitName = "PersistenceUnit")
+	//private EntityManagerFactory entityManagerFactory;
+	
 	public UtenteController() {
 		
 	}
@@ -162,14 +165,16 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 	private void buildUtente(Utente utente) throws IOException {
 		try {
 			utente.setInfo("Disponibile");
-			String imagePath = "fotoprofilo.png";			
+			String imagePath = "fotoprofilo.png";
+			//QUI PRATICAMENTE OTTENGO IL CLASS LOADER CORRENTE CHE MI VIENE RESTITUITO DALL ISTANZA DEL THREAD CORRENTE.
+			//OVVERO VENGONO CARICATE LE CLASSI E LE RISORSE DEL CLASSPATH DEL PROGETTO INCLUSE CARTELLE SRC E RESOURCES
+			//DOPO DI CHE UTILIZZO IL CLASS LOADER PER OTTENERE UN INPUTSTREAM PER L'IMMAGINE SPECIFICATA
+			//DOPO DICHE LA LEGGO E LA CONVERTO, E LA ASSEGNO
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			InputStream inputStream = classLoader.getResourceAsStream(imagePath);
 			if (inputStream != null) {
-			    // Leggi l'immagine dall'input stream e convertila in un array di byte
+				//QUI VIENE LETTA DALL'INPUT STREAM E CONVERTITA IN UN ARRAY DI BYTE L'IMMAGINE ASSOCIATA AL FLUSSO IN INPUT
 			    byte[] imageBytes = inputStream.readAllBytes();
-
-			    // Imposta l'array di byte nella proprietà 'foto' dell'utente
 			    utente.setFoto(imageBytes);		    
 			    inputStream.close();
 			}
