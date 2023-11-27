@@ -29,7 +29,7 @@ public class UtenteCrud extends BaseCrud <Utente> {
 			System.out.println("Errore metodo findUtenteByEmailAndPassword ---UtenteCrud---");
 			throw new Exception(Costanti.ERRORE_CONTATTA_ASSISTENZA);
 		}
-	}
+	} 
     
     public Utente insertUtente(Utente utente, EntityManager entityManager) throws Exception {
 		try {
