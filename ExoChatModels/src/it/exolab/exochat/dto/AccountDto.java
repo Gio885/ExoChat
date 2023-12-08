@@ -4,6 +4,8 @@ public class AccountDto {
 
 	
 	//DTO PER UTENTE E GRUPPO
+	//LA COSA PIU GIUSTA SAREBBE STATA FARE UNA CLASSE PADRE PER LE PROPRIETA IN COMUNE
+	//CLASSI FIGLIE CHE EREDITANO DAL PADRE E IMPLEMENTANO PROPRIETA
 	private Integer idUtente;
 	private String username;
 	private String email;

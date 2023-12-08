@@ -164,6 +164,19 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
 		}
 	}
 	
+	@Override
+	public Utente findById(Integer id) throws Exception {
+		EntityManager entityManager = EntityManagerProvider.getEntityManager();
+		try {
+			UtenteCrud utenteCrud = new UtenteCrud();
+			return utenteCrud.findById(id, entityManager);
+		}catch(BusinessException e) {
+			e.printStackTrace();
+			System.out.println("Errore nel metodo findById UtenteController ---Exception---");
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
+	
 	private void buildUtente(Utente utente) throws IOException {
 		try {
 			utente.setInfo("Disponibile");
@@ -186,6 +199,8 @@ public class UtenteController extends EntityManagerProvider  implements UtenteCo
             throw new IOException(Costanti.ERRORE_CONTATTA_ASSISTENZA);
         }
 	}
+
+
 
 	
 

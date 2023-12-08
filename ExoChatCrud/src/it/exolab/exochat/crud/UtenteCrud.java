@@ -82,6 +82,16 @@ public class UtenteCrud extends BaseCrud <Utente> {
 			throw new Exception(Costanti.ERRORE_CARICAMENTO_CHAT);
 		}
 	}
+	
+	public Utente findById(Integer id,EntityManager entityManager) throws Exception {
+		try {
+			return baseCrud.findById(id, Utente.class, entityManager);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println();
+			throw new Exception(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CONTATTA_ASSISTENZA);
+		}
+	}
 
 	
 	

@@ -9,8 +9,12 @@ import it.exolab.exochat.model.Utente;
 public class Validatore {
 
 	public List<String> validatoreUtente(Utente utente){
-
+		
 		List<String> errori = new ArrayList<String>();
+		if(null == utente) {
+			errori.add("Utente null");
+			return errori;
+		}
 		if (null == utente.getUsername() && !(utente.getUsername().matches(Costanti.REGEX_USERNAME))) {
 			errori.add(Costanti.ERRORE_VALIDAZIONE_USERNAME);
 		}
@@ -22,7 +26,6 @@ public class Validatore {
 				&& !(utente.getPassword().matches(Costanti.REGEX_PASSWORD))) {
 			errori.add(Costanti.ERRORE_VALIDAZIONE_PASSWORD);
 		}
-		return errori;
+		return errori;		
 	}
-
 }

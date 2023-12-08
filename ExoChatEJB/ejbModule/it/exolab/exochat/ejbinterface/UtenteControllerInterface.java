@@ -18,6 +18,8 @@ public interface UtenteControllerInterface {
 	Dto <List<Utente>> findAllUtenti() throws Exception;
 
 	Dto <List<Utente>> findAllUtentiChatNonIniziate(Utente utente) throws Exception;
+	
+	Utente findById(Integer id) throws Exception;
 
 
     

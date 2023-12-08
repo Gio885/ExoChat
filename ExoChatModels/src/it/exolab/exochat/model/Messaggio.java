@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,8 +57,8 @@ public class Messaggio implements Serializable {
 	@JoinColumn(name = "DESTINATARIO_ID", referencedColumnName = "ID_UTENTE")
 	private Utente destinatario;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "GRUPPO_ID", referencedColumnName = "ID_GRUPPO")
+	@ManyToOne(fetch = FetchType.EAGER)   //IL CASCADE PERSIST PERMETTE DI PROPAGARE L'OPERAZIONE
+	@JoinColumn(name = "GRUPPO_ID", referencedColumnName = "ID_GRUPPO")   // DI PERSISTENZA QUANDO SI SALVA IL MESSAGGIO
 	private Gruppo gruppo;
 
 	@ManyToOne(fetch = FetchType.EAGER)

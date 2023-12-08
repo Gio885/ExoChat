@@ -30,12 +30,13 @@ public class MessaggioController extends EntityManagerProvider implements Messag
     }
 
 	@Override
-	public void insertMessaggio(Messaggio messaggio) throws Exception {
+	public void insertMessaggio(MessaggioDto messaggio) throws Exception {
 		EntityManager entityManager = EntityManagerProvider.getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			MessaggioCrud messaggioCrud = new MessaggioCrud();
-			messaggioCrud.insertMessaggio(messaggio, entityManager);
+			Messaggio messaggioDaInserire = new Convertitore().convertDtoToMessaggio(messaggio);
+			messaggioCrud.insertMessaggio(messaggioDaInserire, entityManager);
 			entityManager.getTransaction().commit();			
 		}catch(Exception e) {
 			e.printStackTrace();

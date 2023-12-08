@@ -7,6 +7,7 @@ import java.util.List;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.dto.AccountDto;
 import it.exolab.exochat.dto.MessaggioDto;
+import it.exolab.exochat.model.Chat;
 import it.exolab.exochat.model.Gruppo;
 import it.exolab.exochat.model.Messaggio;
 import it.exolab.exochat.model.Utente;
@@ -25,8 +26,27 @@ public class Convertitore {
 		return utente;
 	}
 	
+	public Messaggio convertDtoToMessaggio(MessaggioDto messaggioDto) {
+		Messaggio messaggio = new Messaggio();
+		messaggio.setContenutoMessaggio(messaggioDto.getContenutoMessaggio());
+		messaggio.setDataOra(messaggioDto.getDataOra());
+		messaggio.setMittente(new Convertitore().convertDtoToUtente(messaggioDto.getMittente()));
+		if(messaggioDto.getTipoChatId() == 1) {
+			messaggio.setDestinatario(new Convertitore().convertDtoToUtente(messaggioDto.getDestinatario()));
+		}
+		if(messaggioDto.getTipoChatId() == 2) {
+			messaggio.setGruppo(new Convertitore().convertDtoToGruppo(messaggioDto.getGruppo()));
+		}
+		Chat chat=new Chat();
+		chat.setIdChat(messaggioDto.getIdChat());
+		chat.setTipoChatId(messaggioDto.getTipoChatId());
+		messaggio.setChat(chat);
+		return messaggio;
+	}
+	
 	public Gruppo convertDtoToGruppo(AccountDto gruppoDto) {
 		Gruppo gruppo = new Gruppo();
+		gruppo.setIdGruppo(gruppoDto.getIdUtente());
 		gruppo.setNomeGruppo(gruppoDto.getUsername());
 		gruppo.setAmministratore(convertDtoToUtente(gruppoDto.getAmministratoreGruppo()));
 		if(null != gruppoDto.getInfo()) {

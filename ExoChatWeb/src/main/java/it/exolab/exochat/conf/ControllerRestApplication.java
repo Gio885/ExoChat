@@ -39,6 +39,7 @@ public class ControllerRestApplication extends Application {
 		set.add(ChiamataRest.class);
 		set.add(ChatRest.class);
 		set.add(GruppoUtenteRest.class);
+		set.add(GestoreSessioni.class);
 		return set;
 	}
 

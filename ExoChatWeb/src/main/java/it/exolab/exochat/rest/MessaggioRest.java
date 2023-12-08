@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response.Status;
 import it.exolab.exochat.conf.EjbService;
 import it.exolab.exochat.costanti.Costanti;
 import it.exolab.exochat.dto.Dto;
+import it.exolab.exochat.dto.MessaggioDto;
 import it.exolab.exochat.eccezioni.BusinessException;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
 import it.exolab.exochat.endpoint.EndPoint;
@@ -27,7 +28,7 @@ public class MessaggioRest {
 	@POST
 	@Path(EndPoint.INSERT_MESSAGGIO)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response insertMessage(Messaggio messaggio) {
+	public Response insertMessage(MessaggioDto messaggio) {
 		try {
 			MessaggioControllerInterface messaggioService = new EjbService<MessaggioControllerInterface>(MessaggioControllerInterface.class).getEJB();
 			messaggioService.insertMessaggio(messaggio);
@@ -50,7 +51,7 @@ public class MessaggioRest {
 			Dto<List<Messaggio>> listaMessaggiChat = messaggioService.findMessaggiForChatId(chat);
 			return Response.status(Status.OK).entity(listaMessaggiChat.getData()).build();			
 		}catch(BusinessException e) {
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
 		}catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_MESSAGGI).build();
@@ -68,7 +69,7 @@ public class MessaggioRest {
 			Dto<List<Messaggio>> ultimoMessaggioPerChat = messaggioService.findLastMessaggeForChat(utente);
 			return Response.status(Status.OK).entity(ultimoMessaggioPerChat).build();			
 		}catch(BusinessException e) {
-			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+			return Response.status(Status.NO_CONTENT).entity(e.getMessage()).build();
 		}catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(null != e.getMessage() ? e.getMessage() : Costanti.ERRORE_CARICAMENTO_MESSAGGI).build();

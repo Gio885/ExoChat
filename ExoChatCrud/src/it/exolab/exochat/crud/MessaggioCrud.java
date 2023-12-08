@@ -39,19 +39,57 @@ public class MessaggioCrud extends BaseCrud <Messaggio> {
 		}
 	}
 	
+
 	@SuppressWarnings("unchecked")
 	public List<Messaggio> findLastMessaggeForChat(Utente utente, EntityManager entityManager) throws Exception {
 		try {
-			String queryString = "SELECT m FROM Messaggio m " +
-			        "WHERE (m.chat.idChat, m.dataOra) IN (" +
-			        "    SELECT c1.idChat, MAX(m1.dataOra) " +
-			        "    FROM Messaggio m1 " +
-			        "    JOIN m1.chat c1 " +
-			        "    WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
-			        "    GROUP BY c1.idChat) " +
-			        "ORDER BY m.dataOra DESC";
-			Query query = entityManager.createQuery(queryString,Messaggio.class);
+//			String queryString = "SELECT m FROM Messaggio m " +
+//			        "WHERE m.mittente.idUtente = :utenteId OR m.destinatario.idUtente = :utenteId OR " +
+//			        "m.gruppoId IN (" +
+//			        "SELECT gu.gruppoId " +
+//			        "FROM Messaggio m1 " +
+//			        "LEFT JOIN GruppoUtente gu ON gu.utenteId = :utenteId) " +
+//			        "ORDER BY m.dataOra DESC";
+			
+			
+//			
+//		  String queryString = "SELECT m FROM Messaggio m " +
+//				        "WHERE (m.chat.idChat, m.dataOra) IN (" +
+//				        "    SELECT c1.idChat, MAX(m1.dataOra) " +
+//				        "    FROM Messaggio m1 " +
+//				        "    JOIN m1.chat c1 " +
+//				        "    LEFT JOIN GruppoUtente gu" +
+//				        "    WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
+//	                    "    OR gu.utenteId = :utenteId" +
+//				        "    GROUP BY c1.idChat) " +
+//				        "ORDER BY m.dataOra DESC";
+		  
+		  String provaQuery = "SELECT m "
+		  		+ "FROM Messaggio m "
+		  		+ "WHERE (m.chat.idChat, m.dataOra) IN ( "
+		  		+ "    SELECT c1.idChat, MAX(m1.dataOra) "
+		  		+ "    FROM Messaggio m1 "
+		  		+ "    JOIN m1.chat c1 "
+		  		+ "    LEFT JOIN GruppoUtente gu ON gu.gruppoId = m1.gruppoId "
+		  		+ "    WHERE  "
+		  		+ "        (m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId) "
+		  		+ "        OR gu.utenteId = :utenteId "
+		  		+ "    GROUP BY c1.idChat "
+		  		+ ") "
+		  		+ "ORDER BY m.dataOra DESC";
+		  
+//		  
+//			String queryNativa = "SELECT * from MESSAGGIO m "
+//					+ "WHERE m.MITTENTE_ID = ? OR m.DESTINATARIO_ID = ? OR m.GRUPPO_ID IN ("
+//					+ "SELECT gu.gruppo_id FROM MESSAGGIO m1 "
+//					+ "LEFT JOIN GRUPPO_UTENTE gu ON gu.utente_id = ?) "
+//					+ "ORDER BY m.DATA_ORA DESC";	
+			
+			//Query queryNat = entityManager.createNativeQuery(queryNativa, Messaggio.class);
+			Query query = entityManager.createQuery(provaQuery,Messaggio.class);
 			query.setParameter("utenteId", utente.getIdUtente());
+//			queryNat.setParameter(2, utente.getIdUtente());
+//			queryNat.setParameter(3, utente.getIdUtente());
 			return query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,7 +102,18 @@ public class MessaggioCrud extends BaseCrud <Messaggio> {
 	
 	
 	
-	
+	/*
+	 * String queryString = "SELECT m FROM Messaggio m " +
+			        "WHERE (m.chat.idChat, m.dataOra) IN (" +
+			        "    SELECT c1.idChat, MAX(m1.dataOra) " +
+			        "    FROM Messaggio m1 " +
+			        "    JOIN m1.chat c1 " +
+			        "    LEFT JOIN GruppoUtente g" +
+			        "    WHERE m1.mittente.idUtente = :utenteId OR m1.destinatario.idUtente = :utenteId " +
+                    "       OR g.utenteId = :utenteId" +
+			        "    GROUP BY c1.idChat) " +
+			        "ORDER BY m.dataOra DESC";
+	 */
 	
 	
 	/*
