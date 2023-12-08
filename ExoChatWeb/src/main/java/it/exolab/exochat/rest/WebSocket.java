@@ -1,6 +1,5 @@
 package it.exolab.exochat.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +8,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -18,13 +16,9 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import it.exolab.exochat.controller.MessaggioController;
 import it.exolab.exochat.costanti.Costanti;
-import it.exolab.exochat.dto.Dto;
 import it.exolab.exochat.dto.MessaggioDto;
 import it.exolab.exochat.ejbinterface.MessaggioControllerInterface;
-import it.exolab.exochat.model.Chat;
-import it.exolab.exochat.model.Messaggio;
 
 
 
